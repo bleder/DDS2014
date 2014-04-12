@@ -1,0 +1,128 @@
+!SESSION 2014-04-12 19:13:03.711 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.7.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.core.jobs 4 2 2014-04-12 19:36:00.538
+!MESSAGE An internal error occurred during: "Initializing outline".
+!STACK 0
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: java.net.MalformedURLException: unknown protocol: java
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.handleDemandLoadException(ResourceSetImpl.java:319)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:278)
+	at org.eclipse.xtext.resource.XtextResourceSet.getResource(XtextResourceSet.java:201)
+	at org.eclipse.xtext.resource.SynchronizedXtextResourceSet.getResource(SynchronizedXtextResourceSet.java:26)
+	at org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference.internalFindTopLevelType(LightweightTypeReference.java:601)
+	at org.eclipse.xtext.xbase.typesystem.references.ParameterizedTypeReference.getSuperTypes(ParameterizedTypeReference.java:436)
+	at org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference.getSuperTypes(LightweightTypeReference.java:348)
+	at org.eclipse.xtext.xbase.typesystem.override.OverrideHelper.findOverriddenOperation(OverrideHelper.java:136)
+	at org.eclipse.xtext.xbase.typesystem.override.OverrideHelper.findOverriddenOperation(OverrideHelper.java:185)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments._get(XbaseImageAdornments.java:74)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments.get(XbaseImageAdornments.java:128)
+	at org.eclipse.xtend.ide.labeling.XtendLabelProvider._imageDescriptor(XtendLabelProvider.java:111)
+	at org.eclipse.xtend.ide.labeling.XtendLabelProvider.imageDescriptor(XtendLabelProvider.java:287)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseLabelProvider.doGetImage(XbaseLabelProvider.java:262)
+	at org.eclipse.xtext.ui.label.AbstractLabelProvider.getImageDescriptor(AbstractLabelProvider.java:65)
+	at org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider.getImageDescriptor(BackgroundOutlineTreeProvider.java:103)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createNodeForFeature(XtendOutlineTreeProvider.java:213)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createFeatureNodesForType(XtendOutlineTreeProvider.java:152)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createFeatureNodes(XtendOutlineTreeProvider.java:100)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.internalCreateChildren(XtendOutlineTreeProvider.java:91)
+	at org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider.createChildren(BackgroundOutlineTreeProvider.java:57)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode$1.process(AbstractOutlineNode.java:98)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode$1.process(AbstractOutlineNode.java:1)
+	at org.eclipse.xtext.util.concurrent.IUnitOfWork$Void.exec(IUnitOfWork.java:36)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode$1.exec(DocumentRootNode.java:62)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode$1.exec(DocumentRootNode.java:1)
+	at org.eclipse.xtext.util.concurrent.AbstractReadWriteAcces.readOnly(AbstractReadWriteAcces.java:62)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:243)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:84)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode.readOnly(DocumentRootNode.java:59)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode.getChildren(AbstractOutlineNode.java:95)
+	at org.eclipse.xtend.ide.outline.XtendOutlinePage.getInitiallyExpandedNodes(XtendOutlinePage.java:27)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$2.exec(OutlinePage.java:125)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$2.exec(OutlinePage.java:1)
+	at org.eclipse.xtext.util.concurrent.AbstractReadWriteAcces.readOnly(AbstractReadWriteAcces.java:62)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:243)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:84)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage.initializeTreeContent(OutlinePage.java:123)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$1.run(OutlinePage.java:108)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.net.MalformedURLException: unknown protocol: java
+	at java.net.URL.<init>(Unknown Source)
+	at java.net.URL.<init>(Unknown Source)
+	at java.net.URL.<init>(Unknown Source)
+	at org.eclipse.emf.ecore.resource.impl.URIHandlerImpl.createInputStream(URIHandlerImpl.java:187)
+	at org.eclipse.xtext.resource.ExternalContentSupport$ExternalContentAwareURIHandler.createInputStream(ExternalContentSupport.java:69)
+	at org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl.createInputStream(ExtensibleURIConverterImpl.java:360)
+	at org.eclipse.xtext.resource.XtextResourceSet$1.createInputStream(XtextResourceSet.java:230)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1269)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:259)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:274)
+	... 38 more
+!SESSION 2014-04-12 19:37:49.209 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.7.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.core.jobs 4 2 2014-04-12 19:38:22.881
+!MESSAGE An internal error occurred during: "Initializing outline".
+!STACK 0
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: java.net.MalformedURLException: unknown protocol: java
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.handleDemandLoadException(ResourceSetImpl.java:319)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:278)
+	at org.eclipse.xtext.resource.XtextResourceSet.getResource(XtextResourceSet.java:201)
+	at org.eclipse.xtext.resource.SynchronizedXtextResourceSet.getResource(SynchronizedXtextResourceSet.java:26)
+	at org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference.internalFindTopLevelType(LightweightTypeReference.java:601)
+	at org.eclipse.xtext.xbase.typesystem.references.ParameterizedTypeReference.getSuperTypes(ParameterizedTypeReference.java:436)
+	at org.eclipse.xtext.xbase.typesystem.references.LightweightTypeReference.getSuperTypes(LightweightTypeReference.java:348)
+	at org.eclipse.xtext.xbase.typesystem.override.OverrideHelper.findOverriddenOperation(OverrideHelper.java:136)
+	at org.eclipse.xtext.xbase.typesystem.override.OverrideHelper.findOverriddenOperation(OverrideHelper.java:185)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments._get(XbaseImageAdornments.java:74)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseImageAdornments.get(XbaseImageAdornments.java:128)
+	at org.eclipse.xtend.ide.labeling.XtendLabelProvider._imageDescriptor(XtendLabelProvider.java:111)
+	at org.eclipse.xtend.ide.labeling.XtendLabelProvider.imageDescriptor(XtendLabelProvider.java:287)
+	at org.eclipse.xtext.xbase.ui.labeling.XbaseLabelProvider.doGetImage(XbaseLabelProvider.java:262)
+	at org.eclipse.xtext.ui.label.AbstractLabelProvider.getImageDescriptor(AbstractLabelProvider.java:65)
+	at org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider.getImageDescriptor(BackgroundOutlineTreeProvider.java:103)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createNodeForFeature(XtendOutlineTreeProvider.java:213)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createFeatureNodesForType(XtendOutlineTreeProvider.java:152)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.createFeatureNodes(XtendOutlineTreeProvider.java:100)
+	at org.eclipse.xtend.ide.outline.XtendOutlineTreeProvider.internalCreateChildren(XtendOutlineTreeProvider.java:91)
+	at org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider.createChildren(BackgroundOutlineTreeProvider.java:57)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode$1.process(AbstractOutlineNode.java:98)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode$1.process(AbstractOutlineNode.java:1)
+	at org.eclipse.xtext.util.concurrent.IUnitOfWork$Void.exec(IUnitOfWork.java:36)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode$1.exec(DocumentRootNode.java:62)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode$1.exec(DocumentRootNode.java:1)
+	at org.eclipse.xtext.util.concurrent.AbstractReadWriteAcces.readOnly(AbstractReadWriteAcces.java:62)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:243)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:84)
+	at org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode.readOnly(DocumentRootNode.java:59)
+	at org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode.getChildren(AbstractOutlineNode.java:95)
+	at org.eclipse.xtend.ide.outline.XtendOutlinePage.getInitiallyExpandedNodes(XtendOutlinePage.java:27)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$2.exec(OutlinePage.java:125)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$2.exec(OutlinePage.java:1)
+	at org.eclipse.xtext.util.concurrent.AbstractReadWriteAcces.readOnly(AbstractReadWriteAcces.java:62)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:243)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:84)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage.initializeTreeContent(OutlinePage.java:123)
+	at org.eclipse.xtext.ui.editor.outline.impl.OutlinePage$1.run(OutlinePage.java:108)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.net.MalformedURLException: unknown protocol: java
+	at java.net.URL.<init>(Unknown Source)
+	at java.net.URL.<init>(Unknown Source)
+	at java.net.URL.<init>(Unknown Source)
+	at org.eclipse.emf.ecore.resource.impl.URIHandlerImpl.createInputStream(URIHandlerImpl.java:187)
+	at org.eclipse.xtext.resource.ExternalContentSupport$ExternalContentAwareURIHandler.createInputStream(ExternalContentSupport.java:69)
+	at org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl.createInputStream(ExtensibleURIConverterImpl.java:360)
+	at org.eclipse.xtext.resource.XtextResourceSet$1.createInputStream(XtextResourceSet.java:230)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1269)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:259)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:274)
+	... 38 more
