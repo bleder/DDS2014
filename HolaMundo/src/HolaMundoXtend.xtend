@@ -5,5 +5,6 @@ class HolaMundoXtend {
 		println('Hola al mundo de Naiara Acosta!!!');
 		println('Hola mundo de Agustin Brandoni');
 		println('Hola mundo de Tomas Coiro');
+		println('Hola mundo de Ostiglia Luis')
 	}
 }
