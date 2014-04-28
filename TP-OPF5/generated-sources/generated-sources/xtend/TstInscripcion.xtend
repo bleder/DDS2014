@@ -2,7 +2,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
 
-class tst {
+class TstInscripcion {
 	
 	var Jugador jugador
 	var Partido partido

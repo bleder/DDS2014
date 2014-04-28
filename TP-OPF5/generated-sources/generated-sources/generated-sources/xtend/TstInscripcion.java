@@ -2,7 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("all")
-public class tst {
+public class TstInscripcion {
   private /* Jugador */Object jugador;
   
   private /* Partido */Object partido;
