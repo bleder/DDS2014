@@ -9,7 +9,7 @@ class Condicional extends Object implements TipoInscripcion{
 	
 	override inscribirA(Jugador jugador, Partido partido){
 		if (condicion) {
-	 		partido.inscribirA(jugador)
+	 	//	partido.inscribirA(jugador)
 	 	} else { throw new PartidoNoCumpleCondicionesExcepcion ("El partido no cumple la condicion impuesta por el jugador")
 	 	}
 	}	

@@ -5,13 +5,16 @@ import java.util.ArrayList
 
 class Inscripcion {
 	
-	@Property 
-	private List<Jugador> jugadoresInscriptos
-	@Property int maxInscriptos=10
+	@Property
+	TipoInscripcion tipoInscripcion
+	Jugador jugador
 	
-	new() {
-		jugadoresInscriptos = new ArrayList<Jugador>
+	new(Jugador jug, TipoInscripcion tipoIncrip) {
+		tipoInscripcion=tipoIncrip
+		jugador=jugador
 	}
+	
+
 	
 		
 	

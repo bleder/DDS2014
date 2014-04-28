@@ -1,33 +1,24 @@
 package utn.edu.dds.TP_OPF5;
 
-import java.util.ArrayList;
-import java.util.List;
 import utn.edu.dds.TP_OPF5.Jugador;
+import utn.edu.dds.TP_OPF5.TipoInscripcion;
 
 @SuppressWarnings("all")
 public class Inscripcion {
-  private List<Jugador> _jugadoresInscriptos;
+  private TipoInscripcion _tipoInscripcion;
   
-  public List<Jugador> getJugadoresInscriptos() {
-    return this._jugadoresInscriptos;
+  public TipoInscripcion getTipoInscripcion() {
+    return this._tipoInscripcion;
   }
   
-  public void setJugadoresInscriptos(final List<Jugador> jugadoresInscriptos) {
-    this._jugadoresInscriptos = jugadoresInscriptos;
+  public void setTipoInscripcion(final TipoInscripcion tipoInscripcion) {
+    this._tipoInscripcion = tipoInscripcion;
   }
   
-  private int _maxInscriptos = 10;
+  private Jugador jugador;
   
-  public int getMaxInscriptos() {
-    return this._maxInscriptos;
-  }
-  
-  public void setMaxInscriptos(final int maxInscriptos) {
-    this._maxInscriptos = maxInscriptos;
-  }
-  
-  public Inscripcion() {
-    ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
-    this.setJugadoresInscriptos(_arrayList);
+  public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
+    this.setTipoInscripcion(tipoIncrip);
+    this.jugador = this.jugador;
   }
 }

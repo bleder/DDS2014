@@ -22,7 +22,6 @@ public class Condicional implements TipoInscripcion {
     try {
       boolean _isCondicion = this.isCondicion();
       if (_isCondicion) {
-        partido.inscribirA(jugador);
       } else {
         throw new PartidoNoCumpleCondicionesExcepcion("El partido no cumple la condicion impuesta por el jugador");
       }
