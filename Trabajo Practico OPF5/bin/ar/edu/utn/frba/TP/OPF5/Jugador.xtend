@@ -1,18 +1,12 @@
 package ar.edu.utn.frba.TP.OPF5
 
-
-import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoDeInscripcion
+import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
 class Jugador {
-	
-	@Property
-	private TipoDeInscripcion TipoDeInscripcion
 
 	@Property
 	private String nombre
-
-//
-//	def void inscribirseA(Partido partido) {
-//		tipoDeInscripcion.inscribirA(this, partido)
-	}
+	
+ 	def void inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
+		tipoInscripcion.inscribir(this, partido)}
 

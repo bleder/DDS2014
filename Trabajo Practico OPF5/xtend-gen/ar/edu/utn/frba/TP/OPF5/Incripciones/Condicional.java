@@ -1,14 +1,14 @@
 package ar.edu.utn.frba.TP.OPF5.Incripciones;
 
 import ar.edu.utn.frba.TP.OPF5.Incripciones.Condicion;
-import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoDeInscripcion;
+import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion;
 import ar.edu.utn.frba.TP.OPF5.Jugador;
 import ar.edu.utn.frba.TP.OPF5.Partido;
 import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoNoCumpleCondicionesExcepcion;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class Condicional extends TipoDeInscripcion {
+public class Condicional extends TipoInscripcion {
   private Condicion _condicion;
   
   public Condicion getCondicion() {
@@ -19,12 +19,12 @@ public class Condicional extends TipoDeInscripcion {
     this._condicion = condicion;
   }
   
-  public void inscribirA(final Jugador jugador, final Partido partido) {
+  public void inscribir(final Jugador jugador, final Partido partido) {
     try {
       Condicion _condicion = this.getCondicion();
       boolean _puedeInscribirseA = _condicion.puedeInscribirseA(partido);
       if (_puedeInscribirseA) {
-        partido.agregarUnJugador(jugador);
+        partido.inscribirA(jugador);
       } else {
         throw new PartidoNoCumpleCondicionesExcepcion("El partido no cumple la condicion impuesta por el jugador");
       }

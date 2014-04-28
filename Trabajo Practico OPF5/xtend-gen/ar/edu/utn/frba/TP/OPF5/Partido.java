@@ -1,9 +1,7 @@
 package ar.edu.utn.frba.TP.OPF5;
 
-import ar.edu.utn.frba.TP.OPF5.DateTime;
 import ar.edu.utn.frba.TP.OPF5.Jugador;
 import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoCompletoExcepcion;
-import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
@@ -19,23 +17,7 @@ public abstract class Partido {
     this._jugadoresInscriptos = jugadoresInscriptos;
   }
   
-  private DateTime _fechaHora;
-  
-  public DateTime getFechaHora() {
-    return this._fechaHora;
-  }
-  
-  public void setFechaHora(final DateTime fechaHora) {
-    this._fechaHora = fechaHora;
-  }
-  
-  public Partido(final DateTime fechaHora) {
-    this.setFechaHora(fechaHora);
-    ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
-    this.setJugadoresInscriptos(_arrayList);
-  }
-  
-  public void agregarUnJugador(final Jugador jugador) {
+  public void inscribirA(final Jugador jugador) {
     try {
       boolean _hayLugarPara = this.hayLugarPara(jugador);
       if (_hayLugarPara) {

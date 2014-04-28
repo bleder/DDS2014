@@ -1,19 +1,10 @@
 package ar.edu.utn.frba.TP.OPF5;
 
-import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoDeInscripcion;
+import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion;
+import ar.edu.utn.frba.TP.OPF5.Partido;
 
 @SuppressWarnings("all")
 public class Jugador {
-  private TipoDeInscripcion _TipoDeInscripcion;
-  
-  public TipoDeInscripcion getTipoDeInscripcion() {
-    return this._TipoDeInscripcion;
-  }
-  
-  public void setTipoDeInscripcion(final TipoDeInscripcion TipoDeInscripcion) {
-    this._TipoDeInscripcion = TipoDeInscripcion;
-  }
-  
   private String _nombre;
   
   public String getNombre() {
@@ -22,5 +13,10 @@ public class Jugador {
   
   public void setNombre(final String nombre) {
     this._nombre = nombre;
+  }
+  
+  public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from Jugador to Jugador");
   }
 }
