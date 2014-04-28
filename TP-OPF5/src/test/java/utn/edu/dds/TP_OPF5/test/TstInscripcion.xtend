@@ -1,6 +1,11 @@
-import org.junit.Before
+package utn.edu.dds.TP_OPF5.test import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
+import utn.edu.dds.TP_OPF5.Jugador
+import utn.edu.dds.TP_OPF5.Partido
+import utn.edu.dds.TP_OPF5.Estandar
+import utn.edu.dds.TP_OPF5.Condicional
+import utn.edu.dds.TP_OPF5.Solidaria
 
 class TstInscripcion {
 	
@@ -27,7 +32,7 @@ class TstInscripcion {
 
 def void inscribirJugadorModoEstandarListaMenor10(){
 
-	Assert.assertTrue(jugador.inscribite("Partido_1",tipoIncEstandar))
+	Assert.assertTrue(jugador.inscribite(partido,tipoIncEstandar))
 	}
 
 //Caso 2: Inscribir jugador con modo inscripcion estandar lista del partido >10
@@ -35,7 +40,7 @@ def void inscribirJugadorModoEstandarListaMenor10(){
 
 def void inscribirJugadorModoEstandarListaMayor10(){
 
-	Assert.assertFalse(jugador.Inscribite("Partido_1",tipoIncEstandar))
+	Assert.assertFalse(jugador.inscribite(partido,tipoIncEstandar))
 	}
 
 @Test	
@@ -43,7 +48,7 @@ def void inscribirJugadorModoEstandarListaMayor10(){
 
 def void inscribirJugadorModoSolidarioListaMenor10(){
 
-	Assert.assertTrue(jugador.Inscribite("Partido_1",tipoIncSolidaria))
+	Assert.assertTrue(jugador.inscribite(partido,tipoIncSolidaria))
 	}	
 
 @Test	
@@ -51,7 +56,7 @@ def void inscribirJugadorModoSolidarioListaMenor10(){
 
 def void inscribirJugadorModoSolidarioListaMayor10(){
 
-	Assert.assertFalse(jugador.Inscribite("Partido_1",tipoIncSolidaria))
+	Assert.assertFalse(jugador.inscribite(partido,tipoIncSolidaria))
 	}	
 
 @Test	
@@ -59,7 +64,7 @@ def void inscribirJugadorModoSolidarioListaMayor10(){
 
 def void inscribirJugadorModoCondicionalCumpleCondicion(){
 
-	Assert.assertTrue(jugador.Inscribite("Partido_1",tipoIncCondicional))
+	Assert.assertTrue(jugador.inscribite(partido,tipoIncCondicional))
 	}	
 
 @Test	
@@ -67,7 +72,7 @@ def void inscribirJugadorModoCondicionalCumpleCondicion(){
 
 def void inscribirJugadorModoCondicionalNoCumpleCondicion(){
 
-	Assert.assertFalse(jugador.Inscribite("Partido_1",tipoIncCondicional))
+	Assert.assertFalse(jugador.inscribite(partido,tipoIncCondicional))
 	}	
 
 @Test		
@@ -75,7 +80,7 @@ def void inscribirJugadorModoCondicionalNoCumpleCondicion(){
 
 def void inscribirJugadorModoEstandarListaMayor10ConUnSolidario(){
 
-	Assert.assertTrue(jugador.Inscribite("Partido_1",tipoIncEstandar))
+	Assert.assertTrue(jugador.inscribite(partido,tipoIncEstandar))
 	}	
 
 @Test		
@@ -83,5 +88,6 @@ def void inscribirJugadorModoEstandarListaMayor10ConUnSolidario(){
 
 def void inscribirJugadorModoEstandarListaMayor10ConMasSolidario(){
 
-	Assert.assertTrue(jugador.Inscribite("Partido_1",tipoIncEstandar))
+	Assert.assertTrue(jugador.inscribite(partido,tipoIncEstandar))
 	}						 
+}
