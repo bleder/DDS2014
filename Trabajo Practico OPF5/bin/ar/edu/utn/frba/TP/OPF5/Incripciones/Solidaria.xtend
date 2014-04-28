@@ -5,7 +5,7 @@ import ar.edu.utn.frba.TP.OPF5.Partido
 
 class Solidaria extends TipoInscripcion{
 	override inscribir(Jugador jugador, Partido partido) {
-		
+		if 
 		
 				}
 		}
