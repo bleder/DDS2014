@@ -41,4 +41,5 @@ class Partido {
 	def boolean hayLugarPara(Jugador jugador){
 		jugadoresInscriptos.size <maximoLista 
 	}
+	
 }
