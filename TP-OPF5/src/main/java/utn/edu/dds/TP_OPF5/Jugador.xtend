@@ -11,10 +11,16 @@ class Jugador {
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
+		
+		if (tipoInscripcion.sePuedeInscribir(partido)){
+			tipoInscripcion.inscribirA(this, partido)
+			return true
+		}
+		
 	//Hacer un if preguntando a la inscripcion si puede inscribir, en caso que pueda ejecuta tipoInscripcion.inscribirA
 	//y devuelve True (hacelo devolver a la fuerza true osea ponele return true se que deberia devolver true pero sino no me lo toma
 	//el caso de prueba	
-		tipoInscripcion.inscribirA(this, partido)
-		return true
+		
+		
 	}
 }

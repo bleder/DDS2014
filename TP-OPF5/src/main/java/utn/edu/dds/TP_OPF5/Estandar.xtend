@@ -1,13 +1,30 @@
 package utn.edu.dds.TP_OPF5
 
+import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion
+
 class Estandar extends Object implements TipoInscripcion{
 	
 	override inscribirA(Jugador jugador, Partido partido) {
-		 //Asi no se hace, hay que validar que si hay 10 en ese caso si alguno es solidario,
-									//y recien ahi decirle a partido que agregue al jugador. (Cambiar nombre del metodo)
-									//no olvidar en la interface
-									//Seria: partido.estaLLenaLaLista, partido.haySolidario, partido.agregaJugador(Jugador jugador, TipoInscripcion estandar)
-									
+		
+		if (partido.haySolidario()){
+			partido.agregarJugador(jugador, this)
+			partido.sacarSolidario()
+			}else if(partido.hayLugar){
+			partido.agregarJugador(jugador, this)	
+			}else{
+				throw new PartidoCompletoExcepcion ("Lista llena, no hay lugar para mas inscripciones")
+			}
+		}
+		
+		
+		
+	override boolean sePuedeInscribir(Partido partido){
+		partido.hayLugar()||partido.haySolidario()
 	}
 	
-}
+	}
+	
+
+			
+
+	

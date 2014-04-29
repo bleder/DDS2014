@@ -19,8 +19,6 @@ class Partido {
 		nombrePartido=nomPartido
 	}
 	
-	
-
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
 		
 		var Inscripcion inscripcion
@@ -38,8 +36,20 @@ class Partido {
 	//	}
 //	}
 	
-	def boolean hayLugarPara(Jugador jugador){
-		jugadoresInscriptos.size <maximoLista 
+	def boolean hayLugar(){
+		
+		(jugadoresInscriptos.size < 10)
+		
+	}
+	
+	def haySolidario() {
+		//Implementar
+		return true
+	}
+	
+	def void sacarSolidario() {
+		//Implementar
+		
 	}
 	
 }

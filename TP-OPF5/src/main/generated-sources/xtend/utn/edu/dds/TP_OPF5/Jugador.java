@@ -20,7 +20,11 @@ public class Jugador {
   }
   
   public boolean inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
-    tipoInscripcion.inscribirA(this, partido);
-    return true;
+    boolean _sePuedeInscribir = tipoInscripcion.sePuedeInscribir(partido);
+    if (_sePuedeInscribir) {
+      tipoInscripcion.inscribirA(this, partido);
+      return true;
+    }
+    return false;
   }
 }

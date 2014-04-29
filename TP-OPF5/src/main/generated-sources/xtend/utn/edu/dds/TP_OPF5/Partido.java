@@ -53,10 +53,16 @@ public class Partido {
     return _xblockexpression;
   }
   
-  public boolean hayLugarPara(final Jugador jugador) {
+  public boolean hayLugar() {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     int _size = _jugadoresInscriptos.size();
-    int _maximoLista = this.getMaximoLista();
-    return (_size < _maximoLista);
+    return (_size < 10);
+  }
+  
+  public boolean haySolidario() {
+    return true;
+  }
+  
+  public void sacarSolidario() {
   }
 }
