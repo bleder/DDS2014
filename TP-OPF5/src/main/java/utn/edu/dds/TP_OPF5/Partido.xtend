@@ -26,15 +26,6 @@ class Partido {
 		inscripcion= new Inscripcion(jugador,tipoIncripcion)
 		jugadoresInscriptos.add(inscripcion)
 	}	
-// lo agregamos aca o en la clase inscripcion ? no me queda claro ya que tengo difrencias a los jugadores
-// que se agregaron en forma solidaria o en forma condicional.	
-	//def void inscribirA(Jugador jugador){
-		//if (hayLugarPara(jugador)) {
-		//jugadoresInscriptos.add(jugador)
-		//} else {
-		//throw new PartidoCompletoExcepcion ("No hay mas lugar, la lista de jugadores esta llena, n")
-	//	}
-//	}
 	
 	def boolean hayLugar(){
 		
@@ -42,14 +33,15 @@ class Partido {
 		
 	}
 	
-	def haySolidario() {
-		//Implementar
-		return true
+	def hayAlgunoQueDejaAnotar() {
+	
+		jugadoresInscriptos.exists[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
+		
 	}
 	
-	def void sacarSolidario() {
-		//Implementar
-		
+	def sacarAlQueDejaAnotar() {
+		var Inscripcion inscripcionABorrar
+		inscripcionABorrar=jugadoresInscriptos.findFirst[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
 	}
 	
 }

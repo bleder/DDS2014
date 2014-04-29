@@ -16,4 +16,8 @@ public class Solidaria implements TipoInscripcion {
   public boolean sePuedeInscribir(final Partido partido) {
     return partido.hayLugar();
   }
+  
+  public boolean dejaAnotar() {
+    return true;
+  }
 }

@@ -7,7 +7,13 @@ class Solidaria extends Object implements TipoInscripcion {
 		}
 	}
 	
+	//Creo que este se va a sacar
 	override boolean sePuedeInscribir(Partido partido){
 	partido.hayLugar()
 	}
+	
+	override dejaAnotar() {
+		return true
+	}
+	
 }

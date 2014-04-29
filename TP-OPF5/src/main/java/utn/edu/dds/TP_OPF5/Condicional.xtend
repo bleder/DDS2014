@@ -6,7 +6,7 @@ import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion
 class Condicional extends Object implements TipoInscripcion{ 
 	
 	@Property
-	boolean condicion =true //Esto va a ser mas adelante una expresion Lambda por ahora dejemoslo asi
+	boolean condicion =true //Esto va a ser una expresion lambda. Es decir deberia dejar que se le pase una expresion lambda por parametro
 	
 	override inscribirA(Jugador jugador, Partido partido){
 		if (partido.hayLugar) {
@@ -20,9 +20,14 @@ class Condicional extends Object implements TipoInscripcion{
 	 	}
 	}
 	
+	//Creo q este se va a sacar
 	override boolean sePuedeInscribir(Partido partido){
 		partido.hayLugar()
-	}	
+	}
+	
+	override dejaAnotar() {
+		return true
+	}
 
 	
 }

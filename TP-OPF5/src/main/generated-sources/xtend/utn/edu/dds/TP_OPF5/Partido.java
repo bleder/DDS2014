@@ -1,6 +1,8 @@
 package utn.edu.dds.TP_OPF5;
 
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import utn.edu.dds.TP_OPF5.Inscripcion;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
@@ -59,10 +61,31 @@ public class Partido {
     return (_size < 10);
   }
   
-  public boolean haySolidario() {
-    return true;
+  public boolean hayAlgunoQueDejaAnotar() {
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
+      public Boolean apply(final Inscripcion inscripcion) {
+        TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
+        return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
+      }
+    };
+    return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
   }
   
-  public void sacarSolidario() {
+  public Inscripcion sacarAlQueDejaAnotar() {
+    Inscripcion _xblockexpression = null;
+    {
+      Inscripcion inscripcionABorrar = null;
+      List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+      final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
+        public Boolean apply(final Inscripcion inscripcion) {
+          TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
+          return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
+        }
+      };
+      Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos, _function);
+      _xblockexpression = inscripcionABorrar = _findFirst;
+    }
+    return _xblockexpression;
   }
 }

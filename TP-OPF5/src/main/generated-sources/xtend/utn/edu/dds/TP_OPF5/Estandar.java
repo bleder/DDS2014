@@ -10,14 +10,14 @@ import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion;
 public class Estandar implements TipoInscripcion {
   public void inscribirA(final Jugador jugador, final Partido partido) {
     try {
-      boolean _haySolidario = partido.haySolidario();
-      if (_haySolidario) {
+      boolean _hayLugar = partido.hayLugar();
+      if (_hayLugar) {
         partido.agregarJugador(jugador, this);
-        partido.sacarSolidario();
       } else {
-        boolean _hayLugar = partido.hayLugar();
-        if (_hayLugar) {
+        boolean _hayAlgunoQueDejaAnotar = partido.hayAlgunoQueDejaAnotar();
+        if (_hayAlgunoQueDejaAnotar) {
           partido.agregarJugador(jugador, this);
+          partido.sacarAlQueDejaAnotar();
         } else {
           throw new PartidoCompletoExcepcion("Lista llena, no hay lugar para mas inscripciones");
         }
@@ -33,9 +33,13 @@ public class Estandar implements TipoInscripcion {
     if (_hayLugar) {
       _or = true;
     } else {
-      boolean _haySolidario = partido.haySolidario();
-      _or = _haySolidario;
+      boolean _hayAlgunoQueDejaAnotar = partido.hayAlgunoQueDejaAnotar();
+      _or = _hayAlgunoQueDejaAnotar;
     }
     return _or;
+  }
+  
+  public boolean dejaAnotar() {
+    return false;
   }
 }

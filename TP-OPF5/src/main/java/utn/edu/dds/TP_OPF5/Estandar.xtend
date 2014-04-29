@@ -6,20 +6,24 @@ class Estandar extends Object implements TipoInscripcion{
 	
 	override inscribirA(Jugador jugador, Partido partido) {
 		
-		if (partido.haySolidario()){
+		if (partido.hayLugar){
 			partido.agregarJugador(jugador, this)
-			partido.sacarSolidario()
-			}else if(partido.hayLugar){
-			partido.agregarJugador(jugador, this)	
+			}else if (partido.hayAlgunoQueDejaAnotar()){
+			partido.agregarJugador(jugador, this)
+			partido.sacarAlQueDejaAnotar()	
 			}else{
 				throw new PartidoCompletoExcepcion ("Lista llena, no hay lugar para mas inscripciones")
 			}
 		}
 		
 		
-		
+		//Creo que se puede sacar
 	override boolean sePuedeInscribir(Partido partido){
-		partido.hayLugar()||partido.haySolidario()
+		partido.hayLugar()||partido.hayAlgunoQueDejaAnotar()
+	}
+	
+	override dejaAnotar() {
+		return false
 	}
 	
 	}
