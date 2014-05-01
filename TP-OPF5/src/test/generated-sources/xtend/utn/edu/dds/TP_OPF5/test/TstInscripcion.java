@@ -1,6 +1,5 @@
 package utn.edu.dds.TP_OPF5.test;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import utn.edu.dds.TP_OPF5.Condicional;
@@ -37,49 +36,59 @@ public class TstInscripcion {
   
   @Test
   public void inscribirJugadorModoEstandarListaMenor10() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncEstandar);
-    Assert.assertTrue(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
-  public void inscribirJugadorModoEstandarListaMayor10() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncEstandar);
-    Assert.assertFalse(_inscribite);
+  public void noSePuedeInscribirUnJugadorCuandoElPartidoEstaCompleto() {
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
+  }
+  
+  public Partido crearPartidoCompleto() {
+    Partido _xblockexpression = null;
+    {
+      final Partido completo = new Partido("Hola");
+      completo.setMaximoLista(0);
+      _xblockexpression = completo;
+    }
+    return _xblockexpression;
   }
   
   @Test
   public void inscribirJugadorModoSolidarioListaMenor10() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncSolidaria);
-    Assert.assertTrue(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
   public void inscribirJugadorModoSolidarioListaMayor10() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncSolidaria);
-    Assert.assertFalse(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
   public void inscribirJugadorModoCondicionalCumpleCondicion() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncCondicional);
-    Assert.assertTrue(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
   public void inscribirJugadorModoCondicionalNoCumpleCondicion() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncCondicional);
-    Assert.assertFalse(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
   public void inscribirJugadorModoEstandarListaMayor10ConUnSolidario() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncEstandar);
-    Assert.assertTrue(_inscribite);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
   
   @Test
-  public void inscribirJugadorModoEstandarListaMayor10ConMasSolidario() {
-    boolean _inscribite = this.jugador.inscribite(this.partido, this.tipoIncEstandar);
-    Assert.assertTrue(_inscribite);
+  public void testInscribirUnEstandarEnUnPartidoCompletoConDosSolidariosInscribeAlStandardYDejaAfueraAlUltimoSolidario() {
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from void to boolean");
   }
 }

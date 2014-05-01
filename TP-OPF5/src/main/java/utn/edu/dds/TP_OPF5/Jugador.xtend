@@ -11,14 +11,8 @@ class Jugador {
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
-		
-		if (tipoInscripcion.sePuedeInscribir(partido)){
-			tipoInscripcion.inscribirA(this, partido)
-			return true
-		}
-		
-
-		
-		
+		tipoInscripcion.inscribirA(this, partido)
 	}
+	
+	
 }

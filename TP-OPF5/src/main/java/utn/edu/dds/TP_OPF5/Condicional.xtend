@@ -9,20 +9,15 @@ class Condicional extends Object implements TipoInscripcion{
 	boolean condicion =true //Esto va a ser una expresion lambda. Es decir deberia dejar que se le pase una expresion lambda por parametro
 	
 	override inscribirA(Jugador jugador, Partido partido){
-		if (partido.hayLugar) {
-			if (condicion){
-	 		partido.agregarJugador(jugador,this)
-	 		}else{
+		if (!partido.hayLugar) {
+	 		throw new PartidoCompletoExcepcion ("No se puede inscribir porque no hay lugar")
+ 		}
+
+		if (!condicion){ //FIXME evaluar la condicion del bloque
 	 			throw new PartidoNoCumpleCondicionesExcepcion ("El partido no cumple la condicion impuesta por el jugador")
-	 		}
-	 	}else{
-	 		throw new PartidoCompletoExcepcion ("Lista llena, no hay lugar para mas inscripciones")
-	 	}
-	}
-	
-	//Creo q este se va a sacar
-	override boolean sePuedeInscribir(Partido partido){
-		partido.hayLugar()
+ 		}
+ 		
+ 		partido.agregarJugador(jugador,this)
 	}
 	
 	override dejaAnotar() {

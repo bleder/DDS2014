@@ -13,23 +13,23 @@ class Partido {
 	@Property 
 	private List<Inscripcion> jugadoresInscriptos
 	@Property 
-	int	maximoLista=10
+	int	maximoLista
 	
 	new(String nomPartido) {
 		nombrePartido=nomPartido
+		jugadoresInscriptos = new ArrayList
+		maximoLista = 10
 	}
 	
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
-		
-		var Inscripcion inscripcion
-		
-		inscripcion= new Inscripcion(jugador,tipoIncripcion)
+		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
 		jugadoresInscriptos.add(inscripcion)
+		(if llegue a mi limite:) this.sacarAlQueDejaAnotar
 	}	
 	
 	def boolean hayLugar(){
 		
-		(jugadoresInscriptos.size < 10)
+		jugadoresInscriptos.size < this.maximoLista
 		
 	}
 	
@@ -42,6 +42,7 @@ class Partido {
 	def sacarAlQueDejaAnotar() {
 		var Inscripcion inscripcionABorrar
 		inscripcionABorrar=jugadoresInscriptos.findFirst[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
+		
 	}
 	
 }
