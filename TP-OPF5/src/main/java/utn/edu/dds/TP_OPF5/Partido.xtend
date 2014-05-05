@@ -24,8 +24,11 @@ class Partido {
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
 		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
 		jugadoresInscriptos.add(inscripcion)
-		(if llegue a mi limite:) this.sacarAlQueDejaAnotar
-	}	
+		if (true) { //FIXME hay que ver ver cual es la condicion
+			this.sacarAlQueDejaAnotar
+		}
+			
+	}
 	
 	def boolean hayLugar(){
 		

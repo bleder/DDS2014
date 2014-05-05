@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
 	<classpathentry kind="src" path="src/excepcion/generated-sources/xtend"/>
 	<classpathentry kind="src" path="src/test/generated-sources/xtend"/>
 	<classpathentry kind="src" path="generated-sources/generated-sources/generated-sources/xtend"/>

@@ -7,8 +7,10 @@ import utn.edu.dds.TP_OPF5.TipoInscripcion;
 @SuppressWarnings("all")
 public class Solidaria implements TipoInscripcion {
   public void inscribirA(final Jugador jugador, final Partido partido) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method hayLugar is undefined for the type Solidaria");
+    boolean _hayLugar = partido.hayLugar();
+    if (_hayLugar) {
+      partido.agregarJugador(jugador, this);
+    }
   }
   
   public boolean dejaAnotar() {
