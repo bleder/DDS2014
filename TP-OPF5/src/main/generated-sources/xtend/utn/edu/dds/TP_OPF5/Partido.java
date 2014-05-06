@@ -2,11 +2,13 @@ package utn.edu.dds.TP_OPF5;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import utn.edu.dds.TP_OPF5.Inscripcion;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
+import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion;
 
 @SuppressWarnings("all")
 public class Partido {
@@ -47,19 +49,32 @@ public class Partido {
     this.setMaximoLista(10);
   }
   
-  public Inscripcion agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
-    Inscripcion _xblockexpression = null;
-    {
-      Inscripcion inscripcion = new Inscripcion(jugador, tipoIncripcion);
-      List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-      _jugadoresInscriptos.add(inscripcion);
-      Inscripcion _xifexpression = null;
-      if (true) {
-        _xifexpression = this.sacarAlQueDejaAnotar();
+  public boolean agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
+    try {
+      boolean _xblockexpression = false;
+      {
+        Inscripcion inscripcion = new Inscripcion(jugador, tipoIncripcion);
+        boolean _xifexpression = false;
+        boolean _hayLugar = this.hayLugar();
+        if (_hayLugar) {
+          List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+          _xifexpression = _jugadoresInscriptos.add(inscripcion);
+        } else {
+          boolean _xifexpression_1 = false;
+          boolean _hayAlgunoQueDejaAnotar = this.hayAlgunoQueDejaAnotar();
+          if (_hayAlgunoQueDejaAnotar) {
+            _xifexpression_1 = this.sacarAlQueDejaAnotar();
+          } else {
+            throw new PartidoCompletoExcepcion("No puede anotarse al partido");
+          }
+          _xifexpression = _xifexpression_1;
+        }
+        _xblockexpression = _xifexpression;
       }
-      _xblockexpression = _xifexpression;
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
     }
-    return _xblockexpression;
   }
   
   public boolean hayLugar() {
@@ -80,8 +95,8 @@ public class Partido {
     return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
   }
   
-  public Inscripcion sacarAlQueDejaAnotar() {
-    Inscripcion _xblockexpression = null;
+  public boolean sacarAlQueDejaAnotar() {
+    boolean _xblockexpression = false;
     {
       Inscripcion inscripcionABorrar = null;
       List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
@@ -92,7 +107,9 @@ public class Partido {
         }
       };
       Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos, _function);
-      _xblockexpression = inscripcionABorrar = _findFirst;
+      inscripcionABorrar = _findFirst;
+      List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+      _xblockexpression = _jugadoresInscriptos_1.remove(inscripcionABorrar);
     }
     return _xblockexpression;
   }

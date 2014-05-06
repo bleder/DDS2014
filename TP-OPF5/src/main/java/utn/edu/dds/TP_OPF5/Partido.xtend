@@ -23,11 +23,13 @@ class Partido {
 	
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
 		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
-		jugadoresInscriptos.add(inscripcion)
-		if (true) { //FIXME hay que ver ver cual es la condicion
+		if (this.hayLugar) {
+			jugadoresInscriptos.add(inscripcion)
+		} else if (this.hayAlgunoQueDejaAnotar) {
 			this.sacarAlQueDejaAnotar
-		}
-			
+		} else {
+			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
+		}			
 	}
 	
 	def boolean hayLugar(){
@@ -45,7 +47,7 @@ class Partido {
 	def sacarAlQueDejaAnotar() {
 		var Inscripcion inscripcionABorrar
 		inscripcionABorrar=jugadoresInscriptos.findFirst[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
-		
+		jugadoresInscriptos.remove(inscripcionABorrar)
 	}
 	
 }

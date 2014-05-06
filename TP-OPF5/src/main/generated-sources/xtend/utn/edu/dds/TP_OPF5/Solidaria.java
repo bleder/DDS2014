@@ -7,10 +7,11 @@ import utn.edu.dds.TP_OPF5.TipoInscripcion;
 @SuppressWarnings("all")
 public class Solidaria implements TipoInscripcion {
   public void inscribirA(final Jugador jugador, final Partido partido) {
-    boolean _hayLugar = partido.hayLugar();
-    if (_hayLugar) {
-      partido.agregarJugador(jugador, this);
-    }
+    partido.agregarJugador(jugador, this);
+  }
+  
+  public boolean tienePrioridad() {
+    return true;
   }
   
   public boolean dejaAnotar() {
