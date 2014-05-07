@@ -8,6 +8,8 @@ import utn.edu.dds.TP_OPF5.Partido
 import utn.edu.dds.TP_OPF5.Estandar
 import utn.edu.dds.TP_OPF5.Condicional
 import utn.edu.dds.TP_OPF5.Solidaria
+import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion
+import utn.edu.dds.TP_OPF5.exception.PartidoNoCumpleCondicionesExcepcion
 
 class TstInscripcion {
 
@@ -19,29 +21,31 @@ class TstInscripcion {
 
 	@Before
 	def void init() {
-
 		jugador = new Jugador("Rodolfo")
 		partido = new Partido("Partido_1")
 		tipoIncEstandar = new Estandar()
-		tipoIncCondicional = new Condicional()
+		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
-
 	}
 
 
 	//Caso 1: Inscribir jugador con modo inscripcion estandar lista del partido <10
 	@Test
-	def void inscribirJugadorModoEstandarListaMenor10() {
-
-		Assert.assertTrue(jugador.inscribite(partido, tipoIncEstandar))
+	def void inscribirJugadorModoEstandarConLugar() {
+		jugador.inscribite(partido, tipoIncEstandar)
+		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
 	//Caso 2: Inscribir jugador con modo inscripcion estandar lista del partido >10
 	@Test
 	def void noSePuedeInscribirUnJugadorCuandoElPartidoEstaCompleto() {
 		var Partido partidoCompleto = this.crearPartidoCompleto()
-
-		Assert.assertFalse(jugador.inscribite(partidoCompleto, tipoIncEstandar))
+		try {
+			jugador.inscribite(partidoCompleto, tipoIncEstandar)
+		} catch(PartidoCompletoExcepcion e) {
+			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+		}
+		Assert.assertFalse(true)
 	}
 
 	def crearPartidoCompleto() {
@@ -52,42 +56,49 @@ class TstInscripcion {
 
 	@Test
 	//Caso 3: Inscribir jugador con modo inscripcion solidaria lista del partido <10	
-	def void inscribirJugadorModoSolidarioListaMenor10() {
-
-		Assert.assertTrue(jugador.inscribite(partido, tipoIncSolidaria))
+	def void inscribirJugadorModoSolidarioConLugar() {
+		jugador.inscribite(partido, tipoIncSolidaria)
+		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
 	@Test
 	//Caso 4 : Inscribir jugador con modo inscripcion solidaria lista del partido >10	
-	def void inscribirJugadorModoSolidarioListaMayor10() {
-
-		Assert.assertFalse(jugador.inscribite(partido, tipoIncSolidaria))
+	def void inscribirJugadorModoSolidarioSinLugar() {
+		var Partido partidoCompleto = this.crearPartidoCompleto()
+		try {
+			jugador.inscribite(partidoCompleto, tipoIncSolidaria)
+		} catch(PartidoCompletoExcepcion e) {
+			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+		}
+		Assert.assertFalse(true)
 	}
 
 	@Test
 	//Caso 5 : Inscribir jugador con modo inscripcion condicional cumple condicion	
 	def void inscribirJugadorModoCondicionalCumpleCondicion() {
-
-		Assert.assertTrue(jugador.inscribite(partido, tipoIncCondicional))
+		jugador.inscribite(partido, tipoIncCondicional)
+		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
 	@Test
 	//Caso 6 : Inscribir jugador con modo inscripcion condicional no cumple condicion	
 	def void inscribirJugadorModoCondicionalNoCumpleCondicion() {
-
-		Assert.assertFalse(jugador.inscribite(partido, tipoIncCondicional))
+		tipoIncCondicional.setCondicion([Partido part | false])
+		var Partido partidoCompleto = this.crearPartidoCompleto()
+		try {
+			jugador.inscribite(partidoCompleto, tipoIncCondicional)
+		} catch(PartidoNoCumpleCondicionesExcepcion e) {
+			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+		}
+		Assert.assertFalse(true)
 	}
 
 	@Test
-	//Caso 7: Inscribir jugador con modo inscripcion estandar lista del partido >10 con un jugador solidario
-	def void inscribirJugadorModoEstandarListaMayor10ConUnSolidario() {
-
-		Assert.assertTrue(jugador.inscribite(partido, tipoIncEstandar))
-	}
-
-	@Test
-	def void testInscribirUnEstandarEnUnPartidoCompletoConDosSolidariosInscribeAlStandardYDejaAfueraAlUltimoSolidario() {
-
-		Assert.assertTrue(jugador.inscribite(partido, tipoIncEstandar))
+	def void jugadorEstandarTienePrioridadSobreSolidario() {
+		var partido = new Partido("Cancha 2")
+		partido.maximoLista = 1
+		(new Jugador("Roberto")).inscribite(partido, tipoIncSolidaria)
+		jugador.inscribite(partido, tipoIncEstandar)
+		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 }

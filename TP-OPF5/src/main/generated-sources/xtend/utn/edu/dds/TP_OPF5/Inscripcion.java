@@ -1,5 +1,6 @@
 package utn.edu.dds.TP_OPF5;
 
+import com.google.common.base.Objects;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
 
@@ -20,5 +21,9 @@ public class Inscripcion {
   public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
     this.jugador = this.jugador;
+  }
+  
+  public boolean sosInscripcionDe(final Jugador otroJugador) {
+    return Objects.equal(otroJugador, this.jugador);
   }
 }

@@ -50,4 +50,8 @@ class Partido {
 		jugadoresInscriptos.remove(inscripcionABorrar)
 	}
 	
+	def estaInscripto(Jugador jugador) {
+		jugadoresInscriptos.exists[inscripcion | inscripcion.sosInscripcionDe(jugador)]
+	}
+	
 }

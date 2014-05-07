@@ -8,9 +8,13 @@ class Condicional extends Object implements TipoInscripcion{
 	@Property
 	Function1<Partido, Boolean> condicion = [partido | true ]
 	
+	new(Function1<Partido, Boolean> miCondicion) {
+		condicion = miCondicion
+	}
+	
 	override inscribirA(Jugador jugador, Partido partido){
 		if (condicion.apply(partido)){ //FIXME evaluar la condicion del bloque
-	 		throw new PartidoNoCumpleCondicionesExcepcion ("El partido no cumple la condicion impuesta por el jugador")
+	 		throw new PartidoNoCumpleCondicionesExcepcion("El partido no cumple la condicion impuesta por el jugador")
  		}
  		
  		partido.agregarJugador(jugador,this)

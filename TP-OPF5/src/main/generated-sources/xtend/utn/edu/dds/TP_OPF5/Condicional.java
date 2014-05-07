@@ -23,6 +23,10 @@ public class Condicional implements TipoInscripcion {
     this._condicion = condicion;
   }
   
+  public Condicional(final Function1<Partido,Boolean> miCondicion) {
+    this.setCondicion(miCondicion);
+  }
+  
   public void inscribirA(final Jugador jugador, final Partido partido) {
     try {
       Function1<Partido,Boolean> _condicion = this.getCondicion();

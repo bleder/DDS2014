@@ -12,6 +12,10 @@ class Inscripcion {
 		jugador=jugador
 	}
 	
+	def sosInscripcionDe(Jugador otroJugador) {
+		otroJugador == jugador
+	}
+	
 
 
 	

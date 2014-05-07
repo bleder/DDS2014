@@ -113,4 +113,14 @@ public class Partido {
     }
     return _xblockexpression;
   }
+  
+  public boolean estaInscripto(final Jugador jugador) {
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
+      public Boolean apply(final Inscripcion inscripcion) {
+        return Boolean.valueOf(inscripcion.sosInscripcionDe(jugador));
+      }
+    };
+    return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
+  }
 }
