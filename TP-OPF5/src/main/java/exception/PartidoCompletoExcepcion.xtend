@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5.exception 
+package exception
 
 class PartidoCompletoExcepcion extends Exception {
 	

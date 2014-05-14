@@ -1,7 +1,7 @@
 package utn.edu.dds.TP_OPF5
 
 import org.eclipse.xtext.xbase.lib.Functions.Function1
-import utn.edu.dds.TP_OPF5.exception.PartidoNoCumpleCondicionesExcepcion
+import exception.PartidoNoCumpleCondicionesExcepcion
 
 class Condicional extends Object implements TipoInscripcion{ 
 	

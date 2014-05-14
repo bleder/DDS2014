@@ -2,7 +2,7 @@ package utn.edu.dds.TP_OPF5
 
 import java.util.List
 import java.util.ArrayList
-import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion
+import exception.PartidoCompletoExcepcion
 
 //import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoCompletoExcepcion
 

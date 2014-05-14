@@ -8,8 +8,8 @@ import utn.edu.dds.TP_OPF5.Partido
 import utn.edu.dds.TP_OPF5.Estandar
 import utn.edu.dds.TP_OPF5.Condicional
 import utn.edu.dds.TP_OPF5.Solidaria
-import utn.edu.dds.TP_OPF5.exception.PartidoCompletoExcepcion
-import utn.edu.dds.TP_OPF5.exception.PartidoNoCumpleCondicionesExcepcion
+import exception.PartidoCompletoExcepcion
+import exception.PartidoNoCumpleCondicionesExcepcion
 
 class TstInscripcion {
 

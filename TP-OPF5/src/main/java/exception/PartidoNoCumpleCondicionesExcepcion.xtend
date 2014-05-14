@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5.exception 
+package exception
 
 class PartidoNoCumpleCondicionesExcepcion extends Exception{
 	new(String message) {
