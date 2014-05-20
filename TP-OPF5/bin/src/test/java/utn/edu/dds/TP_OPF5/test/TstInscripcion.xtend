@@ -29,6 +29,8 @@ class TstInscripcion {
 		tipoIncSolidaria = new Solidaria()
 	}
 
+
+	//Caso 1: Inscribir jugador con modo inscripcion estandar lista del partido <10
 	@Test
 	def void inscribirJugadorModoEstandarConLugar() {
 		jugador.inscribite(partido, tipoIncEstandar)
