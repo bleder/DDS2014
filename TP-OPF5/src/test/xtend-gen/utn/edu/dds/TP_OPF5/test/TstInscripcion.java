@@ -2,14 +2,19 @@ package utn.edu.dds.TP_OPF5.test;
 
 import exception.PartidoCompletoExcepcion;
 import exception.PartidoNoCumpleCondicionesExcepcion;
+import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.mockito.verification.VerificationMode;
 import utn.edu.dds.TP_OPF5.Condicional;
 import utn.edu.dds.TP_OPF5.Estandar;
 import utn.edu.dds.TP_OPF5.Jugador;
+import utn.edu.dds.TP_OPF5.MailSender;
 import utn.edu.dds.TP_OPF5.Partido;
 import utn.edu.dds.TP_OPF5.Solidaria;
 
@@ -24,6 +29,8 @@ public class TstInscripcion {
   private Condicional tipoIncCondicional;
   
   private Solidaria tipoIncSolidaria;
+  
+  private MailSender mockMailSender;
   
   @Before
   public void init() {
@@ -124,5 +131,37 @@ public class TstInscripcion {
     throw new Error("Unresolved compilation problems:"
       + "\nno viable alternative at input \'?\'"
       + "\nCannot instantiate the interface type Notificador");
+  }
+  
+  @Test
+  public void notificaAmigosDeJugadorAlInscribirse() {
+    this.partido.setNotificador(this.mockMailSender);
+    this.jugador.inscribite(this.partido, this.tipoIncEstandar);
+    List<Jugador> _amigosJugador = this.jugador.getAmigosJugador();
+    int _size = _amigosJugador.size();
+    VerificationMode _times = Mockito.times(_size);
+    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
+    String _any = Matchers.<String>any(String.class);
+    _verify.notificar(_any);
+  }
+  
+  @Test
+  public void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados() {
+    this.partido.setNotificador(this.mockMailSender);
+    VerificationMode _times = Mockito.times(1);
+    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
+    Jugador _administrador = this.partido.getAdministrador();
+    String _mail = _administrador.getMail();
+    _verify.notificar(_mail);
+  }
+  
+  @Test
+  public void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados() {
+    this.partido.setNotificador(this.mockMailSender);
+    VerificationMode _times = Mockito.times(1);
+    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
+    Jugador _administrador = this.partido.getAdministrador();
+    String _mail = _administrador.getMail();
+    _verify.notificar(_mail);
   }
 }

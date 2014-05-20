@@ -7,3 +7,14 @@
 /.TipoInscripcion.java._trace
 /.mailSender.java._trace
 /.Notificador.java._trace
+/.AmigosObserver.java._trace
+/.Infraccion.java._trace
+/.MockMailSender.java._trace
+/.PartidoConfirmadoObserver.java._trace
+/.PartidoObserver.java._trace
+/AmigosObserver.java
+/Infraccion.java
+/MockMailSender.java
+/PartidoConfirmadoObserver.java
+/PartidoObserver.java
+/.MailSender.java._trace

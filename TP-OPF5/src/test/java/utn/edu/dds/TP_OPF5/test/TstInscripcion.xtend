@@ -3,13 +3,14 @@ package utn.edu.dds.TP_OPF5.test
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
-import org.mockito.Mockito
+import static org.mockito.Mockito.*
 import utn.edu.dds.TP_OPF5.Jugador
 import utn.edu.dds.TP_OPF5.Partido
 import utn.edu.dds.TP_OPF5.Estandar
 import utn.edu.dds.TP_OPF5.Condicional
 import utn.edu.dds.TP_OPF5.Solidaria
 import utn.edu.dds.TP_OPF5.Notificador
+import utn.edu.dds.TP_OPF5.MailSender
 import exception.PartidoCompletoExcepcion
 import exception.PartidoNoCumpleCondicionesExcepcion
 
@@ -20,7 +21,8 @@ class TstInscripcion {
 	var Estandar tipoIncEstandar
 	var Condicional tipoIncCondicional
 	var Solidaria tipoIncSolidaria
-
+	var MailSender mockMailSender
+	
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo")
@@ -28,7 +30,12 @@ class TstInscripcion {
 		tipoIncEstandar = new Estandar()
 		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
+		mockMailSender= mock (typeof(MailSender))
+		
+		
 	}
+	
+
 
 	@Test
 	def void inscribirJugadorModoEstandarConLugar() {
@@ -98,6 +105,28 @@ class TstInscripcion {
 		(new Jugador("Roberto")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)
 		Assert.assertTrue(partido.estaInscripto(jugador))
+	}
+	
+	@Test
+	def void notificaAmigosDeJugadorAlInscribirse(){
+		//Revisar si a este caso no le falta algo mas
+		partido.notificador=mockMailSender //Le asigno al partido que el notificador va a ser el MockMailSender
+		jugador.inscribite(partido, tipoIncEstandar)//Se tiene que modificar el Inscribir para que notifique sino esto unca va a funcionar
+		verify(mockMailSender,times(jugador.amigosJugador.size)).notificar(any(typeof(String)))
+	}
+	
+	@Test
+		def void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados(){
+		partido.notificador=mockMailSender
+		//se pone el codigo que genera la notificación al administrador
+		verify(mockMailSender,times(1)).notificar(partido.administrador.mail)
+	}
+	
+	@Test
+		def void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados(){
+		partido.notificador=mockMailSender
+		//se pone el codigo que genera la notificación al administrador
+		verify(mockMailSender,times(1)).notificar(partido.administrador.mail)
 	}
 	
 

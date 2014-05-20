@@ -1,6 +1,6 @@
-package utn.edu.dds.TP_OPF5;
+package utn.edu.dds.TP_OPF5_Observer;
 
-import utn.edu.dds.TP_OPF5.Notificador;
+import utn.edu.dds.TP_OPF5_Observer.Notificador;
 
 @SuppressWarnings("all")
 public class MockMailSender implements Notificador {
