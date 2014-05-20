@@ -9,6 +9,7 @@ import utn.edu.dds.TP_OPF5.Partido
 import utn.edu.dds.TP_OPF5.Estandar
 import utn.edu.dds.TP_OPF5.Condicional
 import utn.edu.dds.TP_OPF5.Solidaria
+import utn.edu.dds.TP_OPF5.Notificador
 import exception.PartidoCompletoExcepcion
 import exception.PartidoNoCumpleCondicionesExcepcion
 
@@ -23,7 +24,7 @@ class TstInscripcion {
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo")
-		partido = new Partido("Partido_1")
+		partido = new Partido("Partido_1", new Notificador?, new Jugador("Juan Administra"))
 		tipoIncEstandar = new Estandar()
 		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
@@ -48,7 +49,7 @@ class TstInscripcion {
 	}
 
 	def crearPartidoCompleto() {
-		val Partido completo = new Partido("Hola" )
+		val Partido completo = new Partido("Hola", new Notificador?, new Jugador("Juan Administra"))
 		completo.maximoLista = 0
 		completo
 	}
@@ -92,7 +93,7 @@ class TstInscripcion {
 
 	@Test
 	def void jugadorEstandarTienePrioridadSobreSolidario() {
-		var partido = new Partido("Cancha 2")
+		var partido = new Partido("Cancha 2", new Notificador?, new Jugador("Juan Administra"))
 		partido.maximoLista = 1
 		(new Jugador("Roberto")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)

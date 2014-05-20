@@ -27,21 +27,9 @@ public class TstInscripcion {
   
   @Before
   public void init() {
-    Jugador _jugador = new Jugador("Rodolfo");
-    this.jugador = _jugador;
-    Partido _partido = new Partido("Partido_1");
-    this.partido = _partido;
-    Estandar _estandar = new Estandar();
-    this.tipoIncEstandar = _estandar;
-    final Function1<Partido,Boolean> _function = new Function1<Partido,Boolean>() {
-      public Boolean apply(final Partido part) {
-        return Boolean.valueOf(true);
-      }
-    };
-    Condicional _condicional = new Condicional(_function);
-    this.tipoIncCondicional = _condicional;
-    Solidaria _solidaria = new Solidaria();
-    this.tipoIncSolidaria = _solidaria;
+    throw new Error("Unresolved compilation problems:"
+      + "\nno viable alternative at input \'?\'"
+      + "\nCannot instantiate the interface type Notificador");
   }
   
   @Test
@@ -70,13 +58,9 @@ public class TstInscripcion {
   }
   
   public Partido crearPartidoCompleto() {
-    Partido _xblockexpression = null;
-    {
-      final Partido completo = new Partido("Hola");
-      completo.setMaximoLista(0);
-      _xblockexpression = completo;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nno viable alternative at input \'?\'"
+      + "\nCannot instantiate the interface type Notificador");
   }
   
   @Test
@@ -137,12 +121,8 @@ public class TstInscripcion {
   
   @Test
   public void jugadorEstandarTienePrioridadSobreSolidario() {
-    Partido partido = new Partido("Cancha 2");
-    partido.setMaximoLista(1);
-    Jugador _jugador = new Jugador("Roberto");
-    _jugador.inscribite(partido, this.tipoIncSolidaria);
-    this.jugador.inscribite(partido, this.tipoIncEstandar);
-    boolean _estaInscripto = partido.estaInscripto(this.jugador);
-    Assert.assertTrue(_estaInscripto);
+    throw new Error("Unresolved compilation problems:"
+      + "\nno viable alternative at input \'?\'"
+      + "\nCannot instantiate the interface type Notificador");
   }
 }

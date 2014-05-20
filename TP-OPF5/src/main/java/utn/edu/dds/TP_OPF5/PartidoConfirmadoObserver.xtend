@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5_Observer
+package utn.edu.dds.TP_OPF5
 
 class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	

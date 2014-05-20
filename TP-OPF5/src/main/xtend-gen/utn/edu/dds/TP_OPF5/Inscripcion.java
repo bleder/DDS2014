@@ -16,14 +16,23 @@ public class Inscripcion {
     this._tipoInscripcion = tipoInscripcion;
   }
   
-  private Jugador jugador;
+  private Jugador _jugador;
+  
+  public Jugador getJugador() {
+    return this._jugador;
+  }
+  
+  public void setJugador(final Jugador jugador) {
+    this._jugador = jugador;
+  }
   
   public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
-    this.jugador = jug;
+    this.setJugador(jug);
   }
   
   public boolean sosInscripcionDe(final Jugador otroJugador) {
-    return Objects.equal(otroJugador, this.jugador);
+    Jugador _jugador = this.getJugador();
+    return Objects.equal(otroJugador, _jugador);
   }
 }

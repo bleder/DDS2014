@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5_Observer
+package utn.edu.dds.TP_OPF5
 
 interface PartidoObserver {
 	def void notifyAltaInscripcion(Inscripcion inscripcion, Partido partido)
