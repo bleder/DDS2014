@@ -31,7 +31,8 @@ public class Condicional implements TipoInscripcion {
     try {
       Function1<Partido,Boolean> _condicion = this.getCondicion();
       Boolean _apply = _condicion.apply(partido);
-      if ((_apply).booleanValue()) {
+      boolean _not = (!(_apply).booleanValue());
+      if (_not) {
         throw new PartidoNoCumpleCondicionesExcepcion("El partido no cumple la condicion impuesta por el jugador");
       }
       partido.agregarJugador(jugador, this);

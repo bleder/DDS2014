@@ -9,16 +9,12 @@ class Inscripcion {
 	
 	new(Jugador jug, TipoInscripcion tipoIncrip) {
 		tipoInscripcion=tipoIncrip
-		jugador=jugador
+		jugador= jug
 	}
 	
 	def sosInscripcionDe(Jugador otroJugador) {
 		otroJugador == jugador
 	}
 	
-
-
-	
-
-	}
+}
 	

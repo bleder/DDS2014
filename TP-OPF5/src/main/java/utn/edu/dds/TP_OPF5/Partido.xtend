@@ -27,13 +27,13 @@ class Partido {
 			jugadoresInscriptos.add(inscripcion)
 		} else if (this.hayAlgunoQueDejaAnotar) {
 			this.sacarAlQueDejaAnotar
+			jugadoresInscriptos.add(inscripcion)
 		} else {
 			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
 		}			
 	}
 	
 	def boolean hayLugar(){
-		
 		jugadoresInscriptos.size < this.maximoLista
 		
 	}

@@ -20,7 +20,7 @@ public class Inscripcion {
   
   public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
-    this.jugador = this.jugador;
+    this.jugador = jug;
   }
   
   public boolean sosInscripcionDe(final Jugador otroJugador) {

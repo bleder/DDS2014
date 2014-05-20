@@ -63,7 +63,13 @@ public class Partido {
           boolean _xifexpression_1 = false;
           boolean _hayAlgunoQueDejaAnotar = this.hayAlgunoQueDejaAnotar();
           if (_hayAlgunoQueDejaAnotar) {
-            _xifexpression_1 = this.sacarAlQueDejaAnotar();
+            boolean _xblockexpression_1 = false;
+            {
+              this.sacarAlQueDejaAnotar();
+              List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+              _xblockexpression_1 = _jugadoresInscriptos_1.add(inscripcion);
+            }
+            _xifexpression_1 = _xblockexpression_1;
           } else {
             throw new PartidoCompletoExcepcion("No puede anotarse al partido");
           }

@@ -61,6 +61,7 @@ public class TstInscripcion {
         final PartidoCompletoExcepcion e = (PartidoCompletoExcepcion)_t;
         boolean _estaInscripto = partidoCompleto.estaInscripto(this.jugador);
         Assert.assertFalse(_estaInscripto);
+        return;
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -95,6 +96,7 @@ public class TstInscripcion {
         final PartidoCompletoExcepcion e = (PartidoCompletoExcepcion)_t;
         boolean _estaInscripto = partidoCompleto.estaInscripto(this.jugador);
         Assert.assertFalse(_estaInscripto);
+        return;
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -125,6 +127,7 @@ public class TstInscripcion {
         final PartidoNoCumpleCondicionesExcepcion e = (PartidoNoCumpleCondicionesExcepcion)_t;
         boolean _estaInscripto = partidoCompleto.estaInscripto(this.jugador);
         Assert.assertFalse(_estaInscripto);
+        return;
       } else {
         throw Exceptions.sneakyThrow(_t);
       }

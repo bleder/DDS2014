@@ -35,7 +35,6 @@ class TstInscripcion {
 		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
-	//Caso 2: Inscribir jugador con modo inscripcion estandar lista del partido >10
 	@Test
 	def void noSePuedeInscribirUnJugadorCuandoElPartidoEstaCompleto() {
 		var Partido partidoCompleto = this.crearPartidoCompleto()
@@ -43,6 +42,7 @@ class TstInscripcion {
 			jugador.inscribite(partidoCompleto, tipoIncEstandar)
 		} catch(PartidoCompletoExcepcion e) {
 			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+			return
 		}
 		Assert.assertFalse(true)
 	}
@@ -53,34 +53,31 @@ class TstInscripcion {
 		completo
 	}
 
-	@Test
-	//Caso 3: Inscribir jugador con modo inscripcion solidaria lista del partido <10	
+	@Test	
 	def void inscribirJugadorModoSolidarioConLugar() {
 		jugador.inscribite(partido, tipoIncSolidaria)
 		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
 	@Test
-	//Caso 4 : Inscribir jugador con modo inscripcion solidaria lista del partido >10	
 	def void inscribirJugadorModoSolidarioSinLugar() {
 		var Partido partidoCompleto = this.crearPartidoCompleto()
 		try {
 			jugador.inscribite(partidoCompleto, tipoIncSolidaria)
 		} catch(PartidoCompletoExcepcion e) {
 			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+			return
 		}
 		Assert.assertFalse(true)
 	}
 
 	@Test
-	//Caso 5 : Inscribir jugador con modo inscripcion condicional cumple condicion	
 	def void inscribirJugadorModoCondicionalCumpleCondicion() {
 		jugador.inscribite(partido, tipoIncCondicional)
 		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
 
-	@Test
-	//Caso 6 : Inscribir jugador con modo inscripcion condicional no cumple condicion	
+	@Test	
 	def void inscribirJugadorModoCondicionalNoCumpleCondicion() {
 		tipoIncCondicional.setCondicion([Partido part | false])
 		var Partido partidoCompleto = this.crearPartidoCompleto()
@@ -88,6 +85,7 @@ class TstInscripcion {
 			jugador.inscribite(partidoCompleto, tipoIncCondicional)
 		} catch(PartidoNoCumpleCondicionesExcepcion e) {
 			Assert.assertFalse(partidoCompleto.estaInscripto(jugador))
+			return
 		}
 		Assert.assertFalse(true)
 	}
