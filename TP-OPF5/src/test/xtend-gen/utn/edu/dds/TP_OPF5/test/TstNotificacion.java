@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.verification.VerificationMode;
-import utn.edu.dds.TP_OPF5.AmigoObserver;
+import utn.edu.dds.TP_OPF5.AmigosObserver;
 import utn.edu.dds.TP_OPF5.Estandar;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.MailSender;
@@ -70,7 +70,7 @@ public class TstNotificacion {
   @Test
   public void notificaAmigosDeJugadorAlInscribirse() {
     this.partido.setNotificador(this.mockMailSender);
-    AmigoObserver amigo = new AmigoObserver("amigo@aol.com", this.mockMailSender);
+    AmigosObserver amigo = new AmigosObserver("amigo@aol.com", this.mockMailSender);
     amigo.agregarAmigo(this.jugador);
     this.partido.agregarObserver(amigo);
     this.jugador.inscribite(this.partido, this.tipoIncEstandar);

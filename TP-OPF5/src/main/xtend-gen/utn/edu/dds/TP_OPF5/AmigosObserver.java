@@ -11,14 +11,14 @@ import utn.edu.dds.TP_OPF5.Partido;
 import utn.edu.dds.TP_OPF5.PartidoObserver;
 
 @SuppressWarnings("all")
-public class AmigoObserver implements PartidoObserver {
+public class AmigosObserver implements PartidoObserver {
   private List<Jugador> amigos;
   
   private String mail;
   
   private Notificador sender;
   
-  public AmigoObserver(final String mails, final Notificador send) {
+  public AmigosObserver(final String mails, final Notificador send) {
     ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
     this.amigos = _arrayList;
     this.mail = mails;

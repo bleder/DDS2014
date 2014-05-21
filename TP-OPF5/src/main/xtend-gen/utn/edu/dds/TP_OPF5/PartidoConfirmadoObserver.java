@@ -59,9 +59,9 @@ public class PartidoConfirmadoObserver implements PartidoObserver {
     }
     if (_and) {
       this.notificarAdmin(partido, "Partido ya no completo");
-      List<Jugador> _confirmados_2 = this.getConfirmados();
-      _confirmados_2.remove(jugador);
     }
+    List<Jugador> _confirmados_2 = this.getConfirmados();
+    _confirmados_2.remove(jugador);
   }
   
   public void notifyAltaInscripcion(final Jugador jugador, final Partido partido) {

@@ -14,7 +14,7 @@ import utn.edu.dds.TP_OPF5.MailSender
 import exception.PartidoCompletoExcepcion
 import exception.PartidoNoCumpleCondicionesExcepcion
 import utn.edu.dds.TP_OPF5.PartidoConfirmadoObserver
-import utn.edu.dds.TP_OPF5.AmigoObserver
+import utn.edu.dds.TP_OPF5.AmigosObserver
 
 class TstNotificacion {
 	
@@ -59,7 +59,7 @@ class TstNotificacion {
 	@Test
 	def void notificaAmigosDeJugadorAlInscribirse(){
 		partido.notificador=mockMailSender
-		var amigo = new AmigoObserver("amigo@aol.com", mockMailSender)
+		var amigo = new AmigosObserver("amigo@aol.com", mockMailSender)
 		amigo.agregarAmigo(jugador)
 		partido.agregarObserver(amigo)
 		jugador.inscribite(partido, tipoIncEstandar)

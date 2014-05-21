@@ -22,8 +22,8 @@ class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	override notifyBajaInscripcion(Jugador jugador, Partido partido){
 		if(confirmados.size==partido.maximoLista && confirmados.exists[jug | jug == jugador]){
 			this.notificarAdmin(partido, "Partido ya no completo")
-			confirmados.remove(jugador)
 		}
+		confirmados.remove(jugador)
 	}
 	
 	

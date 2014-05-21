@@ -3,7 +3,7 @@ package utn.edu.dds.TP_OPF5
 import java.util.ArrayList
 import java.util.List
 
-class AmigoObserver extends Object implements PartidoObserver {
+class AmigosObserver extends Object implements PartidoObserver {
 	
 	List<Jugador> amigos
 	String mail
