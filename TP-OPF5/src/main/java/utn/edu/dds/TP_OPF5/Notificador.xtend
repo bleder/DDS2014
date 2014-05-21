@@ -1,5 +1,5 @@
 package utn.edu.dds.TP_OPF5
 
 interface Notificador {
-	def void notificar(String mail)
+	def void notificar(String mail, String mensaje)
 }

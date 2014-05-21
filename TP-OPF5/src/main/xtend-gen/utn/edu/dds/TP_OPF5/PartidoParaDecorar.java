@@ -1,21 +1,21 @@
-package utn.edu.dds.TP_OPF5_Observer;
+package utn.edu.dds.TP_OPF5;
 
+import com.google.common.base.Objects;
 import exception.PartidoCompletoExcepcion;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import utn.edu.dds.TP_OPF5_Observer.Infraccion;
-import utn.edu.dds.TP_OPF5_Observer.Inscripcion;
-import utn.edu.dds.TP_OPF5_Observer.Jugador;
-import utn.edu.dds.TP_OPF5_Observer.Notificador;
-import utn.edu.dds.TP_OPF5_Observer.PartidoObserver;
-import utn.edu.dds.TP_OPF5_Observer.TipoInscripcion;
+import utn.edu.dds.TP_OPF5.Infraccion;
+import utn.edu.dds.TP_OPF5.Inscripcion;
+import utn.edu.dds.TP_OPF5.Jugador;
+import utn.edu.dds.TP_OPF5.Notificador;
+import utn.edu.dds.TP_OPF5.PartidoObserver;
+import utn.edu.dds.TP_OPF5.TipoInscripcion;
 
 @SuppressWarnings("all")
-public class Partido {
+public class PartidoParaDecorar {
   private String _nombrePartido;
   
   public String getNombrePartido() {
@@ -76,7 +76,7 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
-  public Partido(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
+  public PartidoParaDecorar(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
     this.setJugadoresInscriptos(_arrayList);
@@ -87,49 +87,38 @@ public class Partido {
     this.setAdministrador(adminPartido);
   }
   
-  public void darBajaA(final Inscripcion inscripcion) {
-    Jugador _jugador = inscripcion.getJugador();
-    this.agregarInfraccion(_jugador);
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyBajaInscripcion(inscripcion, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+  public boolean darBajaA(final Jugador jug) {
+    boolean _xblockexpression = false;
+    {
+      this.eliminarInscripcion(jug);
+      _xblockexpression = this.agregarInfraccion(jug);
+    }
+    return _xblockexpression;
   }
   
-  public void darBajaA(final Inscripcion inscBaja, final Inscripcion inscReemplazo) {
-    Jugador _jugador = inscReemplazo.getJugador();
-    TipoInscripcion _tipoInscripcion = inscReemplazo.getTipoInscripcion();
-    this.agregarJugador(_jugador, _tipoInscripcion);
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyAltaInscripcion(inscReemplazo, Partido.this);
+  public boolean eliminarInscripcion(final Jugador jug) {
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
+      public Boolean apply(final Inscripcion inscripcion) {
+        Jugador _jugador = inscripcion.getJugador();
+        return Boolean.valueOf(Objects.equal(_jugador, jug));
       }
     };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
-    List<PartidoObserver> _observers_1 = this.getObservers();
-    final Procedure1<PartidoObserver> _function_1 = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyBajaInscripcion(inscBaja, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers_1, _function_1);
+    Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos_1, _function);
+    return _jugadoresInscriptos.remove(_findFirst);
   }
   
-  public void confirmarJugador(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyConfirmacion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+  public boolean darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
+    boolean _xblockexpression = false;
+    {
+      this.eliminarInscripcion(jugBaja);
+      _xblockexpression = this.agregarJugador(jugReemplazo, inscripcion);
+    }
+    return _xblockexpression;
   }
   
-  public Boolean agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
+  public boolean agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
     try {
       boolean _xblockexpression = false;
       {
@@ -137,7 +126,8 @@ public class Partido {
         boolean _xifexpression = false;
         boolean _hayLugar = this.hayLugar();
         if (_hayLugar) {
-          this.agregarYNotificar(inscripcion);
+          List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+          _xifexpression = _jugadoresInscriptos.add(inscripcion);
         } else {
           boolean _xifexpression_1 = false;
           boolean _hayAlgunoQueDejaAnotar = this.hayAlgunoQueDejaAnotar();
@@ -145,8 +135,8 @@ public class Partido {
             boolean _xblockexpression_1 = false;
             {
               this.sacarAlQueDejaAnotar();
-              List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-              _xblockexpression_1 = _jugadoresInscriptos.add(inscripcion);
+              List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+              _xblockexpression_1 = _jugadoresInscriptos_1.add(inscripcion);
             }
             _xifexpression_1 = _xblockexpression_1;
           } else {
@@ -210,20 +200,8 @@ public class Partido {
   }
   
   public boolean agregarInfraccion(final Jugador jug) {
-    List<Infraccion> _infraccionesJugador = jug.getInfraccionesJugador();
+    List<Infraccion> _infracciones = jug.getInfracciones();
     Infraccion _infraccion = new Infraccion("Dado de baja");
-    return _infraccionesJugador.add(_infraccion);
-  }
-  
-  public void agregarYNotificar(final Inscripcion inscripcion) {
-    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-    _jugadoresInscriptos.add(inscripcion);
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyAltaInscripcion(inscripcion, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+    return _infracciones.add(_infraccion);
   }
 }

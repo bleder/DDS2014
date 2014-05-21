@@ -12,13 +12,11 @@ class Jugador {
 	@Property
 	private String mail
 	@Property 
-	private List<Infraccion> infraccionesJugador
-	@Property 
-	private List<Jugador> amigosJugador
+	private List<Infraccion> infracciones
+	
 	new(String nom) {
 		nombre=nom
-		infraccionesJugador = new ArrayList
-		amigosJugador = new ArrayList
+		infracciones = new ArrayList
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {

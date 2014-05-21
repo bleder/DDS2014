@@ -1,13 +1,11 @@
 package utn.edu.dds.TP_OPF5
 
-import java.util.List
 import java.util.ArrayList
+import java.util.List
 import exception.PartidoCompletoExcepcion
 
-//import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoCompletoExcepcion
-
-class Partido {
-	
+class PartidoDecorator implements PartidoInterface {
+		
 	@Property
 	private String nombrePartido
 	@Property 
@@ -30,28 +28,21 @@ class Partido {
 		administrador = adminPartido
 	}
 	
-	def darBajaA(Jugador jug) {
+	override darBajaA(Jugador jug) {
 		this.eliminarInscripcion(jug)
 		this.agregarInfraccion(jug)
-		this.notificarBaja(jug)
 	}
 	
-	def eliminarInscripcion(Jugador jug) {
+	override eliminarInscripcion(Jugador jug) {
 		jugadoresInscriptos.remove(jugadoresInscriptos.findFirst[inscripcion | inscripcion.jugador == jug])
 	}
 	
-	def darBajaA(Jugador jugBaja,Jugador jugReemplazo, TipoInscripcion inscripcion) {
+	override darBajaA(Jugador jugBaja,Jugador jugReemplazo, TipoInscripcion inscripcion) {
 		this.eliminarInscripcion(jugBaja)
 		this.agregarJugador(jugReemplazo, inscripcion)
-		this.notificarAlta(jugReemplazo)
-		this.notificarBaja(jugBaja)
 	}
 	
-	def confirmarJugador(Jugador jugador) {
-		observers.forEach[observer | observer.notifyConfirmacion(jugador, this)]
-	}
-	
-	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
+	override agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
 		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
 		if (this.hayLugar) {
 			jugadoresInscriptos.add(inscripcion)
@@ -61,44 +52,27 @@ class Partido {
 		} else {
 			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
 		}
-		this.notificarAlta(inscripcion.jugador)
 	}
 	
-	def boolean hayLugar(){
-		
+	override boolean hayLugar(){
 		jugadoresInscriptos.size < this.maximoLista
-		
 	}
 	
-	def hayAlgunoQueDejaAnotar() {
-	
+	override hayAlgunoQueDejaAnotar() {
 		jugadoresInscriptos.exists[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
-		
 	}
 	
-	def sacarAlQueDejaAnotar() {
+	override sacarAlQueDejaAnotar() {
 		var Inscripcion inscripcionABorrar
 		inscripcionABorrar=jugadoresInscriptos.findFirst[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
 		jugadoresInscriptos.remove(inscripcionABorrar)
 	}
 	
-	def estaInscripto(Jugador jugador) {
+	override estaInscripto(Jugador jugador) {
 		jugadoresInscriptos.exists[inscripcion | inscripcion.sosInscripcionDe(jugador)]
 	}
 	
-	def agregarInfraccion(Jugador jug){
+	override agregarInfraccion(Jugador jug){
 		jug.infracciones.add(new Infraccion("Dado de baja"))
-	}
-	
-	def notificarAlta(Jugador jugador){
-		observers.forEach[observer | observer.notifyAltaInscripcion(jugador, this)]
-	}
-	
-	def notificarBaja(Jugador jugador){
-		observers.forEach[observer | observer.notifyBajaInscripcion(jugador, this)]
-	}
-	
-	def agregarObserver(PartidoObserver obs) {
-		observers.add(obs)
 	}
 }

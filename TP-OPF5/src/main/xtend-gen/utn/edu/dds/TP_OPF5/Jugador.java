@@ -28,32 +28,20 @@ public class Jugador {
     this._mail = mail;
   }
   
-  private List<Infraccion> _infraccionesJugador;
+  private List<Infraccion> _infracciones;
   
-  public List<Infraccion> getInfraccionesJugador() {
-    return this._infraccionesJugador;
+  public List<Infraccion> getInfracciones() {
+    return this._infracciones;
   }
   
-  public void setInfraccionesJugador(final List<Infraccion> infraccionesJugador) {
-    this._infraccionesJugador = infraccionesJugador;
-  }
-  
-  private List<Jugador> _amigosJugador;
-  
-  public List<Jugador> getAmigosJugador() {
-    return this._amigosJugador;
-  }
-  
-  public void setAmigosJugador(final List<Jugador> amigosJugador) {
-    this._amigosJugador = amigosJugador;
+  public void setInfracciones(final List<Infraccion> infracciones) {
+    this._infracciones = infracciones;
   }
   
   public Jugador(final String nom) {
     this.setNombre(nom);
     ArrayList<Infraccion> _arrayList = new ArrayList<Infraccion>();
-    this.setInfraccionesJugador(_arrayList);
-    ArrayList<Jugador> _arrayList_1 = new ArrayList<Jugador>();
-    this.setAmigosJugador(_arrayList_1);
+    this.setInfracciones(_arrayList);
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {

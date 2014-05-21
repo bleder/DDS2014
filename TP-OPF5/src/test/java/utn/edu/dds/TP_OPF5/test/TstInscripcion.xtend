@@ -26,16 +26,13 @@ class TstInscripcion {
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo")
-		partido = new Partido("Partido_1", new Notificador?, new Jugador("Juan Administra"))
+		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra"))
 		tipoIncEstandar = new Estandar()
 		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
 		mockMailSender= mock (typeof(MailSender))
 		
-		
 	}
-	
-
 
 	@Test
 	def void inscribirJugadorModoEstandarConLugar() {
@@ -56,9 +53,25 @@ class TstInscripcion {
 	}
 
 	def crearPartidoCompleto() {
-		val Partido completo = new Partido("Hola", new Notificador?, new Jugador("Juan Administra"))
+		val Partido completo = new Partido("Hola", new MailSender, new Jugador("Juan Administra"))
 		completo.maximoLista = 0
 		completo
+	}
+	
+	@Test
+	def void jugadorSeDaDeBajaYDejaReemplazante() {
+		var jugador2 = new Jugador("Ricardo")
+		partido.agregarJugador(jugador, tipoIncEstandar)
+		partido.darBajaA(jugador, jugador2, tipoIncEstandar)
+		
+		Assert.assertTrue(partido.estaInscripto(jugador2) && !partido.estaInscripto(jugador))
+	}
+	
+	@Test
+	def void jugadorSeDaDeBajaSinReemplazanteRecibeInfraccion() {
+		partido.agregarJugador(jugador, tipoIncEstandar)
+		partido.darBajaA(jugador)
+		Assert.assertTrue(jugador.infracciones.size==1)
 	}
 
 	@Test	
@@ -100,34 +113,11 @@ class TstInscripcion {
 
 	@Test
 	def void jugadorEstandarTienePrioridadSobreSolidario() {
-		var partido = new Partido("Cancha 2", new Notificador?, new Jugador("Juan Administra"))
+		var partido = new Partido("Cancha 2", new MailSender, new Jugador("Juan Administra"))
 		partido.maximoLista = 1
 		(new Jugador("Roberto")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)
 		Assert.assertTrue(partido.estaInscripto(jugador))
 	}
-	
-	@Test
-	def void notificaAmigosDeJugadorAlInscribirse(){
-		//Revisar si a este caso no le falta algo mas
-		partido.notificador=mockMailSender //Le asigno al partido que el notificador va a ser el MockMailSender
-		jugador.inscribite(partido, tipoIncEstandar)//Se tiene que modificar el Inscribir para que notifique sino esto unca va a funcionar
-		verify(mockMailSender,times(jugador.amigosJugador.size)).notificar(any(typeof(String)))
-	}
-	
-	@Test
-		def void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados(){
-		partido.notificador=mockMailSender
-		//se pone el codigo que genera la notificación al administrador
-		verify(mockMailSender,times(1)).notificar(partido.administrador.mail)
-	}
-	
-	@Test
-		def void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados(){
-		partido.notificador=mockMailSender
-		//se pone el codigo que genera la notificación al administrador
-		verify(mockMailSender,times(1)).notificar(partido.administrador.mail)
-	}
-	
 
 }

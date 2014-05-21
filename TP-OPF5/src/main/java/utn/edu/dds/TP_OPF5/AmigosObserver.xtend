@@ -1,19 +1,37 @@
 package utn.edu.dds.TP_OPF5
 
-class AmigosObserver extends Object implements PartidoObserver {
+import java.util.ArrayList
+import java.util.List
+
+class AmigoObserver extends Object implements PartidoObserver {
 	
-	override notifyAltaInscripcion(Inscripcion inscripcion, Partido partido){
-		inscripcion.jugador.amigosJugador.forEach[amigo | this.notificarAmigo(amigo, partido)]
+	List<Jugador> amigos
+	String mail
+	Notificador sender
+	
+	new(String mails, Notificador send) {
+		amigos = new ArrayList
+		mail = mails
+		sender = send
 	}
 	
-	override notifyBajaInscripcion(Inscripcion inscripcion, Partido partido){
+	def agregarAmigo(Jugador jugador) {
+		amigos.add(jugador)
+	}
+	
+	override notifyAltaInscripcion(Jugador jugador, Partido partido){
+		if(amigos.exists[jug | jug == jugador]) {
+			this.notificarAmigo(jugador, partido)
+		}
+	}
+	
+	override notifyBajaInscripcion(Jugador jugador, Partido partido){
 	}
 	
 	override notifyConfirmacion(Jugador jugador, Partido partido){
 	}
 	
-	
 	def notificarAmigo(Jugador amigo, Partido partido){
-		partido.notificador.notificar(amigo.mail)
+		sender.notificar(mail, "Tu amigo se inscribio")
 	}
 }

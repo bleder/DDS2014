@@ -7,16 +7,16 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import utn.edu.dds.TP_OPF5.Infraccion;
 import utn.edu.dds.TP_OPF5.Inscripcion;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.Notificador;
+import utn.edu.dds.TP_OPF5.PartidoInterface;
 import utn.edu.dds.TP_OPF5.PartidoObserver;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
 
 @SuppressWarnings("all")
-public class Partido {
+public class PartidoDecorator implements PartidoInterface {
   private String _nombrePartido;
   
   public String getNombrePartido() {
@@ -77,7 +77,7 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
-  public Partido(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
+  public PartidoDecorator(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
     this.setJugadoresInscriptos(_arrayList);
@@ -91,10 +91,9 @@ public class Partido {
   public void darBajaA(final Jugador jug) {
     this.eliminarInscripcion(jug);
     this.agregarInfraccion(jug);
-    this.notificarBaja(jug);
   }
   
-  public boolean eliminarInscripcion(final Jugador jug) {
+  public void eliminarInscripcion(final Jugador jug) {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
     final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
@@ -104,24 +103,12 @@ public class Partido {
       }
     };
     Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos_1, _function);
-    return _jugadoresInscriptos.remove(_findFirst);
+    _jugadoresInscriptos.remove(_findFirst);
   }
   
   public void darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
     this.eliminarInscripcion(jugBaja);
     this.agregarJugador(jugReemplazo, inscripcion);
-    this.notificarAlta(jugReemplazo);
-    this.notificarBaja(jugBaja);
-  }
-  
-  public void confirmarJugador(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyConfirmacion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
   }
   
   public void agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
@@ -141,8 +128,6 @@ public class Partido {
           throw new PartidoCompletoExcepcion("No puede anotarse al partido");
         }
       }
-      Jugador _jugador = inscripcion.getJugador();
-      this.notificarAlta(_jugador);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -166,23 +151,19 @@ public class Partido {
     return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
   }
   
-  public boolean sacarAlQueDejaAnotar() {
-    boolean _xblockexpression = false;
-    {
-      Inscripcion inscripcionABorrar = null;
-      List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-      final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
-        public Boolean apply(final Inscripcion inscripcion) {
-          TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
-          return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
-        }
-      };
-      Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos, _function);
-      inscripcionABorrar = _findFirst;
-      List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
-      _xblockexpression = _jugadoresInscriptos_1.remove(inscripcionABorrar);
-    }
-    return _xblockexpression;
+  public void sacarAlQueDejaAnotar() {
+    Inscripcion inscripcionABorrar = null;
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
+      public Boolean apply(final Inscripcion inscripcion) {
+        TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
+        return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
+      }
+    };
+    Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos, _function);
+    inscripcionABorrar = _findFirst;
+    List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+    _jugadoresInscriptos_1.remove(inscripcionABorrar);
   }
   
   public boolean estaInscripto(final Jugador jugador) {
@@ -195,34 +176,9 @@ public class Partido {
     return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
   }
   
-  public boolean agregarInfraccion(final Jugador jug) {
+  public void agregarInfraccion(final Jugador jug) {
     List<Infraccion> _infracciones = jug.getInfracciones();
     Infraccion _infraccion = new Infraccion("Dado de baja");
-    return _infracciones.add(_infraccion);
-  }
-  
-  public void notificarAlta(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyAltaInscripcion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
-  }
-  
-  public void notificarBaja(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyBajaInscripcion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
-  }
-  
-  public boolean agregarObserver(final PartidoObserver obs) {
-    List<PartidoObserver> _observers = this.getObservers();
-    return _observers.add(obs);
+    _infracciones.add(_infraccion);
   }
 }

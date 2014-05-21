@@ -1,6 +1,10 @@
 package utn.edu.dds.TP_OPF5;
 
-import utn.edu.dds.TP_OPF5.Inscripcion;
+import com.google.common.base.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.Notificador;
 import utn.edu.dds.TP_OPF5.Partido;
@@ -8,49 +12,65 @@ import utn.edu.dds.TP_OPF5.PartidoObserver;
 
 @SuppressWarnings("all")
 public class PartidoConfirmadoObserver implements PartidoObserver {
-  private int _confirmados;
+  private List<Jugador> _confirmados;
   
-  public int getConfirmados() {
+  public List<Jugador> getConfirmados() {
     return this._confirmados;
   }
   
-  public void setConfirmados(final int confirmados) {
+  public void setConfirmados(final List<Jugador> confirmados) {
     this._confirmados = confirmados;
   }
   
   public PartidoConfirmadoObserver() {
-    this.setConfirmados(0);
+    ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
+    this.setConfirmados(_arrayList);
   }
   
   public void notifyConfirmacion(final Jugador jugador, final Partido partido) {
-    int _confirmados = this.getConfirmados();
-    int _plus = (_confirmados + 1);
-    this.setConfirmados(_plus);
-    int _confirmados_1 = this.getConfirmados();
-    boolean _equals = (_confirmados_1 == 10);
+    List<Jugador> _confirmados = this.getConfirmados();
+    _confirmados.add(jugador);
+    List<Jugador> _confirmados_1 = this.getConfirmados();
+    int _size = _confirmados_1.size();
+    int _maximoLista = partido.getMaximoLista();
+    boolean _equals = (_size == _maximoLista);
     if (_equals) {
-      this.notificarAdmin(partido);
+      this.notificarAdmin(partido, "Partido completo");
     }
   }
   
-  public void notifyBajaInscripcion(final Inscripcion inscripcion, final Partido partido) {
-    int _confirmados = this.getConfirmados();
-    boolean _equals = (_confirmados == 10);
-    if (_equals) {
-      this.notificarAdmin(partido);
+  public void notifyBajaInscripcion(final Jugador jugador, final Partido partido) {
+    boolean _and = false;
+    List<Jugador> _confirmados = this.getConfirmados();
+    int _size = _confirmados.size();
+    int _maximoLista = partido.getMaximoLista();
+    boolean _equals = (_size == _maximoLista);
+    if (!_equals) {
+      _and = false;
+    } else {
+      List<Jugador> _confirmados_1 = this.getConfirmados();
+      final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
+        public Boolean apply(final Jugador jug) {
+          return Boolean.valueOf(Objects.equal(jug, jugador));
+        }
+      };
+      boolean _exists = IterableExtensions.<Jugador>exists(_confirmados_1, _function);
+      _and = _exists;
     }
-    int _confirmados_1 = this.getConfirmados();
-    int _minus = (_confirmados_1 - 1);
-    this.setConfirmados(_minus);
+    if (_and) {
+      this.notificarAdmin(partido, "Partido ya no completo");
+      List<Jugador> _confirmados_2 = this.getConfirmados();
+      _confirmados_2.remove(jugador);
+    }
   }
   
-  public void notifyAltaInscripcion(final Inscripcion inscripcion, final Partido partido) {
+  public void notifyAltaInscripcion(final Jugador jugador, final Partido partido) {
   }
   
-  public void notificarAdmin(final Partido partido) {
+  public void notificarAdmin(final Partido partido, final String mensaje) {
     Notificador _notificador = partido.getNotificador();
     Jugador _administrador = partido.getAdministrador();
     String _mail = _administrador.getMail();
-    _notificador.notificar(_mail);
+    _notificador.notificar(_mail, mensaje);
   }
 }

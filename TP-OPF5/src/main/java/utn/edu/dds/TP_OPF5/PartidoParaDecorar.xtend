@@ -4,9 +4,7 @@ import java.util.List
 import java.util.ArrayList
 import exception.PartidoCompletoExcepcion
 
-//import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoCompletoExcepcion
-
-class Partido {
+class PartidoParaDecorar {
 	
 	@Property
 	private String nombrePartido
@@ -33,7 +31,6 @@ class Partido {
 	def darBajaA(Jugador jug) {
 		this.eliminarInscripcion(jug)
 		this.agregarInfraccion(jug)
-		this.notificarBaja(jug)
 	}
 	
 	def eliminarInscripcion(Jugador jug) {
@@ -43,12 +40,6 @@ class Partido {
 	def darBajaA(Jugador jugBaja,Jugador jugReemplazo, TipoInscripcion inscripcion) {
 		this.eliminarInscripcion(jugBaja)
 		this.agregarJugador(jugReemplazo, inscripcion)
-		this.notificarAlta(jugReemplazo)
-		this.notificarBaja(jugBaja)
-	}
-	
-	def confirmarJugador(Jugador jugador) {
-		observers.forEach[observer | observer.notifyConfirmacion(jugador, this)]
 	}
 	
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
@@ -61,19 +52,14 @@ class Partido {
 		} else {
 			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
 		}
-		this.notificarAlta(inscripcion.jugador)
 	}
 	
 	def boolean hayLugar(){
-		
 		jugadoresInscriptos.size < this.maximoLista
-		
 	}
 	
 	def hayAlgunoQueDejaAnotar() {
-	
 		jugadoresInscriptos.exists[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
-		
 	}
 	
 	def sacarAlQueDejaAnotar() {
@@ -88,17 +74,5 @@ class Partido {
 	
 	def agregarInfraccion(Jugador jug){
 		jug.infracciones.add(new Infraccion("Dado de baja"))
-	}
-	
-	def notificarAlta(Jugador jugador){
-		observers.forEach[observer | observer.notifyAltaInscripcion(jugador, this)]
-	}
-	
-	def notificarBaja(Jugador jugador){
-		observers.forEach[observer | observer.notifyBajaInscripcion(jugador, this)]
-	}
-	
-	def agregarObserver(PartidoObserver obs) {
-		observers.add(obs)
 	}
 }
