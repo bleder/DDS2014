@@ -3,7 +3,6 @@ package utn.edu.dds.TP_OPF5;
 import exception.PartidoNoCumpleCondicionesExcepcion;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.Partido;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
 
@@ -27,7 +26,7 @@ public class Condicional implements TipoInscripcion {
     this.setCondicion(miCondicion);
   }
   
-  public void inscribirA(final Jugador jugador, final Partido partido) {
+  public void inscribirA(final /* Jugador */Object jugador, final Partido partido) {
     try {
       Function1<Partido,Boolean> _condicion = this.getCondicion();
       Boolean _apply = _condicion.apply(partido);

@@ -35,4 +35,6 @@ public interface PartidoInterface {
   public abstract void notificarAlta(final Jugador jugador);
   
   public abstract void notificarBaja(final Jugador jugador);
+  
+  public abstract Boolean estasConfirmado();
 }

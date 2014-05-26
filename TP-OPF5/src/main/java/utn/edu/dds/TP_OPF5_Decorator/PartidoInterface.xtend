@@ -16,4 +16,5 @@ interface PartidoInterface {
 	def void agregarInfraccion(Jugador jug)
 	def void notificarAlta(Jugador jugador)
 	def void notificarBaja(Jugador jugador)
+	def Boolean estasConfirmado()
 }

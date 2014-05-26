@@ -1,16 +1,9 @@
 package utn.edu.dds.TP_OPF5;
 
-import com.google.common.base.Objects;
-import exception.PartidoCompletoExcepcion;
 import java.util.ArrayList;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import utn.edu.dds.TP_OPF5.Infraccion;
-import utn.edu.dds.TP_OPF5.Inscripcion;
-import utn.edu.dds.TP_OPF5.Jugador;
 import utn.edu.dds.TP_OPF5.Notificador;
 import utn.edu.dds.TP_OPF5.PartidoObserver;
 import utn.edu.dds.TP_OPF5.TipoInscripcion;
@@ -27,13 +20,13 @@ public class Partido {
     this._nombrePartido = nombrePartido;
   }
   
-  private List<Inscripcion> _jugadoresInscriptos;
+  private /* List<Inscripcion> */Object _jugadoresInscriptos;
   
-  public List<Inscripcion> getJugadoresInscriptos() {
+  public /* List<Inscripcion> */Object getJugadoresInscriptos() {
     return this._jugadoresInscriptos;
   }
   
-  public void setJugadoresInscriptos(final List<Inscripcion> jugadoresInscriptos) {
+  public void setJugadoresInscriptos(final /* List<Inscripcion> */Object jugadoresInscriptos) {
     this._jugadoresInscriptos = jugadoresInscriptos;
   }
   
@@ -57,13 +50,13 @@ public class Partido {
     this._notificador = notificador;
   }
   
-  private Jugador _administrador;
+  private /* Jugador */Object _administrador;
   
-  public Jugador getAdministrador() {
+  public /* Jugador */Object getAdministrador() {
     return this._administrador;
   }
   
-  public void setAdministrador(final Jugador administrador) {
+  public void setAdministrador(final /* Jugador */Object administrador) {
     this._administrador = administrador;
   }
   
@@ -77,9 +70,9 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
-  public Partido(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
+  public Partido(final String nomPartido, final Notificador notifPartido, final /* Jugador */Object adminPartido) {
     this.setNombrePartido(nomPartido);
-    ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
+    ArrayList<Object> _arrayList = new ArrayList<Object>();
     this.setJugadoresInscriptos(_arrayList);
     ArrayList<PartidoObserver> _arrayList_1 = new ArrayList<PartidoObserver>();
     this.setObservers(_arrayList_1);
@@ -88,141 +81,88 @@ public class Partido {
     this.setAdministrador(adminPartido);
   }
   
-  public void darBajaA(final Jugador jug) {
-    this.eliminarInscripcion(jug);
-    this.agregarInfraccion(jug);
-    this.notificarBaja(jug);
-  }
-  
-  public boolean eliminarInscripcion(final Jugador jug) {
-    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-    List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
-    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
-      public Boolean apply(final Inscripcion inscripcion) {
-        Jugador _jugador = inscripcion.getJugador();
-        return Boolean.valueOf(Objects.equal(_jugador, jug));
-      }
-    };
-    Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos_1, _function);
-    return _jugadoresInscriptos.remove(_findFirst);
-  }
-  
-  public void darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
-    this.eliminarInscripcion(jugBaja);
-    this.agregarJugador(jugReemplazo, inscripcion);
-    this.notificarAlta(jugReemplazo);
-    this.notificarBaja(jugBaja);
-  }
-  
-  public void confirmarJugador(final Jugador jugador) {
+  public void eliminarInscripcion(final /* Jugador */Object jug) {
+    List<Object> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    Object _buscarInscripcionDelJugador = this.buscarInscripcionDelJugador(jug);
+    _jugadoresInscriptos.remove((_buscarInscripcionDelJugador).ObjectValue());
     List<PartidoObserver> _observers = this.getObservers();
     final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
       public void apply(final PartidoObserver observer) {
-        observer.notifyConfirmacion(jugador, Partido.this);
+        observer.jugadorDadoDeBaja(jug, Partido.this);
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);
   }
   
-  public void agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
-    try {
-      Inscripcion inscripcion = new Inscripcion(jugador, tipoIncripcion);
-      boolean _hayLugar = this.hayLugar();
-      if (_hayLugar) {
-        List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-        _jugadoresInscriptos.add(inscripcion);
-      } else {
-        boolean _hayAlgunoQueDejaAnotar = this.hayAlgunoQueDejaAnotar();
-        if (_hayAlgunoQueDejaAnotar) {
-          this.sacarAlQueDejaAnotar();
-          List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
-          _jugadoresInscriptos_1.add(inscripcion);
-        } else {
-          throw new PartidoCompletoExcepcion("No puede anotarse al partido");
-        }
-      }
-      Jugador _jugador = inscripcion.getJugador();
-      this.notificarAlta(_jugador);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
+  public Object buscarInscripcionDelJugador(final /* Jugador */Object jug) {
+    throw new Error("Unresolved compilation problems:"
+      + "\njugador cannot be resolved"
+      + "\n== cannot be resolved");
+  }
+  
+  public Object darBajaA(final /* Jugador */Object jug) {
+    Object _xblockexpression = null;
+    {
+      this.eliminarInscripcion(jug);
+      _xblockexpression = this.agregarInfraccion(jug);
     }
+    return _xblockexpression;
+  }
+  
+  public void darBajaA(final /* Jugador */Object jugBaja, final /* Jugador */Object jugReemplazo, final TipoInscripcion inscripcion) {
+    this.eliminarInscripcion(jugBaja);
+    this.agregarJugador(jugReemplazo, inscripcion);
+  }
+  
+  public void confirmarJugador(final /* Jugador */Object jugador) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nconfirmar cannot be resolved");
+  }
+  
+  public void agregarJugador(final /* Jugador */Object jugador, final TipoInscripcion tipoIncripcion) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nInscripcion cannot be resolved to a type."
+      + "\nInscripcion cannot be resolved.");
   }
   
   public boolean hayLugar() {
-    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    List<Object> _jugadoresInscriptos = this.getJugadoresInscriptos();
     int _size = _jugadoresInscriptos.size();
     int _maximoLista = this.getMaximoLista();
     return (_size < _maximoLista);
   }
   
   public boolean hayAlgunoQueDejaAnotar() {
-    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
-      public Boolean apply(final Inscripcion inscripcion) {
-        TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
-        return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
-      }
-    };
-    return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
+    throw new Error("Unresolved compilation problems:"
+      + "\ntipoInscripcion cannot be resolved"
+      + "\ndejaAnotar cannot be resolved");
   }
   
-  public boolean sacarAlQueDejaAnotar() {
-    boolean _xblockexpression = false;
-    {
-      Inscripcion inscripcionABorrar = null;
-      List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-      final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
-        public Boolean apply(final Inscripcion inscripcion) {
-          TipoInscripcion _tipoInscripcion = inscripcion.getTipoInscripcion();
-          return Boolean.valueOf(_tipoInscripcion.dejaAnotar());
-        }
-      };
-      Inscripcion _findFirst = IterableExtensions.<Inscripcion>findFirst(_jugadoresInscriptos, _function);
-      inscripcionABorrar = _findFirst;
-      List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
-      _xblockexpression = _jugadoresInscriptos_1.remove(inscripcionABorrar);
-    }
-    return _xblockexpression;
+  public Object sacarAlQueDejaAnotar() {
+    throw new Error("Unresolved compilation problems:"
+      + "\nInscripcion cannot be resolved to a type."
+      + "\ntipoInscripcion cannot be resolved"
+      + "\ndejaAnotar cannot be resolved");
   }
   
-  public boolean estaInscripto(final Jugador jugador) {
-    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
-    final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
-      public Boolean apply(final Inscripcion inscripcion) {
-        return Boolean.valueOf(inscripcion.sosInscripcionDe(jugador));
-      }
-    };
-    return IterableExtensions.<Inscripcion>exists(_jugadoresInscriptos, _function);
+  public boolean estaInscripto(final /* Jugador */Object jugador) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nsosInscripcionDe cannot be resolved");
   }
   
-  public boolean agregarInfraccion(final Jugador jug) {
-    List<Infraccion> _infracciones = jug.getInfracciones();
-    Infraccion _infraccion = new Infraccion("Dado de baja");
-    return _infracciones.add(_infraccion);
-  }
-  
-  public void notificarAlta(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyAltaInscripcion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
-  }
-  
-  public void notificarBaja(final Jugador jugador) {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
-      public void apply(final PartidoObserver observer) {
-        observer.notifyBajaInscripcion(jugador, Partido.this);
-      }
-    };
-    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+  public Object agregarInfraccion(final /* Jugador */Object jug) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nInfraccion cannot be resolved."
+      + "\nnuevaInfraccion cannot be resolved");
   }
   
   public boolean agregarObserver(final PartidoObserver obs) {
     List<PartidoObserver> _observers = this.getObservers();
     return _observers.add(obs);
+  }
+  
+  public Boolean estasConfirmado() {
+    throw new Error("Unresolved compilation problems:"
+      + "\nestaConfirmada cannot be resolved");
   }
 }
