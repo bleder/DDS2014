@@ -179,12 +179,23 @@ public class Partido implements PartidoInterface {
   }
   
   public boolean estasConfirmado() {
+    boolean _and = false;
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
       public Boolean apply(final Inscripcion inscripto) {
         return Boolean.valueOf(inscripto.isEstaConfirmada());
       }
     };
-    return IterableExtensions.<Inscripcion>forall(_jugadoresInscriptos, _function);
+    boolean _forall = IterableExtensions.<Inscripcion>forall(_jugadoresInscriptos, _function);
+    if (!_forall) {
+      _and = false;
+    } else {
+      List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
+      int _size = _jugadoresInscriptos_1.size();
+      int _maximoLista = this.getMaximoLista();
+      boolean _equals = (_size == _maximoLista);
+      _and = _equals;
+    }
+    return _and;
   }
 }

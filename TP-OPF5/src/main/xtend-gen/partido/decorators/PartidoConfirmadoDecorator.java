@@ -20,7 +20,7 @@ public class PartidoConfirmadoDecorator extends PartidoDecorator {
     if (_estasConfirmado) {
       Jugador _administrador = super.getAdministrador();
       String _mail = _administrador.getMail();
-      this.sender.notificar(_mail, "El partido esta lleno");
+      this.sender.notificar(_mail, "Partido completo");
     }
   }
 }

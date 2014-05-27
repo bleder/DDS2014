@@ -8,12 +8,12 @@ class AmigosObserver extends Object implements PartidoObserver {
 	
 	Notificador sender
 	
-	new(String mails, Notificador send) {
+	new(Notificador send) {
 		sender = send
 	}
 	
 	override jugadorInscripto(Jugador jugador, Partido partido){
-		jugador.amigos.forEach[amigo | sender.notificar(amigo.mail, "Se inscribio tu amigo " + jugador.nombre)]
+		jugador.getAmigos().forEach[amigo | sender.notificar(amigo.mail, "Se inscribio tu amigo " + jugador.nombre)]
 	}
 	
 	override jugadorDadoDeBaja(Jugador jugador, Partido partido){

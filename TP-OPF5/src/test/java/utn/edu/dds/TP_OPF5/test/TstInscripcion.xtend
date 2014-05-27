@@ -24,8 +24,8 @@ class TstInscripcion {
 	
 	@Before
 	def void init() {
-		jugador = new Jugador("Rodolfo")
-		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra"))
+		jugador = new Jugador("Rodolfo", "rodol@aol.com")
+		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
 		tipoIncEstandar = new Estandar()
 		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
@@ -52,14 +52,14 @@ class TstInscripcion {
 	}
 
 	def crearPartidoCompleto() {
-		val Partido completo = new Partido("Hola", new MailSender, new Jugador("Juan Administra"))
+		val Partido completo = new Partido("Hola", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
 		completo.maximoLista = 0
 		completo
 	}
 	
 	@Test
 	def void jugadorSeDaDeBajaYDejaReemplazante() {
-		var jugador2 = new Jugador("Ricardo")
+		var jugador2 = new Jugador("Ricardo", "ricky@aol.com")
 		partido.agregarJugador(jugador, tipoIncEstandar)
 		partido.darBajaA(jugador, jugador2, tipoIncEstandar)
 		
@@ -112,9 +112,9 @@ class TstInscripcion {
 
 	@Test
 	def void jugadorEstandarTienePrioridadSobreSolidario() {
-		var partido = new Partido("Cancha 2", new MailSender, new Jugador("Juan Administra"))
+		var partido = new Partido("Cancha 2", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
 		partido.maximoLista = 1
-		(new Jugador("Roberto")).inscribite(partido, tipoIncSolidaria)
+		(new Jugador("Roberto", "rober@hotmail.com")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)
 		Assert.assertTrue(partido.estaInscripto(jugador))
 	}

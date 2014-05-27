@@ -10,19 +10,21 @@ import partido.core.tiposDeInscripcion.TipoInscripcion
 
 class Jugador {
 	@Property
-	private String nombre
+	String nombre
 	@Property
-	private String mail
+	String mail
 	@Property 
-	private List<Infraccion> infracciones
+	List<Infraccion> infracciones
 	@Property 
-	private List<Jugador> amigos
+	List<Jugador> amigos
 	
 	
 	
-	new(String nom) {
+	new(String nom, String newMail) {
+		mail = newMail
 		nombre=nom
 		infracciones = new ArrayList
+		amigos = new ArrayList
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {

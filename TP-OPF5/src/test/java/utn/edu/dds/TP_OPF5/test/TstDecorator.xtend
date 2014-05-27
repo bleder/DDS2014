@@ -5,48 +5,44 @@ import org.junit.Test
 import org.junit.Assert
 import static org.mockito.Mockito.*
 import partido.core.Jugador
-import partido.core.Partido
+import partido.decorators.Partido
 import partido.core.tiposDeInscripcion.Estandar
 import partido.mailSender.MailSender
-import partido.observers.PartidoConfirmadoObserver
-import partido.observers.AmigosObserver
+import partido.decorators.PartidoConfirmadoDecorator
+import partido.decorators.PartidoEstabaConfirmado
+import partido.decorators.AmigosDecorator
 
-class TstNotificacion {
+class TstDecorator {
 	
 	var Jugador jugador
 	var Partido partido
-	var Estandar tipoIncEstandar
+	var Estandar inscripcion
 	var MailSender mockMailSender
 	
 	@Before
-	def void init() {
+	def void init(){
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
-		var administrador = new Jugador("Juan Administrador", "admin@aol.com")
-		administrador.setMail("juan.administrador@aol.com")
-		partido = new Partido("Partido_1", new MailSender, administrador)
-		tipoIncEstandar = new Estandar()
+		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
+		inscripcion = new Estandar
 		mockMailSender= mock (typeof(MailSender))
 	}
 	
 	@Test
 	def void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados(){
-		var partObse = new PartidoConfirmadoObserver(mockMailSender)
-		partido.agregarObserver(partObse)
 		partido.setMaximoLista = 1
-		partido.agregarJugador(jugador, tipoIncEstandar)
-		partido.confirmarJugador(jugador)
+		var partDecorado = new PartidoConfirmadoDecorator(partido, mockMailSender)
+		partDecorado.agregarJugador(jugador, inscripcion)
+		partDecorado.confirmarJugador(jugador)
 		verify(mockMailSender,times(1)).notificar(partido.administrador.mail, "Partido completo")
 	}
 	
 	@Test
 	def void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados(){
-		var partObse = new PartidoConfirmadoObserver(mockMailSender)
-		partido.agregarObserver(partObse)
 		partido.setMaximoLista = 1
-		partido.agregarJugador(jugador, tipoIncEstandar)
-		partido.confirmarJugador(jugador)
-		partido.darBajaA(jugador)
-		verify(mockMailSender,times(1)).notificar(partido.administrador.mail, "Partido completo")
+		var partDecorado = new PartidoEstabaConfirmado(partido, mockMailSender)
+		partDecorado.agregarJugador(jugador, inscripcion)
+		partDecorado.confirmarJugador(jugador)
+		partDecorado.darBajaA(jugador)
 		verify(mockMailSender,times(1)).notificar(partido.administrador.mail, "Partido ya no completo")
 	}
 	
@@ -57,10 +53,9 @@ class TstNotificacion {
 	
 	@Test
 	def void notificaAmigosDeJugadorAlInscribirse(){
-		var amigo = new AmigosObserver(mockMailSender)
+		var partDecorado = new AmigosDecorator(partido, mockMailSender)
 		jugador.agregarAmigo(new Jugador("Ricardo", "ricky@aol.com"))
-		partido.agregarObserver(amigo)
-		jugador.inscribite(partido, tipoIncEstandar)
+		partDecorado.agregarJugador(jugador, inscripcion)
 		verify(mockMailSender,times(1)).notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo")
 	}
 }

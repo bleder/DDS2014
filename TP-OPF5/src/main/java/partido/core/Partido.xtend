@@ -94,7 +94,7 @@ class Partido {
 	}
 	
 	def Boolean estasConfirmado() {
-		this.jugadoresInscriptos.forall[inscripto | inscripto.estaConfirmada ]
+		this.jugadoresInscriptos.forall[inscripto | inscripto.estaConfirmada ] && (jugadoresInscriptos.size() == maximoLista)
 	}
 	
 }

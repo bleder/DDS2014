@@ -16,7 +16,7 @@ class PartidoConfirmadoDecorator extends PartidoDecorator {
 	override confirmarJugador(Jugador jugador){
 		super.confirmarJugador(jugador)
 		if(super.estasConfirmado()){
-			sender.notificar(super.getAdministrador.mail, "El partido esta lleno")
+			sender.notificar(super.getAdministrador.mail, "Partido completo")
 		}
 	}
 }

@@ -33,10 +33,10 @@ public class TstInscripcion {
   
   @Before
   public void init() {
-    Jugador _jugador = new Jugador("Rodolfo");
+    Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
     this.jugador = _jugador;
     MailSender _mailSender = new MailSender();
-    Jugador _jugador_1 = new Jugador("Juan Administra");
+    Jugador _jugador_1 = new Jugador("Juan Administra", "admin@aol.com");
     Partido _partido = new Partido("Partido_1", _mailSender, _jugador_1);
     this.partido = _partido;
     Estandar _estandar = new Estandar();
@@ -83,7 +83,7 @@ public class TstInscripcion {
     Partido _xblockexpression = null;
     {
       MailSender _mailSender = new MailSender();
-      Jugador _jugador = new Jugador("Juan Administra");
+      Jugador _jugador = new Jugador("Juan Administra", "admin@aol.com");
       final Partido completo = new Partido("Hola", _mailSender, _jugador);
       completo.setMaximoLista(0);
       _xblockexpression = completo;
@@ -93,7 +93,7 @@ public class TstInscripcion {
   
   @Test
   public void jugadorSeDaDeBajaYDejaReemplazante() {
-    Jugador jugador2 = new Jugador("Ricardo");
+    Jugador jugador2 = new Jugador("Ricardo", "ricky@aol.com");
     this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
     this.partido.darBajaA(this.jugador, jugador2, this.tipoIncEstandar);
     boolean _and = false;
@@ -177,10 +177,10 @@ public class TstInscripcion {
   @Test
   public void jugadorEstandarTienePrioridadSobreSolidario() {
     MailSender _mailSender = new MailSender();
-    Jugador _jugador = new Jugador("Juan Administra");
+    Jugador _jugador = new Jugador("Juan Administra", "admin@aol.com");
     Partido partido = new Partido("Cancha 2", _mailSender, _jugador);
     partido.setMaximoLista(1);
-    Jugador _jugador_1 = new Jugador("Roberto");
+    Jugador _jugador_1 = new Jugador("Roberto", "rober@hotmail.com");
     _jugador_1.inscribite(partido, this.tipoIncSolidaria);
     this.jugador.inscribite(partido, this.tipoIncEstandar);
     boolean _estaInscripto = partido.estaInscripto(this.jugador);

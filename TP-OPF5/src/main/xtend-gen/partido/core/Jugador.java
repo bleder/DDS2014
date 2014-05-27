@@ -48,10 +48,13 @@ public class Jugador {
     this._amigos = amigos;
   }
   
-  public Jugador(final String nom) {
+  public Jugador(final String nom, final String newMail) {
+    this.setMail(newMail);
     this.setNombre(nom);
     ArrayList<Infraccion> _arrayList = new ArrayList<Infraccion>();
     this.setInfracciones(_arrayList);
+    ArrayList<Jugador> _arrayList_1 = new ArrayList<Jugador>();
+    this.setAmigos(_arrayList_1);
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {

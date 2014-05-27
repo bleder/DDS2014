@@ -17,7 +17,7 @@ class PartidoEstabaConfirmado extends PartidoDecorator {
 		val debeNotificar = super.estasConfirmado()
 		super.darBajaA(jugador)
 		if(debeNotificar){
-			sender.notificar(super.getAdministrador.mail, "El partido ya no esta lleno")
+			sender.notificar(super.getAdministrador.mail, "Partido ya no completo")
 		}
 	}
 }

@@ -12,7 +12,7 @@ import partido.observers.PartidoObserver;
 public class AmigosObserver implements PartidoObserver {
   private Notificador sender;
   
-  public AmigosObserver(final String mails, final Notificador send) {
+  public AmigosObserver(final Notificador send) {
     this.sender = send;
   }
   
