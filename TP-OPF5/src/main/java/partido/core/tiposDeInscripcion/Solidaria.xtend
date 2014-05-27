@@ -1,4 +1,7 @@
-package utn.edu.dds.TP_OPF5
+package partido.core.tiposDeInscripcion
+
+import partido.core.Jugador
+import partido.core.Partido
 
 class Solidaria extends Object implements TipoInscripcion {
 	override inscribirA(Jugador jugador, Partido partido){

@@ -1,24 +1,24 @@
 package partido.core
 
-import utn.edu.dds.TP_OPF5.TipoInscripcion
+import partido.core.tiposDeInscripcion.TipoInscripcion
 
 class Inscripcion {
 	
 	@Property
 	TipoInscripcion tipoInscripcion
 	@Property
-	utn.edu.dds.TP_OPF5.Jugador jugador
+	Jugador jugador
 	
 	@Property
 	boolean estaConfirmada
 	
-	new(utn.edu.dds.TP_OPF5.Jugador jug, TipoInscripcion tipoIncrip) {
+	new(Jugador jug, TipoInscripcion tipoIncrip) {
 		tipoInscripcion=tipoIncrip
 		jugador=jug
 		estaConfirmada=false
 	}
 	
-	def sosInscripcionDe(utn.edu.dds.TP_OPF5.Jugador otroJugador) {
+	def sosInscripcionDe(Jugador otroJugador) {
 		otroJugador == getJugador
 	}
 	

@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5
+package partido.mailSender
 
 class MailSender extends Object implements Notificador {
 

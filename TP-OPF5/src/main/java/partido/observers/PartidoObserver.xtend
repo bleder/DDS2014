@@ -1,4 +1,7 @@
-package utn.edu.dds.TP_OPF5
+package partido.observers
+
+import partido.core.Jugador
+import partido.core.Partido
 
 interface PartidoObserver {
 	def void jugadorInscripto(Jugador jugador, Partido partido)

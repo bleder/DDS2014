@@ -3,8 +3,8 @@ package partido.core;
 import java.util.ArrayList;
 import java.util.List;
 import partido.core.Infraccion;
-import utn.edu.dds.TP_OPF5.Partido;
-import utn.edu.dds.TP_OPF5.TipoInscripcion;
+import partido.core.Partido;
+import partido.core.tiposDeInscripcion.TipoInscripcion;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -55,17 +55,20 @@ public class Jugador {
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
-    final Jugador _converted_this = (Jugador)this;
-    tipoInscripcion.inscribirA(_converted_this, partido);
+    tipoInscripcion.inscribirA(this, partido);
   }
   
   public void confirmarse(final Partido partido) {
-    final Jugador _converted_this = (Jugador)this;
-    partido.confirmarJugador(_converted_this);
+    partido.confirmarJugador(this);
   }
   
   public boolean nuevaInfraccion(final Infraccion infraccion) {
     List<Infraccion> _infracciones = this.getInfracciones();
     return _infracciones.add(infraccion);
+  }
+  
+  public boolean agregarAmigo(final Jugador jugador) {
+    List<Jugador> _amigos = this.getAmigos();
+    return _amigos.add(jugador);
   }
 }

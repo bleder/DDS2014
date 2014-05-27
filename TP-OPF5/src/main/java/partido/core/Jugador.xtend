@@ -4,6 +4,8 @@ package partido.core
 
 import java.util.List
 import java.util.ArrayList
+import partido.core.tiposDeInscripcion.TipoInscripcion
+
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
 class Jugador {
@@ -23,11 +25,11 @@ class Jugador {
 		infracciones = new ArrayList
 	}
 	
- 	def inscribite(utn.edu.dds.TP_OPF5.Partido partido, utn.edu.dds.TP_OPF5.TipoInscripcion tipoInscripcion) {
+ 	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
 	}
 	
-	 def confirmarse(utn.edu.dds.TP_OPF5.Partido partido) {
+	 def confirmarse(Partido partido) {
 		partido.confirmarJugador(this)
 	}
 	
@@ -35,5 +37,8 @@ class Jugador {
 		this.getInfracciones.add(infraccion)
 	}
 	
+	def agregarAmigo(Jugador jugador){
+		amigos.add(jugador)
+	}
 	
 }

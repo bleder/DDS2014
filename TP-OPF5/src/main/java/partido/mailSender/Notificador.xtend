@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5
+package partido.mailSender
 
 interface Notificador {
 	def void notificar(String mail, String mensaje)

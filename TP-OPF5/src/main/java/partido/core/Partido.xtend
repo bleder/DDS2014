@@ -1,8 +1,12 @@
-package utn.edu.dds.TP_OPF5
+package partido.core
 
 import exception.PartidoCompletoExcepcion
+import partido.core.Inscripcion
 import java.util.ArrayList
 import java.util.List
+import partido.core.tiposDeInscripcion.TipoInscripcion
+import partido.observers.PartidoObserver
+import partido.mailSender.Notificador
 
 class Partido {
 	
@@ -13,8 +17,6 @@ class Partido {
 	@Property 
 	private List<PartidoObserver> observers
 	@Property
-	Notificador notificador
-	@Property
 	Jugador administrador
 	@Property 
 	int	maximoLista
@@ -24,7 +26,6 @@ class Partido {
 		jugadoresInscriptos = new ArrayList
 		observers = new ArrayList
 		maximoLista = 10
-		notificador = notifPartido
 		administrador = adminPartido
 	}
 	

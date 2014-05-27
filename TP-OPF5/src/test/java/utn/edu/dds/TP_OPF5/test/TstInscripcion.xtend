@@ -4,15 +4,14 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
 import static org.mockito.Mockito.*
-import utn.edu.dds.TP_OPF5.Jugador
-import utn.edu.dds.TP_OPF5.Partido
-import utn.edu.dds.TP_OPF5.Estandar
-import utn.edu.dds.TP_OPF5.Condicional
-import utn.edu.dds.TP_OPF5.Solidaria
-import utn.edu.dds.TP_OPF5.Notificador
-import utn.edu.dds.TP_OPF5.MailSender
 import exception.PartidoCompletoExcepcion
 import exception.PartidoNoCumpleCondicionesExcepcion
+import partido.core.Jugador
+import partido.core.Partido
+import partido.core.tiposDeInscripcion.Estandar
+import partido.core.tiposDeInscripcion.Condicional
+import partido.core.tiposDeInscripcion.Solidaria
+import partido.mailSender.MailSender
 
 class TstInscripcion {
 

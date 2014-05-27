@@ -1,4 +1,7 @@
-package utn.edu.dds.TP_OPF5
+package partido.core.tiposDeInscripcion
+
+import partido.core.Jugador
+import partido.core.Partido
 
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 import exception.PartidoNoCumpleCondicionesExcepcion

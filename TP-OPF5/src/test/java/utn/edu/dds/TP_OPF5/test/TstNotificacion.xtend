@@ -4,17 +4,14 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
 import static org.mockito.Mockito.*
-import utn.edu.dds.TP_OPF5.Jugador
-import utn.edu.dds.TP_OPF5.Partido
-import utn.edu.dds.TP_OPF5.Estandar
-import utn.edu.dds.TP_OPF5.Condicional
-import utn.edu.dds.TP_OPF5.Solidaria
-import utn.edu.dds.TP_OPF5.Notificador
-import utn.edu.dds.TP_OPF5.MailSender
 import exception.PartidoCompletoExcepcion
 import exception.PartidoNoCumpleCondicionesExcepcion
-import utn.edu.dds.TP_OPF5.PartidoConfirmadoObserver
-import utn.edu.dds.TP_OPF5.AmigosObserver
+import partido.core.Jugador
+import partido.core.Partido
+import partido.core.tiposDeInscripcion.Estandar
+import partido.mailSender.MailSender
+import partido.observers.PartidoConfirmadoObserver
+import partido.observers.AmigosObserver
 
 class TstNotificacion {
 	
@@ -35,8 +32,7 @@ class TstNotificacion {
 	
 	@Test
 	def void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados(){
-		var partObse = new PartidoConfirmadoObserver
-		partido.notificador=mockMailSender
+		var partObse = new PartidoConfirmadoObserver(mockMailSender)
 		partido.agregarObserver(partObse)
 		partido.setMaximoLista = 1
 		partido.agregarJugador(jugador, tipoIncEstandar)
@@ -46,8 +42,7 @@ class TstNotificacion {
 	
 	@Test
 	def void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados(){
-		var partObse = new PartidoConfirmadoObserver
-		partido.notificador=mockMailSender
+		var partObse = new PartidoConfirmadoObserver(mockMailSender)
 		partido.agregarObserver(partObse)
 		partido.setMaximoLista = 1
 		partido.agregarJugador(jugador, tipoIncEstandar)
@@ -58,9 +53,8 @@ class TstNotificacion {
 	
 	@Test
 	def void notificaAmigosDeJugadorAlInscribirse(){
-		partido.notificador=mockMailSender
 		var amigo = new AmigosObserver("amigo@aol.com", mockMailSender)
-		amigo.agregarAmigo(jugador)
+		jugador.agregarAmigo(new Jugador("Ricardo"))
 		partido.agregarObserver(amigo)
 		jugador.inscribite(partido, tipoIncEstandar)
 		verify(mockMailSender,times(1)).notificar("amigo@aol.com", "Tu amigo se inscribio")

@@ -1,8 +1,15 @@
-package utn.edu.dds.TP_OPF5
+package partido.observers
+
+import partido.core.Jugador
+import partido.core.Partido
+import partido.mailSender.Notificador
 
 class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	
-	new() {
+	Notificador sender
+	
+	new(Notificador send) {
+		sender = send
 	}
 	
 	override jugadorConfirmado(Jugador jugador, Partido partido){
@@ -21,6 +28,6 @@ class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	}
 	
 	def notificarAdmin(Partido partido, String mensaje){
-		partido.notificador.notificar(partido.administrador.mail, mensaje)
+		sender.notificar(partido.administrador.mail, mensaje)
 	}
 }

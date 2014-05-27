@@ -1,6 +1,8 @@
 package partido.core;
 
-import utn.edu.dds.TP_OPF5.TipoInscripcion;
+import com.google.common.base.Objects;
+import partido.core.Jugador;
+import partido.core.tiposDeInscripcion.TipoInscripcion;
 
 @SuppressWarnings("all")
 public class Inscripcion {
@@ -14,13 +16,13 @@ public class Inscripcion {
     this._tipoInscripcion = tipoInscripcion;
   }
   
-  private /* utn.edu.dds.TP_OPF5.Jugador */Object _jugador;
+  private Jugador _jugador;
   
-  public /* utn.edu.dds.TP_OPF5.Jugador */Object getJugador() {
+  public Jugador getJugador() {
     return this._jugador;
   }
   
-  public void setJugador(final /* utn.edu.dds.TP_OPF5.Jugador */Object jugador) {
+  public void setJugador(final Jugador jugador) {
     this._jugador = jugador;
   }
   
@@ -34,15 +36,15 @@ public class Inscripcion {
     this._estaConfirmada = estaConfirmada;
   }
   
-  public Inscripcion(final /* utn.edu.dds.TP_OPF5.Jugador */Object jug, final TipoInscripcion tipoIncrip) {
+  public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
     this.setJugador(jug);
     this.setEstaConfirmada(false);
   }
   
-  public Object sosInscripcionDe(final /* utn.edu.dds.TP_OPF5.Jugador */Object otroJugador) {
-    throw new Error("Unresolved compilation problems:"
-      + "\n== cannot be resolved");
+  public boolean sosInscripcionDe(final Jugador otroJugador) {
+    Jugador _jugador = this.getJugador();
+    return Objects.equal(otroJugador, _jugador);
   }
   
   public void confirmar() {
