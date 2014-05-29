@@ -58,4 +58,15 @@ class TstDecorator {
 		partDecorado.agregarJugador(jugador, inscripcion)
 		verify(mockMailSender,times(1)).notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo")
 	}
+	
+	@Test
+	def void jugadorSeDaDeBajaPartidoNoCompleto() {
+		var partDecorado = new PartidoEstabaConfirmado(partido, mockMailSender)
+		partido.setMaximoLista = 2
+		partDecorado.agregarJugador(jugador, inscripcion)
+		partDecorado.confirmarJugador(jugador)
+		partDecorado.darBajaA(jugador)
+		verify(mockMailSender,times(0)).notificar(partDecorado.administrador.mail, "Partido completo")
+		verify(mockMailSender,times(0)).notificar(partDecorado.administrador.mail, "Partido ya no completo")
+	}
 }

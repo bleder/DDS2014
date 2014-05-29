@@ -73,8 +73,8 @@ public class TstNotificacion {
   
   @Test
   public void partidoNoConfirmadoCuandoEstaVacio() {
-    Boolean _estasConfirmado = this.partido.estasConfirmado();
-    Assert.assertFalse((_estasConfirmado).booleanValue());
+    boolean _estasConfirmado = this.partido.estasConfirmado();
+    Assert.assertFalse(_estasConfirmado);
   }
   
   @Test
@@ -87,5 +87,25 @@ public class TstNotificacion {
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
     _verify.notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo");
+  }
+  
+  @Test
+  public void jugadorSeDaDeBajaPartidoNoCompleto() {
+    PartidoConfirmadoObserver partObse = new PartidoConfirmadoObserver(this.mockMailSender);
+    this.partido.setMaximoLista(2);
+    this.partido.agregarObserver(partObse);
+    this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
+    this.partido.confirmarJugador(this.jugador);
+    this.partido.darBajaA(this.jugador);
+    VerificationMode _times = Mockito.times(0);
+    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
+    Jugador _administrador = this.partido.getAdministrador();
+    String _mail = _administrador.getMail();
+    _verify.notificar(_mail, "Partido completo");
+    VerificationMode _times_1 = Mockito.times(0);
+    MailSender _verify_1 = Mockito.<MailSender>verify(this.mockMailSender, _times_1);
+    Jugador _administrador_1 = this.partido.getAdministrador();
+    String _mail_1 = _administrador_1.getMail();
+    _verify_1.notificar(_mail_1, "Partido ya no completo");
   }
 }

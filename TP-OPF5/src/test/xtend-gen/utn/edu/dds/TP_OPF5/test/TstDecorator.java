@@ -80,4 +80,23 @@ public class TstDecorator {
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
     _verify.notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo");
   }
+  
+  @Test
+  public void jugadorSeDaDeBajaPartidoNoCompleto() {
+    PartidoEstabaConfirmado partDecorado = new PartidoEstabaConfirmado(this.partido, this.mockMailSender);
+    this.partido.setMaximoLista(2);
+    partDecorado.agregarJugador(this.jugador, this.inscripcion);
+    partDecorado.confirmarJugador(this.jugador);
+    partDecorado.darBajaA(this.jugador);
+    VerificationMode _times = Mockito.times(0);
+    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
+    Jugador _administrador = partDecorado.getAdministrador();
+    String _mail = _administrador.getMail();
+    _verify.notificar(_mail, "Partido completo");
+    VerificationMode _times_1 = Mockito.times(0);
+    MailSender _verify_1 = Mockito.<MailSender>verify(this.mockMailSender, _times_1);
+    Jugador _administrador_1 = partDecorado.getAdministrador();
+    String _mail_1 = _administrador_1.getMail();
+    _verify_1.notificar(_mail_1, "Partido ya no completo");
+  }
 }

@@ -213,24 +213,20 @@ public class Partido {
     return _observers.add(obs);
   }
   
-  public Boolean estasConfirmado() {
-    boolean _and = false;
+  public int cantidadConfirmados() {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
       public Boolean apply(final Inscripcion inscripto) {
         return Boolean.valueOf(inscripto.isEstaConfirmada());
       }
     };
-    boolean _forall = IterableExtensions.<Inscripcion>forall(_jugadoresInscriptos, _function);
-    if (!_forall) {
-      _and = false;
-    } else {
-      List<Inscripcion> _jugadoresInscriptos_1 = this.getJugadoresInscriptos();
-      int _size = _jugadoresInscriptos_1.size();
-      int _maximoLista = this.getMaximoLista();
-      boolean _equals = (_size == _maximoLista);
-      _and = _equals;
-    }
-    return Boolean.valueOf(_and);
+    Iterable<Inscripcion> _filter = IterableExtensions.<Inscripcion>filter(_jugadoresInscriptos, _function);
+    return IterableExtensions.size(_filter);
+  }
+  
+  public boolean estasConfirmado() {
+    int _cantidadConfirmados = this.cantidadConfirmados();
+    int _maximoLista = this.getMaximoLista();
+    return (_cantidadConfirmados == _maximoLista);
   }
 }

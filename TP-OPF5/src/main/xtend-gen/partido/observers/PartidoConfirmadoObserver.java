@@ -14,16 +14,18 @@ public class PartidoConfirmadoObserver implements PartidoObserver {
   }
   
   public void jugadorConfirmado(final Jugador jugador, final Partido partido) {
-    Boolean _estasConfirmado = partido.estasConfirmado();
-    if ((_estasConfirmado).booleanValue()) {
+    boolean _estasConfirmado = partido.estasConfirmado();
+    if (_estasConfirmado) {
       this.notificarAdmin(partido, "Partido completo");
     }
   }
   
   public void jugadorDadoDeBaja(final Jugador jugador, final Partido partido) {
-    Boolean _estasConfirmado = partido.estasConfirmado();
-    boolean _not = (!(_estasConfirmado).booleanValue());
-    if (_not) {
+    int _cantidadConfirmados = partido.cantidadConfirmados();
+    int _maximoLista = partido.getMaximoLista();
+    int _minus = (_maximoLista - 1);
+    boolean _equals = (_cantidadConfirmados == _minus);
+    if (_equals) {
       this.notificarAdmin(partido, "Partido ya no completo");
     }
   }

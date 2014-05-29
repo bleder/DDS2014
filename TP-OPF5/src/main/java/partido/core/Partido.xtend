@@ -93,8 +93,12 @@ class Partido {
 		observers.add(obs)
 	}
 	
-	def Boolean estasConfirmado() {
-		this.jugadoresInscriptos.forall[inscripto | inscripto.estaConfirmada ] && (jugadoresInscriptos.size() == maximoLista)
+	def cantidadConfirmados() {
+		this.jugadoresInscriptos.filter[inscripto | inscripto.estaConfirmada].size()
+	}
+	
+	def boolean estasConfirmado() {
+		this.cantidadConfirmados() == maximoLista
 	}
 	
 }

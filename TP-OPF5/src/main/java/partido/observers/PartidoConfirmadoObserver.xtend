@@ -19,7 +19,7 @@ class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	}
 
 	override jugadorDadoDeBaja(Jugador jugador, Partido partido){
-		if(!partido.estasConfirmado){ //TODO: faltan condiciones, el partido tenia que estar completo y no lo estamos checkeando
+		if(partido.cantidadConfirmados() == (partido.maximoLista - 1)){
 			this.notificarAdmin(partido, "Partido ya no completo")
 		}
 	}

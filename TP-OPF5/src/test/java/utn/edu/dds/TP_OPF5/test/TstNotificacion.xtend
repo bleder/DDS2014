@@ -63,4 +63,16 @@ class TstNotificacion {
 		jugador.inscribite(partido, tipoIncEstandar)
 		verify(mockMailSender,times(1)).notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo")
 	}
+	
+	@Test
+	def void jugadorSeDaDeBajaPartidoNoCompleto() {
+		var partObse = new PartidoConfirmadoObserver(mockMailSender)
+		partido.setMaximoLista = 2
+		partido.agregarObserver(partObse)
+		partido.agregarJugador(jugador, tipoIncEstandar)
+		partido.confirmarJugador(jugador)
+		partido.darBajaA(jugador)
+		verify(mockMailSender,times(0)).notificar(partido.administrador.mail, "Partido completo")
+		verify(mockMailSender,times(0)).notificar(partido.administrador.mail, "Partido ya no completo")
+	}
 }
