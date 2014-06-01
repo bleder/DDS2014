@@ -8,15 +8,15 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.mockito.verification.VerificationMode;
-import utn.edu.dds.TP_OPF5.Condicional;
-import utn.edu.dds.TP_OPF5.Estandar;
-import utn.edu.dds.TP_OPF5.Jugador;
-import utn.edu.dds.TP_OPF5.MailSender;
-import utn.edu.dds.TP_OPF5.Partido;
-import utn.edu.dds.TP_OPF5.Solidaria;
+import partido.core.Infraccion;
+import partido.core.Jugador;
+import partido.core.Partido;
+import partido.core.tiposDeInscripcion.Condicional;
+import partido.core.tiposDeInscripcion.Estandar;
+import partido.core.tiposDeInscripcion.Solidaria;
+import partido.mailSender.MailSender;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class TstInscripcion {
@@ -34,9 +34,25 @@ public class TstInscripcion {
   
   @Before
   public void init() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nno viable alternative at input \'?\'"
-      + "\nCannot instantiate the interface type Notificador");
+    Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
+    this.jugador = _jugador;
+    MailSender _mailSender = new MailSender();
+    Administrador _administrador = new Administrador("admin@aol.com");
+    Partido _partido = new Partido("Partido_1", _mailSender, _administrador);
+    this.partido = _partido;
+    Estandar _estandar = new Estandar();
+    this.tipoIncEstandar = _estandar;
+    final Function1<Partido,Boolean> _function = new Function1<Partido,Boolean>() {
+      public Boolean apply(final Partido part) {
+        return Boolean.valueOf(true);
+      }
+    };
+    Condicional _condicional = new Condicional(_function);
+    this.tipoIncCondicional = _condicional;
+    Solidaria _solidaria = new Solidaria();
+    this.tipoIncSolidaria = _solidaria;
+    MailSender _mock = Mockito.<MailSender>mock(MailSender.class);
+    this.mockMailSender = _mock;
   }
   
   @Test
@@ -65,9 +81,42 @@ public class TstInscripcion {
   }
   
   public Partido crearPartidoCompleto() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nno viable alternative at input \'?\'"
-      + "\nCannot instantiate the interface type Notificador");
+    Partido _xblockexpression = null;
+    {
+      MailSender _mailSender = new MailSender();
+      Administrador _administrador = new Administrador("admin@aol.com");
+      final Partido completo = new Partido("Hola", _mailSender, _administrador);
+      completo.setMaximoLista(0);
+      _xblockexpression = completo;
+    }
+    return _xblockexpression;
+  }
+  
+  @Test
+  public void jugadorSeDaDeBajaYDejaReemplazante() {
+    Jugador jugador2 = new Jugador("Ricardo", "ricky@aol.com");
+    this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
+    this.partido.darBajaA(this.jugador, jugador2, this.tipoIncEstandar);
+    boolean _and = false;
+    boolean _estaInscripto = this.partido.estaInscripto(jugador2);
+    if (!_estaInscripto) {
+      _and = false;
+    } else {
+      boolean _estaInscripto_1 = this.partido.estaInscripto(this.jugador);
+      boolean _not = (!_estaInscripto_1);
+      _and = _not;
+    }
+    Assert.assertTrue(_and);
+  }
+  
+  @Test
+  public void jugadorSeDaDeBajaSinReemplazanteRecibeInfraccion() {
+    this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
+    this.partido.darBajaA(this.jugador);
+    List<Infraccion> _infracciones = this.jugador.getInfracciones();
+    int _size = _infracciones.size();
+    boolean _equals = (_size == 1);
+    Assert.assertTrue(_equals);
   }
   
   @Test
@@ -128,40 +177,14 @@ public class TstInscripcion {
   
   @Test
   public void jugadorEstandarTienePrioridadSobreSolidario() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nno viable alternative at input \'?\'"
-      + "\nCannot instantiate the interface type Notificador");
-  }
-  
-  @Test
-  public void notificaAmigosDeJugadorAlInscribirse() {
-    this.partido.setNotificador(this.mockMailSender);
-    this.jugador.inscribite(this.partido, this.tipoIncEstandar);
-    List<Jugador> _amigosJugador = this.jugador.getAmigosJugador();
-    int _size = _amigosJugador.size();
-    VerificationMode _times = Mockito.times(_size);
-    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    String _any = Matchers.<String>any(String.class);
-    _verify.notificar(_any);
-  }
-  
-  @Test
-  public void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados() {
-    this.partido.setNotificador(this.mockMailSender);
-    VerificationMode _times = Mockito.times(1);
-    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
-    String _mail = _administrador.getMail();
-    _verify.notificar(_mail);
-  }
-  
-  @Test
-  public void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados() {
-    this.partido.setNotificador(this.mockMailSender);
-    VerificationMode _times = Mockito.times(1);
-    MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
-    String _mail = _administrador.getMail();
-    _verify.notificar(_mail);
+    MailSender _mailSender = new MailSender();
+    Administrador _administrador = new Administrador("admin@aol.com");
+    Partido partido = new Partido("Cancha 2", _mailSender, _administrador);
+    partido.setMaximoLista(1);
+    Jugador _jugador = new Jugador("Roberto", "rober@hotmail.com");
+    _jugador.inscribite(partido, this.tipoIncSolidaria);
+    this.jugador.inscribite(partido, this.tipoIncEstandar);
+    boolean _estaInscripto = partido.estaInscripto(this.jugador);
+    Assert.assertTrue(_estaInscripto);
   }
 }

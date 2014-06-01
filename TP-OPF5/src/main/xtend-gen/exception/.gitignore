@@ -1,2 +1,8 @@
-/.PartidoCompletoExcepcion.java._trace
-/.PartidoNoCumpleCondicionesExcepcion.java._trace
+/.JugadorNoPerteneceAlPartido.java._trace
+/.NoExisteMailException.java._trace
+/.NoExisteTalJugadorException.java._trace
+/.NotaIncorrecta.java._trace
+/JugadorNoPerteneceAlPartido.java
+/NoExisteMailException.java
+/NoExisteTalJugadorException.java
+/NotaIncorrecta.java
