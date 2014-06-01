@@ -5,6 +5,9 @@ package partido.core
 import java.util.List
 import java.util.ArrayList
 import partido.core.tiposDeInscripcion.TipoInscripcion
+import partido.calificaciones.Calificacion
+import exception.JugadorNoPerteneceAlPartido
+import exception.NotaIncorrecta
 
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
@@ -17,6 +20,8 @@ class Jugador {
 	List<Infraccion> infracciones
 	@Property 
 	List<Jugador> amigos
+	@Property
+	List<Calificacion> calificaciones
 	
 	
 	
@@ -41,6 +46,29 @@ class Jugador {
 	
 	def agregarAmigo(Jugador jugador){
 		amigos.add(jugador)
+	}
+	
+	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
+		if (partido.estaInscripto(jugador))
+		{
+			if (nota>=1 && nota<=10){
+			this.crearCalificacion(jugador,partido,nota,critica)
+			}
+			else{throw new NotaIncorrecta("La nota ingresada no es correcta")}			
+		}
+		else
+		{
+			throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido")
+		}
+		
+	}
+	
+	def agregateCalificacion(Calificacion calificacion){
+		this.calificaciones.add(calificacion)
+	}
+	
+	def crearCalificacion(Jugador jugador,Partido partido,int nota,String critica){
+		jugador.agregateCalificacion(new Calificacion(critica,jugador,partido,nota))
 	}
 	
 }
