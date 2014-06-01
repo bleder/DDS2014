@@ -3,15 +3,21 @@ package partido.nuevosJugadores
 import java.util.List
 import partido.core.Jugador
 import exception.NoExisteTalJugadorException
+import java.util.ArrayList
 
 class Administrador {
 	
 	@Property
 	String mail
+	@Property
 	List<Propuesta> posiblesJugadores
+	@Property
+	List<Rechazo> jugadoresRechazados
 	
 	new(String adminMail) {
 		mail = adminMail
+		posiblesJugadores = new ArrayList
+		jugadoresRechazados = new ArrayList
 	}
 	
 	def existePropuesta(String mail) {
@@ -30,6 +36,10 @@ class Administrador {
 		posiblesJugadores.add(nuevaPropuesta)
 	}
 	
+	def nuevoRechazo(Rechazo nuevoRechazo) {
+		jugadoresRechazados.add(nuevoRechazo)
+	}
+	
 	def aceptarPropuesta(String mail, String nombre) {
 		if (!existePropuesta(mail)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
@@ -46,6 +56,6 @@ class Administrador {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
 		removerPropuesta(mail)
-		new Rechazo(mail, razon) //Usar Notificador?
+		nuevoRechazo(new Rechazo(mail, razon)) //Usar Notificador?
 	}
 }
