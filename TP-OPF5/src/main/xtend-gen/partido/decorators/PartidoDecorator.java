@@ -3,6 +3,7 @@ package partido.decorators;
 import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.decorators.PartidoInterface;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class PartidoDecorator implements PartidoInterface {
@@ -56,7 +57,7 @@ public class PartidoDecorator implements PartidoInterface {
     return this.decorado.estasConfirmado();
   }
   
-  public Jugador getAdministrador() {
+  public Administrador getAdministrador() {
     return this.decorado.getAdministrador();
   }
 }

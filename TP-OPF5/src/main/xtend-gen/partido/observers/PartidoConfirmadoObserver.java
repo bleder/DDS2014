@@ -3,6 +3,7 @@ package partido.observers;
 import partido.core.Jugador;
 import partido.core.Partido;
 import partido.mailSender.Notificador;
+import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
 
 @SuppressWarnings("all")
@@ -34,7 +35,7 @@ public class PartidoConfirmadoObserver implements PartidoObserver {
   }
   
   public void notificarAdmin(final Partido partido, final String mensaje) {
-    Jugador _administrador = partido.getAdministrador();
+    Administrador _administrador = partido.getAdministrador();
     String _mail = _administrador.getMail();
     this.sender.notificar(_mail, mensaje);
   }

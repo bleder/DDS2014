@@ -8,6 +8,7 @@ import partido.mailSender.Notificador
 import partido.core.Jugador
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.core.Infraccion
+import partido.nuevosJugadores.Administrador
 
 //import ar.edu.utn.frba.TP.OPF5.excepcion.PartidoCompletoExcepcion
 
@@ -20,11 +21,11 @@ class Partido implements PartidoInterface{
 	@Property
 	Notificador notificador
 	@Property
-	Jugador administrador
+	Administrador administrador
 	@Property 
 	int	maximoLista
 	
-	new(String nomPartido, Notificador notifPartido, Jugador adminPartido){
+	new(String nomPartido, Notificador notifPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
 		jugadoresInscriptos = new ArrayList
 		maximoLista = 10

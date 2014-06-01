@@ -12,6 +12,7 @@ import partido.core.tiposDeInscripcion.Estandar
 import partido.core.tiposDeInscripcion.Condicional
 import partido.core.tiposDeInscripcion.Solidaria
 import partido.mailSender.MailSender
+import partido.nuevosJugadores.Administrador
 
 class TstInscripcion {
 
@@ -25,7 +26,7 @@ class TstInscripcion {
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
-		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
+		partido = new Partido("Partido_1", new MailSender, new Administrador("admin@aol.com"))
 		tipoIncEstandar = new Estandar()
 		tipoIncCondicional = new Condicional([Partido part | true])
 		tipoIncSolidaria = new Solidaria()
@@ -52,7 +53,7 @@ class TstInscripcion {
 	}
 
 	def crearPartidoCompleto() {
-		val Partido completo = new Partido("Hola", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
+		val Partido completo = new Partido("Hola", new MailSender, new Administrador("admin@aol.com"))
 		completo.maximoLista = 0
 		completo
 	}
@@ -112,7 +113,7 @@ class TstInscripcion {
 
 	@Test
 	def void jugadorEstandarTienePrioridadSobreSolidario() {
-		var partido = new Partido("Cancha 2", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
+		var partido = new Partido("Cancha 2", new MailSender, new Administrador("admin@aol.com"))
 		partido.maximoLista = 1
 		(new Jugador("Roberto", "rober@hotmail.com")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)

@@ -2,6 +2,7 @@ package partido.decorators;
 
 import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public interface PartidoInterface {
@@ -27,5 +28,5 @@ public interface PartidoInterface {
   
   public abstract boolean estasConfirmado();
   
-  public abstract Jugador getAdministrador();
+  public abstract Administrador getAdministrador();
 }

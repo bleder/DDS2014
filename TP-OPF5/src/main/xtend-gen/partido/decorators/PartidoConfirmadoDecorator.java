@@ -4,6 +4,7 @@ import partido.core.Jugador;
 import partido.decorators.PartidoDecorator;
 import partido.decorators.PartidoInterface;
 import partido.mailSender.Notificador;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class PartidoConfirmadoDecorator extends PartidoDecorator {
@@ -18,7 +19,7 @@ public class PartidoConfirmadoDecorator extends PartidoDecorator {
     super.confirmarJugador(jugador);
     boolean _estasConfirmado = super.estasConfirmado();
     if (_estasConfirmado) {
-      Jugador _administrador = super.getAdministrador();
+      Administrador _administrador = super.getAdministrador();
       String _mail = _administrador.getMail();
       this.sender.notificar(_mail, "Partido completo");
     }

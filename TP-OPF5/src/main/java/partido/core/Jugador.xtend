@@ -8,6 +8,9 @@ import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.calificaciones.Calificacion
 import exception.JugadorNoPerteneceAlPartido
 import exception.NotaIncorrecta
+import exception.NoExisteMailException
+import partido.nuevosJugadores.Propuesta
+import partido.nuevosJugadores.Administrador
 
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
@@ -19,7 +22,7 @@ class Jugador {
 	@Property 
 	List<Infraccion> infracciones
 	@Property 
-	List<Jugador> amigos
+	List<String> amigos
 	@Property
 	List<Calificacion> calificaciones
 	
@@ -44,8 +47,8 @@ class Jugador {
 		this.getInfracciones.add(infraccion)
 	}
 	
-	def agregarAmigo(Jugador jugador){
-		amigos.add(jugador)
+	def agregarAmigo(String mailAmigo){
+		amigos.add(mailAmigo)
 	}
 	
 	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
@@ -69,6 +72,18 @@ class Jugador {
 	
 	def crearCalificacion(Jugador jugador,Partido partido,int nota,String critica){
 		jugador.agregateCalificacion(new Calificacion(critica,jugador,partido,nota))
+	}
+	
+	def crearPropuesta(String amigo, Administrador admin) {
+		if(!existeAmigo(amigo)) {
+			throw new NoExisteMailException("El jugador no tiene a ese amigo")
+		}
+		
+		admin.nuevaPropuesta(new Propuesta(amigo, this))
+	}
+	
+	def existeAmigo(String mail) {
+		amigos.exists[amigo | amigo == mail]
 	}
 	
 }

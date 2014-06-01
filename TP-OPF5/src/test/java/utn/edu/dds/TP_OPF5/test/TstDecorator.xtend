@@ -11,6 +11,7 @@ import partido.mailSender.MailSender
 import partido.decorators.PartidoConfirmadoDecorator
 import partido.decorators.PartidoEstabaConfirmado
 import partido.decorators.AmigosDecorator
+import partido.nuevosJugadores.Administrador
 
 class TstDecorator {
 	
@@ -22,7 +23,7 @@ class TstDecorator {
 	@Before
 	def void init(){
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
-		partido = new Partido("Partido_1", new MailSender, new Jugador("Juan Administra", "admin@aol.com"))
+		partido = new Partido("Partido_1", new MailSender, new Administrador("admin@aol.com"))
 		inscripcion = new Estandar
 		mockMailSender= mock (typeof(MailSender))
 	}
@@ -54,7 +55,7 @@ class TstDecorator {
 	@Test
 	def void notificaAmigosDeJugadorAlInscribirse(){
 		var partDecorado = new AmigosDecorator(partido, mockMailSender)
-		jugador.agregarAmigo(new Jugador("Ricardo", "ricky@aol.com"))
+		jugador.agregarAmigo("ricky@aol.com")
 		partDecorado.agregarJugador(jugador, inscripcion)
 		verify(mockMailSender,times(1)).notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo")
 	}

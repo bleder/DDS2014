@@ -9,6 +9,7 @@ import partido.core.Jugador;
 import partido.core.Partido;
 import partido.core.tiposDeInscripcion.Estandar;
 import partido.mailSender.MailSender;
+import partido.nuevosJugadores.Administrador;
 import partido.observers.AmigosObserver;
 import partido.observers.PartidoConfirmadoObserver;
 
@@ -26,7 +27,7 @@ public class TstNotificacion {
   public void init() {
     Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
     this.jugador = _jugador;
-    Jugador administrador = new Jugador("Juan Administrador", "admin@aol.com");
+    Administrador administrador = new Administrador("admin@aol.com");
     administrador.setMail("juan.administrador@aol.com");
     MailSender _mailSender = new MailSender();
     Partido _partido = new Partido("Partido_1", _mailSender, administrador);
@@ -46,7 +47,7 @@ public class TstNotificacion {
     this.partido.confirmarJugador(this.jugador);
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
+    Administrador _administrador = this.partido.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido completo");
   }
@@ -61,12 +62,12 @@ public class TstNotificacion {
     this.partido.darBajaA(this.jugador);
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
+    Administrador _administrador = this.partido.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido completo");
     VerificationMode _times_1 = Mockito.times(1);
     MailSender _verify_1 = Mockito.<MailSender>verify(this.mockMailSender, _times_1);
-    Jugador _administrador_1 = this.partido.getAdministrador();
+    Administrador _administrador_1 = this.partido.getAdministrador();
     String _mail_1 = _administrador_1.getMail();
     _verify_1.notificar(_mail_1, "Partido ya no completo");
   }
@@ -80,8 +81,7 @@ public class TstNotificacion {
   @Test
   public void notificaAmigosDeJugadorAlInscribirse() {
     AmigosObserver amigo = new AmigosObserver(this.mockMailSender);
-    Jugador _jugador = new Jugador("Ricardo", "ricky@aol.com");
-    this.jugador.agregarAmigo(_jugador);
+    this.jugador.agregarAmigo("ricky@aol.com");
     this.partido.agregarObserver(amigo);
     this.jugador.inscribite(this.partido, this.tipoIncEstandar);
     VerificationMode _times = Mockito.times(1);
@@ -99,12 +99,12 @@ public class TstNotificacion {
     this.partido.darBajaA(this.jugador);
     VerificationMode _times = Mockito.times(0);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
+    Administrador _administrador = this.partido.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido completo");
     VerificationMode _times_1 = Mockito.times(0);
     MailSender _verify_1 = Mockito.<MailSender>verify(this.mockMailSender, _times_1);
-    Jugador _administrador_1 = this.partido.getAdministrador();
+    Administrador _administrador_1 = this.partido.getAdministrador();
     String _mail_1 = _administrador_1.getMail();
     _verify_1.notificar(_mail_1, "Partido ya no completo");
   }

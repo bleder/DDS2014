@@ -12,6 +12,7 @@ import partido.decorators.Partido;
 import partido.decorators.PartidoConfirmadoDecorator;
 import partido.decorators.PartidoEstabaConfirmado;
 import partido.mailSender.MailSender;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class TstDecorator {
@@ -28,8 +29,8 @@ public class TstDecorator {
     Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
     this.jugador = _jugador;
     MailSender _mailSender = new MailSender();
-    Jugador _jugador_1 = new Jugador("Juan Administra", "admin@aol.com");
-    Partido _partido = new Partido("Partido_1", _mailSender, _jugador_1);
+    Administrador _administrador = new Administrador("admin@aol.com");
+    Partido _partido = new Partido("Partido_1", _mailSender, _administrador);
     this.partido = _partido;
     Estandar _estandar = new Estandar();
     this.inscripcion = _estandar;
@@ -45,7 +46,7 @@ public class TstDecorator {
     partDecorado.confirmarJugador(this.jugador);
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
+    Administrador _administrador = this.partido.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido completo");
   }
@@ -59,7 +60,7 @@ public class TstDecorator {
     partDecorado.darBajaA(this.jugador);
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = this.partido.getAdministrador();
+    Administrador _administrador = this.partido.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido ya no completo");
   }
@@ -73,8 +74,7 @@ public class TstDecorator {
   @Test
   public void notificaAmigosDeJugadorAlInscribirse() {
     AmigosDecorator partDecorado = new AmigosDecorator(this.partido, this.mockMailSender);
-    Jugador _jugador = new Jugador("Ricardo", "ricky@aol.com");
-    this.jugador.agregarAmigo(_jugador);
+    this.jugador.agregarAmigo("ricky@aol.com");
     partDecorado.agregarJugador(this.jugador, this.inscripcion);
     VerificationMode _times = Mockito.times(1);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
@@ -90,12 +90,12 @@ public class TstDecorator {
     partDecorado.darBajaA(this.jugador);
     VerificationMode _times = Mockito.times(0);
     MailSender _verify = Mockito.<MailSender>verify(this.mockMailSender, _times);
-    Jugador _administrador = partDecorado.getAdministrador();
+    Administrador _administrador = partDecorado.getAdministrador();
     String _mail = _administrador.getMail();
     _verify.notificar(_mail, "Partido completo");
     VerificationMode _times_1 = Mockito.times(0);
     MailSender _verify_1 = Mockito.<MailSender>verify(this.mockMailSender, _times_1);
-    Jugador _administrador_1 = partDecorado.getAdministrador();
+    Administrador _administrador_1 = partDecorado.getAdministrador();
     String _mail_1 = _administrador_1.getMail();
     _verify_1.notificar(_mail_1, "Partido ya no completo");
   }

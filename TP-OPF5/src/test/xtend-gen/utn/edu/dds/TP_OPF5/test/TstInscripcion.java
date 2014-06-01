@@ -16,6 +16,7 @@ import partido.core.tiposDeInscripcion.Condicional;
 import partido.core.tiposDeInscripcion.Estandar;
 import partido.core.tiposDeInscripcion.Solidaria;
 import partido.mailSender.MailSender;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class TstInscripcion {
@@ -36,8 +37,8 @@ public class TstInscripcion {
     Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
     this.jugador = _jugador;
     MailSender _mailSender = new MailSender();
-    Jugador _jugador_1 = new Jugador("Juan Administra", "admin@aol.com");
-    Partido _partido = new Partido("Partido_1", _mailSender, _jugador_1);
+    Administrador _administrador = new Administrador("admin@aol.com");
+    Partido _partido = new Partido("Partido_1", _mailSender, _administrador);
     this.partido = _partido;
     Estandar _estandar = new Estandar();
     this.tipoIncEstandar = _estandar;
@@ -83,8 +84,8 @@ public class TstInscripcion {
     Partido _xblockexpression = null;
     {
       MailSender _mailSender = new MailSender();
-      Jugador _jugador = new Jugador("Juan Administra", "admin@aol.com");
-      final Partido completo = new Partido("Hola", _mailSender, _jugador);
+      Administrador _administrador = new Administrador("admin@aol.com");
+      final Partido completo = new Partido("Hola", _mailSender, _administrador);
       completo.setMaximoLista(0);
       _xblockexpression = completo;
     }
@@ -177,11 +178,11 @@ public class TstInscripcion {
   @Test
   public void jugadorEstandarTienePrioridadSobreSolidario() {
     MailSender _mailSender = new MailSender();
-    Jugador _jugador = new Jugador("Juan Administra", "admin@aol.com");
-    Partido partido = new Partido("Cancha 2", _mailSender, _jugador);
+    Administrador _administrador = new Administrador("admin@aol.com");
+    Partido partido = new Partido("Cancha 2", _mailSender, _administrador);
     partido.setMaximoLista(1);
-    Jugador _jugador_1 = new Jugador("Roberto", "rober@hotmail.com");
-    _jugador_1.inscribite(partido, this.tipoIncSolidaria);
+    Jugador _jugador = new Jugador("Roberto", "rober@hotmail.com");
+    _jugador.inscribite(partido, this.tipoIncSolidaria);
     this.jugador.inscribite(partido, this.tipoIncEstandar);
     boolean _estaInscripto = partido.estaInscripto(this.jugador);
     Assert.assertTrue(_estaInscripto);

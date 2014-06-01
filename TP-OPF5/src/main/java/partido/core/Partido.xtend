@@ -7,6 +7,7 @@ import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.observers.PartidoObserver
 import partido.mailSender.Notificador
+import partido.nuevosJugadores.Administrador
 
 class Partido {
 	
@@ -17,11 +18,11 @@ class Partido {
 	@Property 
 	private List<PartidoObserver> observers
 	@Property
-	Jugador administrador
+	Administrador administrador
 	@Property 
 	int	maximoLista
 	
-	new(String nomPartido, Notificador notifPartido, Jugador adminPartido){
+	new(String nomPartido, Notificador notifPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
 		jugadoresInscriptos = new ArrayList
 		observers = new ArrayList

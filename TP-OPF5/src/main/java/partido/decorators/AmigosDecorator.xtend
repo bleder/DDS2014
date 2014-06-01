@@ -16,6 +16,6 @@ class AmigosDecorator extends PartidoDecorator {
 	
 	override agregarJugador(Jugador jugador, TipoInscripcion inscripcion){
 		super.agregarJugador(jugador, inscripcion)
-		jugador.amigos.forEach[amigo | sender.notificar(amigo.mail, "Se inscribio tu amigo " + jugador.nombre)]
+		jugador.amigos.forEach[amigo | sender.notificar(amigo, "Se inscribio tu amigo " + jugador.nombre)]
 	}
 }

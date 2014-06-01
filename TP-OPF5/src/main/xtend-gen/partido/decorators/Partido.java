@@ -13,6 +13,7 @@ import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.decorators.PartidoInterface;
 import partido.mailSender.Notificador;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class Partido implements PartidoInterface {
@@ -46,13 +47,13 @@ public class Partido implements PartidoInterface {
     this._notificador = notificador;
   }
   
-  private Jugador _administrador;
+  private Administrador _administrador;
   
-  public Jugador getAdministrador() {
+  public Administrador getAdministrador() {
     return this._administrador;
   }
   
-  public void setAdministrador(final Jugador administrador) {
+  public void setAdministrador(final Administrador administrador) {
     this._administrador = administrador;
   }
   
@@ -66,7 +67,7 @@ public class Partido implements PartidoInterface {
     this._maximoLista = maximoLista;
   }
   
-  public Partido(final String nomPartido, final Notificador notifPartido, final Jugador adminPartido) {
+  public Partido(final String nomPartido, final Notificador notifPartido, final Administrador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
     this.setJugadoresInscriptos(_arrayList);

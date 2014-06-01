@@ -20,15 +20,14 @@ public class AmigosDecorator extends PartidoDecorator {
   
   public void agregarJugador(final Jugador jugador, final TipoInscripcion inscripcion) {
     super.agregarJugador(jugador, inscripcion);
-    List<Jugador> _amigos = jugador.getAmigos();
-    final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
-      public void apply(final Jugador amigo) {
-        String _mail = amigo.getMail();
+    List<String> _amigos = jugador.getAmigos();
+    final Procedure1<String> _function = new Procedure1<String>() {
+      public void apply(final String amigo) {
         String _nombre = jugador.getNombre();
         String _plus = ("Se inscribio tu amigo " + _nombre);
-        AmigosDecorator.this.sender.notificar(_mail, _plus);
+        AmigosDecorator.this.sender.notificar(amigo, _plus);
       }
     };
-    IterableExtensions.<Jugador>forEach(_amigos, _function);
+    IterableExtensions.<String>forEach(_amigos, _function);
   }
 }

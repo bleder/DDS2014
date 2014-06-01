@@ -1,10 +1,20 @@
 package partido.core;
 
+import com.google.common.base.Objects;
+import exception.JugadorNoPerteneceAlPartido;
+import exception.NoExisteMailException;
+import exception.NotaIncorrecta;
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import partido.calificaciones.Calificacion;
 import partido.core.Infraccion;
 import partido.core.Partido;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
+import partido.nuevosJugadores.Administrador;
+import partido.nuevosJugadores.Propuesta;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -38,14 +48,24 @@ public class Jugador {
     this._infracciones = infracciones;
   }
   
-  private List<Jugador> _amigos;
+  private List<String> _amigos;
   
-  public List<Jugador> getAmigos() {
+  public List<String> getAmigos() {
     return this._amigos;
   }
   
-  public void setAmigos(final List<Jugador> amigos) {
+  public void setAmigos(final List<String> amigos) {
     this._amigos = amigos;
+  }
+  
+  private List<Calificacion> _calificaciones;
+  
+  public List<Calificacion> getCalificaciones() {
+    return this._calificaciones;
+  }
+  
+  public void setCalificaciones(final List<Calificacion> calificaciones) {
+    this._calificaciones = calificaciones;
   }
   
   public Jugador(final String nom, final String newMail) {
@@ -53,7 +73,7 @@ public class Jugador {
     this.setNombre(nom);
     ArrayList<Infraccion> _arrayList = new ArrayList<Infraccion>();
     this.setInfracciones(_arrayList);
-    ArrayList<Jugador> _arrayList_1 = new ArrayList<Jugador>();
+    ArrayList<String> _arrayList_1 = new ArrayList<String>();
     this.setAmigos(_arrayList_1);
   }
   
@@ -70,8 +90,67 @@ public class Jugador {
     return _infracciones.add(infraccion);
   }
   
-  public boolean agregarAmigo(final Jugador jugador) {
-    List<Jugador> _amigos = this.getAmigos();
-    return _amigos.add(jugador);
+  public boolean agregarAmigo(final String mailAmigo) {
+    List<String> _amigos = this.getAmigos();
+    return _amigos.add(mailAmigo);
+  }
+  
+  public boolean calificarA(final Jugador jugador, final Partido partido, final int nota, final String critica) {
+    try {
+      boolean _xifexpression = false;
+      boolean _estaInscripto = partido.estaInscripto(jugador);
+      if (_estaInscripto) {
+        boolean _xifexpression_1 = false;
+        if (((nota >= 1) && (nota <= 10))) {
+          _xifexpression_1 = this.crearCalificacion(jugador, partido, nota, critica);
+        } else {
+          throw new NotaIncorrecta("La nota ingresada no es correcta");
+        }
+        _xifexpression = _xifexpression_1;
+      } else {
+        throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido");
+      }
+      return _xifexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public boolean agregateCalificacion(final Calificacion calificacion) {
+    List<Calificacion> _calificaciones = this.getCalificaciones();
+    return _calificaciones.add(calificacion);
+  }
+  
+  public boolean crearCalificacion(final Jugador jugador, final Partido partido, final int nota, final String critica) {
+    Calificacion _calificacion = new Calificacion(critica, jugador, partido, nota);
+    return jugador.agregateCalificacion(_calificacion);
+  }
+  
+  public boolean crearPropuesta(final String amigo, final Administrador admin) {
+    try {
+      boolean _xblockexpression = false;
+      {
+        boolean _existeAmigo = this.existeAmigo(amigo);
+        boolean _not = (!_existeAmigo);
+        if (_not) {
+          throw new NoExisteMailException("El jugador no tiene a ese amigo");
+        }
+        Propuesta _propuesta = new Propuesta(amigo, this);
+        _xblockexpression = admin.nuevaPropuesta(_propuesta);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public boolean existeAmigo(final String mail) {
+    List<String> _amigos = this.getAmigos();
+    final Function1<String,Boolean> _function = new Function1<String,Boolean>() {
+      public Boolean apply(final String amigo) {
+        return Boolean.valueOf(Objects.equal(amigo, mail));
+      }
+    };
+    return IterableExtensions.<String>exists(_amigos, _function);
   }
 }

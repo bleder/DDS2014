@@ -4,6 +4,7 @@ import partido.core.Jugador;
 import partido.decorators.PartidoDecorator;
 import partido.decorators.PartidoInterface;
 import partido.mailSender.Notificador;
+import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
 public class PartidoEstabaConfirmado extends PartidoDecorator {
@@ -18,7 +19,7 @@ public class PartidoEstabaConfirmado extends PartidoDecorator {
     final boolean debeNotificar = super.estasConfirmado();
     super.darBajaA(jugador);
     if (debeNotificar) {
-      Jugador _administrador = super.getAdministrador();
+      Administrador _administrador = super.getAdministrador();
       String _mail = _administrador.getMail();
       this.sender.notificar(_mail, "Partido ya no completo");
     }

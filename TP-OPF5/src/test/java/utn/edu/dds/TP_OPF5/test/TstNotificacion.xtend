@@ -10,6 +10,7 @@ import partido.core.tiposDeInscripcion.Estandar
 import partido.mailSender.MailSender
 import partido.observers.PartidoConfirmadoObserver
 import partido.observers.AmigosObserver
+import partido.nuevosJugadores.Administrador
 
 class TstNotificacion {
 	
@@ -21,7 +22,7 @@ class TstNotificacion {
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
-		var administrador = new Jugador("Juan Administrador", "admin@aol.com")
+		var administrador = new Administrador("admin@aol.com")
 		administrador.setMail("juan.administrador@aol.com")
 		partido = new Partido("Partido_1", new MailSender, administrador)
 		tipoIncEstandar = new Estandar()
@@ -58,7 +59,7 @@ class TstNotificacion {
 	@Test
 	def void notificaAmigosDeJugadorAlInscribirse(){
 		var amigo = new AmigosObserver(mockMailSender)
-		jugador.agregarAmigo(new Jugador("Ricardo", "ricky@aol.com"))
+		jugador.agregarAmigo("ricky@aol.com")
 		partido.agregarObserver(amigo)
 		jugador.inscribite(partido, tipoIncEstandar)
 		verify(mockMailSender,times(1)).notificar("ricky@aol.com", "Se inscribio tu amigo Rodolfo")

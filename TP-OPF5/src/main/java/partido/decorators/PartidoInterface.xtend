@@ -2,6 +2,7 @@ package partido.decorators
 
 import partido.core.Jugador
 import partido.core.tiposDeInscripcion.TipoInscripcion
+import partido.nuevosJugadores.Administrador
 
 interface PartidoInterface {
 	def void darBajaA(Jugador jug)
@@ -15,5 +16,5 @@ interface PartidoInterface {
 	def boolean estaInscripto(Jugador jugador)
 	def void agregarInfraccion(Jugador jug)
 	def boolean estasConfirmado()
-	def Jugador getAdministrador()
+	def Administrador getAdministrador()
 }
