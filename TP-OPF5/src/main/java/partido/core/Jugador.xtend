@@ -11,8 +11,12 @@ import exception.NotaIncorrecta
 import exception.NoExisteMailException
 import partido.nuevosJugadores.Propuesta
 import partido.nuevosJugadores.Administrador
+import exception.MeCalificoAMiMismo
+import exception.MeCalificoAMiMismo
+import exception.YaLoCalifique
 
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
+
 
 class Jugador {
 	@Property
@@ -25,8 +29,6 @@ class Jugador {
 	List<String> amigos
 	@Property
 	List<Calificacion> calificaciones  = new ArrayList
-	
-	
 	
 	new(String nom, String newMail) {
 		mail = newMail
@@ -54,10 +56,21 @@ class Jugador {
 	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
 		if (partido.estaInscripto(jugador))
 		{
+			if (jugador.calificaciones.exists[calificacion|calificacion.jugadorQueCalifico==this])
+			{
+				throw new YaLoCalifique("Ya califique a este jugador")
+			}
+			else
+			{
 			if (nota>=1 && nota<=10){
+			if (jugador!=this)
+			{
 			this.crearCalificacion(jugador,partido,nota,critica)
 			}
+			else{throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo")}
+			}
 			else{throw new NotaIncorrecta("La nota ingresada no es correcta")}			
+			}		
 		}
 		else
 		{
@@ -66,6 +79,7 @@ class Jugador {
 		
 	}
 	
+
 	def agregateCalificacion(Calificacion calificacion){
 		this.calificaciones.add(calificacion)
 	}
