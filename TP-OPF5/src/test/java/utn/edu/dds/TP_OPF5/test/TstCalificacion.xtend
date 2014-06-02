@@ -2,18 +2,15 @@ package utn.edu.dds.TP_OPF5.test
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
-import static org.mockito.Mockito.*
-import exception.PartidoCompletoExcepcion
-import exception.PartidoNoCumpleCondicionesExcepcion
 import partido.core.Jugador
 import partido.core.Partido
 import partido.core.tiposDeInscripcion.Estandar
-import partido.core.tiposDeInscripcion.Condicional
-import partido.core.tiposDeInscripcion.Solidaria
 import partido.mailSender.MailSender
 import partido.nuevosJugadores.Administrador
 import exception.JugadorNoPerteneceAlPartido
 import exception.NotaIncorrecta
+import exception.YaLoCalifique
+import exception.MeCalificoAMiMismo
 
 class TstCalificacion {
 	
@@ -74,6 +71,35 @@ def void calificarAJugadorQueNoExisteEnPartidoProduceError(){
 		jugador.calificarA(jugadorNoEstaEnPartido,partido,9,null)
 	} catch(JugadorNoPerteneceAlPartido e){
 		Assert.assertFalse(jugadorCalificado.calificaciones.size==(len+1))
+		return
+	}
+	Assert.assertFalse(true)
+}
+
+@Test
+
+def void calificarAJugadorDosVecesTiraError(){
+	val len = jugadorCalificado.calificaciones.size
+	jugador.calificarA(jugadorCalificado,partido,9,null)
+	
+	try{
+		jugador.calificarA(jugadorCalificado,partido,9,null)
+	} catch(YaLoCalifique e){
+		Assert.assertFalse(jugadorCalificado.calificaciones.size==(len+1))
+		return
+	}
+	Assert.assertFalse(true)
+}
+
+@Test
+
+def void calificarAUnoMismoTiraError(){
+	val len = jugador.calificaciones.size
+	
+	try{
+		jugador.calificarA(jugador,partido,9,null)
+	} catch(MeCalificoAMiMismo e){
+		Assert.assertFalse(jugador.calificaciones.size==(len+1))
 		return
 	}
 	Assert.assertFalse(true)

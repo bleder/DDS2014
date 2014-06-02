@@ -1,7 +1,9 @@
 package utn.edu.dds.TP_OPF5.test;
 
 import exception.JugadorNoPerteneceAlPartido;
+import exception.MeCalificoAMiMismo;
 import exception.NotaIncorrecta;
+import exception.YaLoCalifique;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
@@ -94,6 +96,49 @@ public class TstCalificacion {
       if (_t instanceof JugadorNoPerteneceAlPartido) {
         final JugadorNoPerteneceAlPartido e = (JugadorNoPerteneceAlPartido)_t;
         List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
+        int _size = _calificaciones_1.size();
+        boolean _equals = (_size == (len + 1));
+        Assert.assertFalse(_equals);
+        return;
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+    Assert.assertFalse(true);
+  }
+  
+  @Test
+  public void calificarAJugadorDosVecesTiraError() {
+    List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
+    final int len = _calificaciones.size();
+    this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, null);
+    try {
+      this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, null);
+    } catch (final Throwable _t) {
+      if (_t instanceof YaLoCalifique) {
+        final YaLoCalifique e = (YaLoCalifique)_t;
+        List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
+        int _size = _calificaciones_1.size();
+        boolean _equals = (_size == (len + 1));
+        Assert.assertFalse(_equals);
+        return;
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+    Assert.assertFalse(true);
+  }
+  
+  @Test
+  public void calificarAUnoMismoTiraError() {
+    List<Calificacion> _calificaciones = this.jugador.getCalificaciones();
+    final int len = _calificaciones.size();
+    try {
+      this.jugador.calificarA(this.jugador, this.partido, 9, null);
+    } catch (final Throwable _t) {
+      if (_t instanceof MeCalificoAMiMismo) {
+        final MeCalificoAMiMismo e = (MeCalificoAMiMismo)_t;
+        List<Calificacion> _calificaciones_1 = this.jugador.getCalificaciones();
         int _size = _calificaciones_1.size();
         boolean _equals = (_size == (len + 1));
         Assert.assertFalse(_equals);

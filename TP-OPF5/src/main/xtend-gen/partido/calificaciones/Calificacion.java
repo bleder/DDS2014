@@ -15,9 +15,25 @@ public class Calificacion {
     this._critica = critica;
   }
   
-  private Jugador jugadorQueCalifico;
+  private Jugador _jugadorQueCalifico;
   
-  private Partido partido;
+  public Jugador getJugadorQueCalifico() {
+    return this._jugadorQueCalifico;
+  }
+  
+  public void setJugadorQueCalifico(final Jugador jugadorQueCalifico) {
+    this._jugadorQueCalifico = jugadorQueCalifico;
+  }
+  
+  private Partido _partido;
+  
+  public Partido getPartido() {
+    return this._partido;
+  }
+  
+  public void setPartido(final Partido partido) {
+    this._partido = partido;
+  }
   
   private int _nota;
   
@@ -31,8 +47,8 @@ public class Calificacion {
   
   public Calificacion(final String string, final Jugador jugador, final Partido partidop, final int i) {
     this.setCritica(string);
-    this.jugadorQueCalifico = jugador;
-    this.partido = partidop;
+    this.setJugadorQueCalifico(jugador);
+    this.setPartido(partidop);
     this.setNota(i);
   }
 }

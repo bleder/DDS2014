@@ -2,8 +2,10 @@ package partido.core;
 
 import com.google.common.base.Objects;
 import exception.JugadorNoPerteneceAlPartido;
+import exception.MeCalificoAMiMismo;
 import exception.NoExisteMailException;
 import exception.NotaIncorrecta;
+import exception.YaLoCalifique;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -101,10 +103,31 @@ public class Jugador {
       boolean _estaInscripto = partido.estaInscripto(jugador);
       if (_estaInscripto) {
         boolean _xifexpression_1 = false;
-        if (((nota >= 1) && (nota <= 10))) {
-          _xifexpression_1 = this.crearCalificacion(jugador, partido, nota, critica);
+        List<Calificacion> _calificaciones = jugador.getCalificaciones();
+        final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+          public Boolean apply(final Calificacion calificacion) {
+            Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
+            return Boolean.valueOf(Objects.equal(_jugadorQueCalifico, Jugador.this));
+          }
+        };
+        boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);
+        if (_exists) {
+          throw new YaLoCalifique("Ya califique a este jugador");
         } else {
-          throw new NotaIncorrecta("La nota ingresada no es correcta");
+          boolean _xifexpression_2 = false;
+          if (((nota >= 1) && (nota <= 10))) {
+            boolean _xifexpression_3 = false;
+            boolean _notEquals = (!Objects.equal(jugador, this));
+            if (_notEquals) {
+              _xifexpression_3 = this.crearCalificacion(jugador, partido, nota, critica);
+            } else {
+              throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo");
+            }
+            _xifexpression_2 = _xifexpression_3;
+          } else {
+            throw new NotaIncorrecta("La nota ingresada no es correcta");
+          }
+          _xifexpression_1 = _xifexpression_2;
         }
         _xifexpression = _xifexpression_1;
       } else {

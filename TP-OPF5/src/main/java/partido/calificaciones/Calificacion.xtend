@@ -7,7 +7,9 @@ import partido.core.Partido
 class Calificacion {
 	@Property
 	private String critica
+	@Property
 	private Jugador jugadorQueCalifico
+	@Property
 	private Partido partido	
 	@Property
 	private int nota
