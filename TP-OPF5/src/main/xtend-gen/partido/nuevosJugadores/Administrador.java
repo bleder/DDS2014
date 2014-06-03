@@ -89,7 +89,7 @@ public class Administrador {
     return _jugadoresRechazados.add(nuevoRechazo);
   }
   
-  public Jugador aceptarPropuesta(final String mail, final String nombre) {
+  public Jugador aceptarPropuesta(final String mail, final String nombre, final List<String> mailsDeAmigos) {
     try {
       Jugador _xblockexpression = null;
       {
@@ -104,6 +104,9 @@ public class Administrador {
         String _mail = _amigo.getMail();
         jugador.agregarAmigo(_mail);
         this.removerPropuesta(mail);
+        for (final String mailDeAmigo : mailsDeAmigos) {
+          jugador.agregarAmigo(mailDeAmigo);
+        }
         _xblockexpression = jugador;
       }
       return _xblockexpression;

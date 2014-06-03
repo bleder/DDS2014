@@ -5,7 +5,6 @@ import org.junit.Assert
 import partido.core.Jugador
 import partido.core.Partido
 import partido.core.tiposDeInscripcion.Estandar
-import partido.mailSender.MailSender
 import partido.nuevosJugadores.Administrador
 import exception.JugadorNoPerteneceAlPartido
 import exception.NotaIncorrecta
@@ -21,7 +20,7 @@ class TstCalificacion {
 	@Before
 	def void init() {
 	jugador = new Jugador("Rodolfo", "rodol@aol.com")
-	partido = new Partido("Partido_1", new MailSender, new Administrador("admin@aol.com"))
+	partido = new Partido("Partido_1", new Administrador("admin@aol.com"))
 	tipoIncEstandar = new Estandar()
 	jugador.inscribite(partido,tipoIncEstandar)
 	jugadorCalificado = new Jugador("Ricardo", "ricky@aol.com")

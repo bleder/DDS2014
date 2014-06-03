@@ -29,8 +29,7 @@ public class TstNotificacion {
     this.jugador = _jugador;
     Administrador administrador = new Administrador("admin@aol.com");
     administrador.setMail("juan.administrador@aol.com");
-    MailSender _mailSender = new MailSender();
-    Partido _partido = new Partido("Partido_1", _mailSender, administrador);
+    Partido _partido = new Partido("Partido_1", administrador);
     this.partido = _partido;
     Estandar _estandar = new Estandar();
     this.tipoIncEstandar = _estandar;

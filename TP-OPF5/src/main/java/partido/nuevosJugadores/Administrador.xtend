@@ -40,7 +40,7 @@ class Administrador {
 		jugadoresRechazados.add(nuevoRechazo)
 	}
 	
-	def aceptarPropuesta(String mail, String nombre) {
+	def aceptarPropuesta(String mail, String nombre, List<String> mailsDeAmigos) {
 		if (!existePropuesta(mail)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
@@ -48,6 +48,9 @@ class Administrador {
 		var jugador = new Jugador(nombre, mail)
 		jugador.agregarAmigo(this.getPropuesta(mail).amigo.mail)
 		removerPropuesta(mail)
+		for(String mailDeAmigo : mailsDeAmigos) {
+			jugador.agregarAmigo(mailDeAmigo)
+		}
 		jugador
 	}
 	

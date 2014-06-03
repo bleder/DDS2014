@@ -12,7 +12,6 @@ import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
-import partido.mailSender.Notificador;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
 
@@ -68,7 +67,7 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
-  public Partido(final String nomPartido, final Notificador notifPartido, final Administrador adminPartido) {
+  public Partido(final String nomPartido, final Administrador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
     this.setJugadoresInscriptos(_arrayList);

@@ -11,6 +11,7 @@ import partido.nuevosJugadores.Propuesta
 import partido.nuevosJugadores.Rechazo
 import exception.NoExisteMailException
 import exception.NoExisteTalJugadorException
+import java.util.ArrayList
 
 class TstNuevosJugadores {
 
@@ -23,7 +24,7 @@ class TstNuevosJugadores {
 	def void init() {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
 		administrador = new Administrador("admin@aol.com")
-		partido = new Partido("Partido_1", new MailSender, administrador)
+		partido = new Partido("Partido_1", administrador)
 		amigo = "amigo@amail.com"
 		jugador.agregarAmigo(amigo)
 	}
@@ -51,7 +52,7 @@ class TstNuevosJugadores {
 	@Test
 	def void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos(){
 		jugador.crearPropuesta(amigo,partido.administrador)
-		partido.administrador.aceptarPropuesta(amigo, "pepe")
+		partido.administrador.aceptarPropuesta(amigo, "pepe", new ArrayList)
 		Assert.assertTrue(jugador.existeAmigo(amigo))
 	}
 	
@@ -61,7 +62,7 @@ class TstNuevosJugadores {
 		var amigoQueNoEsta = "amigoNoEsta@hotmaill.com"
 	
 		try{
-			administrador.aceptarPropuesta(amigoQueNoEsta,"pepe")
+			administrador.aceptarPropuesta(amigoQueNoEsta,"pepe", new ArrayList)
 		} catch(NoExisteTalJugadorException e){
 			Assert.assertFalse(jugador.amigos.size==(len+1))
 			return

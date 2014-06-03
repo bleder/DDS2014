@@ -13,7 +13,6 @@ import partido.calificaciones.Calificacion;
 import partido.core.Jugador;
 import partido.core.Partido;
 import partido.core.tiposDeInscripcion.Estandar;
-import partido.mailSender.MailSender;
 import partido.nuevosJugadores.Administrador;
 
 @SuppressWarnings("all")
@@ -30,9 +29,8 @@ public class TstCalificacion {
   public void init() {
     Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
     this.jugador = _jugador;
-    MailSender _mailSender = new MailSender();
     Administrador _administrador = new Administrador("admin@aol.com");
-    Partido _partido = new Partido("Partido_1", _mailSender, _administrador);
+    Partido _partido = new Partido("Partido_1", _administrador);
     this.partido = _partido;
     Estandar _estandar = new Estandar();
     this.tipoIncEstandar = _estandar;

@@ -24,7 +24,7 @@ class TstNotificacion {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
 		var administrador = new Administrador("admin@aol.com")
 		administrador.setMail("juan.administrador@aol.com")
-		partido = new Partido("Partido_1", new MailSender, administrador)
+		partido = new Partido("Partido_1", administrador)
 		tipoIncEstandar = new Estandar()
 		mockMailSender= mock (typeof(MailSender))
 	}

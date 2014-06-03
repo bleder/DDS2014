@@ -22,7 +22,7 @@ class Partido {
 	@Property 
 	int	maximoLista
 	
-	new(String nomPartido, Notificador notifPartido, Administrador adminPartido){
+	new(String nomPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
 		jugadoresInscriptos = new ArrayList
 		observers = new ArrayList

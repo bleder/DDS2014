@@ -2,6 +2,7 @@ package utn.edu.dds.TP_OPF5.test;
 
 import exception.NoExisteMailException;
 import exception.NoExisteTalJugadorException;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
@@ -9,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import partido.core.Jugador;
 import partido.core.Partido;
-import partido.mailSender.MailSender;
 import partido.nuevosJugadores.Administrador;
 import partido.nuevosJugadores.Propuesta;
 import partido.nuevosJugadores.Rechazo;
@@ -30,8 +30,7 @@ public class TstNuevosJugadores {
     this.jugador = _jugador;
     Administrador _administrador = new Administrador("admin@aol.com");
     this.administrador = _administrador;
-    MailSender _mailSender = new MailSender();
-    Partido _partido = new Partido("Partido_1", _mailSender, this.administrador);
+    Partido _partido = new Partido("Partido_1", this.administrador);
     this.partido = _partido;
     this.amigo = "amigo@amail.com";
     this.jugador.agregarAmigo(this.amigo);
@@ -75,7 +74,8 @@ public class TstNuevosJugadores {
     Administrador _administrador = this.partido.getAdministrador();
     this.jugador.crearPropuesta(this.amigo, _administrador);
     Administrador _administrador_1 = this.partido.getAdministrador();
-    _administrador_1.aceptarPropuesta(this.amigo, "pepe");
+    ArrayList<String> _arrayList = new ArrayList<String>();
+    _administrador_1.aceptarPropuesta(this.amigo, "pepe", _arrayList);
     boolean _existeAmigo = this.jugador.existeAmigo(this.amigo);
     Assert.assertTrue(_existeAmigo);
   }
@@ -86,7 +86,8 @@ public class TstNuevosJugadores {
     final int len = _amigos.size();
     String amigoQueNoEsta = "amigoNoEsta@hotmaill.com";
     try {
-      this.administrador.aceptarPropuesta(amigoQueNoEsta, "pepe");
+      ArrayList<String> _arrayList = new ArrayList<String>();
+      this.administrador.aceptarPropuesta(amigoQueNoEsta, "pepe", _arrayList);
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteTalJugadorException) {
         final NoExisteTalJugadorException e = (NoExisteTalJugadorException)_t;
