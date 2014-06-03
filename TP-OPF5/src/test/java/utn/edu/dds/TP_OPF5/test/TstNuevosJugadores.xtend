@@ -12,6 +12,7 @@ import partido.nuevosJugadores.Rechazo
 import exception.NoExisteMailException
 import exception.NoExisteTalJugadorException
 import java.util.ArrayList
+import java.util.List
 
 class TstNuevosJugadores {
 
@@ -19,11 +20,17 @@ class TstNuevosJugadores {
 	var Partido partido
 	var Administrador administrador
 	var String amigo
+	var String nombre
+	var List<String> mailsAmigos
 	
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
 		administrador = new Administrador("admin@aol.com")
+		nombre = "julian"
+		mailsAmigos = new ArrayList
+		mailsAmigos.add("juan@hotmail.com")
+		mailsAmigos.add("pepe@gmail.com")
 		partido = new Partido("Partido_1", administrador)
 		amigo = "amigo@amail.com"
 		jugador.agregarAmigo(amigo)
@@ -31,7 +38,7 @@ class TstNuevosJugadores {
 
 	@Test
 	def void jugadorCreaPropuestaLaPoseeElAdministrador() {
-		jugador.crearPropuesta(amigo,partido.administrador)
+		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
 		Assert.assertTrue(partido.administrador.existePropuesta(amigo))
 	}
 	
@@ -41,7 +48,7 @@ class TstNuevosJugadores {
 		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
 	
 		try{
-			jugador.crearPropuesta(amigoQueNoEsta,administrador)
+			jugador.crearPropuesta(amigoQueNoEsta,partido.administrador,nombre,mailsAmigos)
 		} catch(NoExisteMailException e){
 			Assert.assertFalse(partido.administrador.posiblesJugadores.size==(len+1))
 			return
@@ -51,8 +58,8 @@ class TstNuevosJugadores {
 
 	@Test
 	def void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos(){
-		jugador.crearPropuesta(amigo,partido.administrador)
-		partido.administrador.aceptarPropuesta(amigo, "pepe", new ArrayList)
+		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
+		partido.administrador.aceptarPropuesta(amigo)
 		Assert.assertTrue(jugador.existeAmigo(amigo))
 	}
 	
@@ -62,7 +69,7 @@ class TstNuevosJugadores {
 		var amigoQueNoEsta = "amigoNoEsta@hotmaill.com"
 	
 		try{
-			administrador.aceptarPropuesta(amigoQueNoEsta,"pepe", new ArrayList)
+			administrador.aceptarPropuesta(amigoQueNoEsta)
 		} catch(NoExisteTalJugadorException e){
 			Assert.assertFalse(jugador.amigos.size==(len+1))
 			return
@@ -74,7 +81,7 @@ class TstNuevosJugadores {
 	@Test
 	def void adminRechazaPropuestaYRegistraLaDenegacion(){
 		val len = administrador.jugadoresRechazados.size
-		jugador.crearPropuesta(amigo,partido.administrador)
+		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
 		partido.administrador.rechazarPropuesta(amigo, "Rechazado por X motivo" )
 		Assert.assertTrue(administrador.jugadoresRechazados.size ==(len +1))
 	}
@@ -85,7 +92,7 @@ class TstNuevosJugadores {
 		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
 	
 		try{
-			administrador.rechazarPropuesta(amigoQueNoEsta,"pepe")
+			administrador.rechazarPropuesta(amigoQueNoEsta,"Rechazado por X motivo")
 		} catch(NoExisteTalJugadorException e){
 			Assert.assertFalse(jugador.amigos.size==(len+1))
 			return
