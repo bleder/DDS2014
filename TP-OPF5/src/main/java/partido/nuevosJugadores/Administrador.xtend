@@ -58,7 +58,8 @@ class Administrador {
 		if(!existePropuesta(mail)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
+		val rechazoNuevo = new Rechazo(mail, razon, getPropuesta(mail))
+		nuevoRechazo(rechazoNuevo)
 		removerPropuesta(mail)
-		nuevoRechazo(new Rechazo(mail, razon)) //Usar Notificador?
 	}
 }

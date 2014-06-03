@@ -106,8 +106,17 @@ public class Jugador {
         List<Calificacion> _calificaciones = jugador.getCalificaciones();
         final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
           public Boolean apply(final Calificacion calificacion) {
+            boolean _and = false;
             Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
-            return Boolean.valueOf(Objects.equal(_jugadorQueCalifico, Jugador.this));
+            boolean _equals = Objects.equal(_jugadorQueCalifico, Jugador.this);
+            if (!_equals) {
+              _and = false;
+            } else {
+              Partido _partido = calificacion.getPartido();
+              boolean _equals_1 = Objects.equal(_partido, partido);
+              _and = _equals_1;
+            }
+            return Boolean.valueOf(_and);
           }
         };
         boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);

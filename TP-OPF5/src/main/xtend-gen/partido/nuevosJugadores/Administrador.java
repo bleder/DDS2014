@@ -126,9 +126,10 @@ public class Administrador {
         if (_not) {
           throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
         }
-        this.removerPropuesta(mail);
-        Rechazo _rechazo = new Rechazo(mail, razon);
-        _xblockexpression = this.nuevoRechazo(_rechazo);
+        Propuesta _propuesta = this.getPropuesta(mail);
+        final Rechazo rechazoNuevo = new Rechazo(mail, razon, _propuesta);
+        this.nuevoRechazo(rechazoNuevo);
+        _xblockexpression = this.removerPropuesta(mail);
       }
       return _xblockexpression;
     } catch (Throwable _e) {

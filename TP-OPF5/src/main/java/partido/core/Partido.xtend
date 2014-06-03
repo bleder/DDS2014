@@ -6,7 +6,6 @@ import java.util.ArrayList
 import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.observers.PartidoObserver
-import partido.mailSender.Notificador
 import partido.nuevosJugadores.Administrador
 
 class Partido {

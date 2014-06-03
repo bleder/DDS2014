@@ -12,7 +12,6 @@ import exception.NoExisteMailException
 import partido.nuevosJugadores.Propuesta
 import partido.nuevosJugadores.Administrador
 import exception.MeCalificoAMiMismo
-import exception.MeCalificoAMiMismo
 import exception.YaLoCalifique
 
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
