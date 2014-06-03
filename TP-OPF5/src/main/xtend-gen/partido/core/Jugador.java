@@ -108,7 +108,7 @@ public class Jugador {
           public Boolean apply(final Calificacion calificacion) {
             boolean _and = false;
             Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
-            boolean _equals = Objects.equal(_jugadorQueCalifico, Jugador.this);
+            boolean _equals = Objects.equal(_jugadorQueCalifico, jugador);
             if (!_equals) {
               _and = false;
             } else {

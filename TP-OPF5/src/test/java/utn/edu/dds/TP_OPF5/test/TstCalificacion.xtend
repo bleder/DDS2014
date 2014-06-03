@@ -84,7 +84,7 @@ def void calificarAJugadorDosVecesTiraError(){
 	try{
 		jugador.calificarA(jugadorCalificado,partido,9,null)
 	} catch(YaLoCalifique e){
-		Assert.assertFalse(jugadorCalificado.calificaciones.size==(len+1))
+		Assert.assertTrue(jugadorCalificado.calificaciones.size==(len+1))
 		return
 	}
 	Assert.assertFalse(true)

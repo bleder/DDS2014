@@ -55,7 +55,7 @@ class Jugador {
 	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
 		if (partido.estaInscripto(jugador))
 		{
-			if (jugador.calificaciones.exists[calificacion|(calificacion.jugadorQueCalifico==this) && (calificacion.partido==partido)])
+			if (jugador.calificaciones.exists[calificacion|(calificacion.jugadorQueCalifico==jugador) && (calificacion.partido==partido)])
 			{
 				throw new YaLoCalifique("Ya califique a este jugador")
 			}

@@ -118,7 +118,7 @@ public class TstCalificacion {
         List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
         int _size = _calificaciones_1.size();
         boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
+        Assert.assertTrue(_equals);
         return;
       } else {
         throw Exceptions.sneakyThrow(_t);
