@@ -149,7 +149,7 @@ public class Jugador {
     return jugador.agregateCalificacion(_calificacion);
   }
   
-  public boolean crearPropuesta(final String amigo, final Administrador admin) {
+  public boolean crearPropuesta(final String amigo, final Administrador admin, final String nombre, final List<String> mailsDeAmigos) {
     try {
       boolean _xblockexpression = false;
       {
@@ -158,7 +158,7 @@ public class Jugador {
         if (_not) {
           throw new NoExisteMailException("El jugador no tiene a ese amigo");
         }
-        Propuesta _propuesta = new Propuesta(amigo, this);
+        Propuesta _propuesta = new Propuesta(amigo, this, nombre, mailsDeAmigos);
         _xblockexpression = admin.nuevaPropuesta(_propuesta);
       }
       return _xblockexpression;

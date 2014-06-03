@@ -88,12 +88,12 @@ class Jugador {
 		jugador.agregateCalificacion(new Calificacion(critica,jugador,partido,nota))
 	}
 	
-	def crearPropuesta(String amigo, Administrador admin) {
+	def crearPropuesta(String amigo, Administrador admin, String nombre, List<String> mailsDeAmigos) {
 		if(!existeAmigo(amigo)) {
 			throw new NoExisteMailException("El jugador no tiene a ese amigo")
 		}
 		
-		admin.nuevaPropuesta(new Propuesta(amigo, this))
+		admin.nuevaPropuesta(new Propuesta(amigo, this, nombre, mailsDeAmigos))
 	}
 	
 	def existeAmigo(String mail) {

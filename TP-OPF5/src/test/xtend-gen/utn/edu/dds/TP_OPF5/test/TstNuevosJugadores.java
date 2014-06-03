@@ -1,8 +1,6 @@
 package utn.edu.dds.TP_OPF5.test;
 
-import exception.NoExisteMailException;
 import exception.NoExisteTalJugadorException;
-import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
@@ -11,8 +9,6 @@ import org.junit.Test;
 import partido.core.Jugador;
 import partido.core.Partido;
 import partido.nuevosJugadores.Administrador;
-import partido.nuevosJugadores.Propuesta;
-import partido.nuevosJugadores.Rechazo;
 
 @SuppressWarnings("all")
 public class TstNuevosJugadores {
@@ -38,83 +34,33 @@ public class TstNuevosJugadores {
   
   @Test
   public void jugadorCreaPropuestaLaPoseeElAdministrador() {
-    Administrador _administrador = this.partido.getAdministrador();
-    this.jugador.crearPropuesta(this.amigo, _administrador);
-    Administrador _administrador_1 = this.partido.getAdministrador();
-    boolean _existePropuesta = _administrador_1.existePropuesta(this.amigo);
-    Assert.assertTrue(_existePropuesta);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method crearPropuesta(String, Administrador, String, List<String>) is not applicable for the arguments (String,Administrador)");
   }
   
   @Test
   public void JugadorCreaPropuestaNoExisteAmigoProduceError() {
-    Administrador _administrador = this.partido.getAdministrador();
-    List<Propuesta> _posiblesJugadores = _administrador.getPosiblesJugadores();
-    final int len = _posiblesJugadores.size();
-    String amigoQueNoEsta = "amigoNoEsta@hotmail.com";
-    try {
-      this.jugador.crearPropuesta(amigoQueNoEsta, this.administrador);
-    } catch (final Throwable _t) {
-      if (_t instanceof NoExisteMailException) {
-        final NoExisteMailException e = (NoExisteMailException)_t;
-        Administrador _administrador_1 = this.partido.getAdministrador();
-        List<Propuesta> _posiblesJugadores_1 = _administrador_1.getPosiblesJugadores();
-        int _size = _posiblesJugadores_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
-    Assert.assertFalse(true);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method crearPropuesta(String, Administrador, String, List<String>) is not applicable for the arguments (String,Administrador)");
   }
   
   @Test
   public void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos() {
-    Administrador _administrador = this.partido.getAdministrador();
-    this.jugador.crearPropuesta(this.amigo, _administrador);
-    Administrador _administrador_1 = this.partido.getAdministrador();
-    ArrayList<String> _arrayList = new ArrayList<String>();
-    _administrador_1.aceptarPropuesta(this.amigo, "pepe", _arrayList);
-    boolean _existeAmigo = this.jugador.existeAmigo(this.amigo);
-    Assert.assertTrue(_existeAmigo);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method crearPropuesta(String, Administrador, String, List<String>) is not applicable for the arguments (String,Administrador)"
+      + "\nInvalid number of arguments. The method aceptarPropuesta(String) is not applicable for the arguments (String,String,ArrayList<Object>)");
   }
   
   @Test
   public void adminAceptaPropuestaNoExisteProduceError() {
-    List<String> _amigos = this.jugador.getAmigos();
-    final int len = _amigos.size();
-    String amigoQueNoEsta = "amigoNoEsta@hotmaill.com";
-    try {
-      ArrayList<String> _arrayList = new ArrayList<String>();
-      this.administrador.aceptarPropuesta(amigoQueNoEsta, "pepe", _arrayList);
-    } catch (final Throwable _t) {
-      if (_t instanceof NoExisteTalJugadorException) {
-        final NoExisteTalJugadorException e = (NoExisteTalJugadorException)_t;
-        List<String> _amigos_1 = this.jugador.getAmigos();
-        int _size = _amigos_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
-    Assert.assertFalse(true);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method aceptarPropuesta(String) is not applicable for the arguments (String,String,ArrayList<Object>)");
   }
   
   @Test
   public void adminRechazaPropuestaYRegistraLaDenegacion() {
-    List<Rechazo> _jugadoresRechazados = this.administrador.getJugadoresRechazados();
-    final int len = _jugadoresRechazados.size();
-    Administrador _administrador = this.partido.getAdministrador();
-    this.jugador.crearPropuesta(this.amigo, _administrador);
-    Administrador _administrador_1 = this.partido.getAdministrador();
-    _administrador_1.rechazarPropuesta(this.amigo, "Rechazado por X motivo");
-    List<Rechazo> _jugadoresRechazados_1 = this.administrador.getJugadoresRechazados();
-    int _size = _jugadoresRechazados_1.size();
-    boolean _equals = (_size == (len + 1));
-    Assert.assertTrue(_equals);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The method crearPropuesta(String, Administrador, String, List<String>) is not applicable for the arguments (String,Administrador)");
   }
   
   @Test

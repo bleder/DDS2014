@@ -89,7 +89,7 @@ public class Administrador {
     return _jugadoresRechazados.add(nuevoRechazo);
   }
   
-  public Jugador aceptarPropuesta(final String mail, final String nombre, final List<String> mailsDeAmigos) {
+  public Jugador aceptarPropuesta(final String mail) {
     try {
       Jugador _xblockexpression = null;
       {
@@ -98,14 +98,16 @@ public class Administrador {
         if (_not) {
           throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
         }
-        Jugador jugador = new Jugador(nombre, mail);
-        Propuesta _propuesta = this.getPropuesta(mail);
-        Jugador _amigo = _propuesta.getAmigo();
+        Propuesta propuesta = this.getPropuesta(mail);
+        String _nombre = propuesta.getNombre();
+        Jugador jugador = new Jugador(_nombre, mail);
+        Jugador _amigo = propuesta.getAmigo();
         String _mail = _amigo.getMail();
         jugador.agregarAmigo(_mail);
         this.removerPropuesta(mail);
-        for (final String mailDeAmigo : mailsDeAmigos) {
-          jugador.agregarAmigo(mailDeAmigo);
+        List<String> _mailsAmigos = propuesta.getMailsAmigos();
+        for (final String mails : _mailsAmigos) {
+          jugador.agregarAmigo(mails);
         }
         _xblockexpression = jugador;
       }
