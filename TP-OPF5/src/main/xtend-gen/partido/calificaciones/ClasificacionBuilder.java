@@ -76,27 +76,8 @@ public class ClasificacionBuilder {
         if (_not) {
           throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido");
         }
-        Jugador _calificado_1 = this.getCalificado();
-        List<Calificacion> _calificaciones = _calificado_1.getCalificaciones();
-        final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
-          public Boolean apply(final Calificacion calificacion) {
-            boolean _and = false;
-            Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
-            Jugador _calificador = ClasificacionBuilder.this.getCalificador();
-            boolean _equals = Objects.equal(_jugadorQueCalifico, _calificador);
-            if (!_equals) {
-              _and = false;
-            } else {
-              Partido _partido = calificacion.getPartido();
-              Partido _partido_1 = ClasificacionBuilder.this.getPartido();
-              boolean _equals_1 = Objects.equal(_partido, _partido_1);
-              _and = _equals_1;
-            }
-            return Boolean.valueOf(_and);
-          }
-        };
-        boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);
-        if (_exists) {
+        boolean _fueCalificado = this.fueCalificado();
+        if (_fueCalificado) {
           throw new YaLoCalifique("Ya califique a este jugador");
         }
         boolean _or = false;
@@ -112,9 +93,9 @@ public class ClasificacionBuilder {
         if (_or) {
           throw new NotaIncorrecta("La nota ingresada no es correcta");
         }
-        Jugador _calificado_2 = this.getCalificado();
+        Jugador _calificado_1 = this.getCalificado();
         Jugador _calificador = this.getCalificador();
-        boolean _equals = Objects.equal(_calificado_2, _calificador);
+        boolean _equals = Objects.equal(_calificado_1, _calificador);
         if (_equals) {
           throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo");
         }
@@ -128,6 +109,29 @@ public class ClasificacionBuilder {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public boolean fueCalificado() {
+    Jugador _calificado = this.getCalificado();
+    List<Calificacion> _calificaciones = _calificado.getCalificaciones();
+    final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+      public Boolean apply(final Calificacion calificacion) {
+        boolean _and = false;
+        Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
+        Jugador _calificador = ClasificacionBuilder.this.getCalificador();
+        boolean _equals = Objects.equal(_jugadorQueCalifico, _calificador);
+        if (!_equals) {
+          _and = false;
+        } else {
+          Partido _partido = calificacion.getPartido();
+          Partido _partido_1 = ClasificacionBuilder.this.getPartido();
+          boolean _equals_1 = Objects.equal(_partido, _partido_1);
+          _and = _equals_1;
+        }
+        return Boolean.valueOf(_and);
+      }
+    };
+    return IterableExtensions.<Calificacion>exists(_calificaciones, _function);
   }
   
   public void conPartido(final Partido partido) {

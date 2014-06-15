@@ -1,10 +1,8 @@
 package partido.core;
 
 import com.google.common.base.Objects;
-import exception.NoExisteMailException;
 import java.util.ArrayList;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import partido.calificaciones.Calificacion;
@@ -14,6 +12,7 @@ import partido.core.Partido;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.nuevosJugadores.Administrador;
 import partido.nuevosJugadores.Propuesta;
+import partido.nuevosJugadores.PropuestaBuilder;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -115,21 +114,17 @@ public class Jugador {
   }
   
   public boolean crearPropuesta(final String amigo, final Administrador admin, final String nombre, final List<String> mailsDeAmigos) {
-    try {
-      boolean _xblockexpression = false;
-      {
-        boolean _existeAmigo = this.existeAmigo(amigo);
-        boolean _not = (!_existeAmigo);
-        if (_not) {
-          throw new NoExisteMailException("El jugador no tiene a ese amigo");
-        }
-        Propuesta _propuesta = new Propuesta(amigo, this, nombre, mailsDeAmigos);
-        _xblockexpression = admin.nuevaPropuesta(_propuesta);
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
+    boolean _xblockexpression = false;
+    {
+      PropuestaBuilder propuesta = new PropuestaBuilder();
+      propuesta.conMail(amigo);
+      propuesta.conAmigoDelPropuesto(this);
+      propuesta.conAmigos(mailsDeAmigos);
+      propuesta.conNombre(nombre);
+      Propuesta _build = propuesta.build();
+      _xblockexpression = admin.nuevaPropuesta(_build);
     }
+    return _xblockexpression;
   }
   
   public boolean existeAmigo(final String mail) {

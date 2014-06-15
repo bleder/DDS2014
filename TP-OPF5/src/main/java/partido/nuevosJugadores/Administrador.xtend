@@ -20,8 +20,8 @@ class Administrador {
 		jugadoresRechazados = new ArrayList
 	}
 	
-	def existePropuesta(String mail) {
-		posiblesJugadores.exists[propuesta | propuesta.mail == mail]
+	def existePropuesta(Propuesta propuesta) {
+		posiblesJugadores.exists[p | p == propuesta]
 	}
 	
 	def getPropuesta(String mail) {
@@ -36,15 +36,19 @@ class Administrador {
 		posiblesJugadores.add(nuevaPropuesta)
 	}
 	
+	def ultimaPropuestaAgregada(){
+		val ultimo = this.posiblesJugadores.size
+		posiblesJugadores.get(ultimo-1)
+	}
+	
 	def nuevoRechazo(Rechazo nuevoRechazo) {
 		jugadoresRechazados.add(nuevoRechazo)
 	}
 	
-	def aceptarPropuesta(String mail) {
-		if (!existePropuesta(mail)) {
+	def aceptarPropuesta(Propuesta propuesta) {
+		if (!existePropuesta(propuesta)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
-		var propuesta = this.getPropuesta(mail)
 		var jugador = new Jugador(propuesta.nombre, mail)
 		jugador.agregarAmigo(propuesta.amigo.mail)
 		removerPropuesta(mail)
@@ -54,8 +58,8 @@ class Administrador {
 		jugador
 	}
 	
-	def rechazarPropuesta(String mail, String razon) {
-		if(!existePropuesta(mail)) {
+	def rechazarPropuesta(Propuesta propuesta, String razon) {
+		if(!existePropuesta(propuesta)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
 		val rechazoNuevo = new Rechazo(mail, razon, getPropuesta(mail))

@@ -1,18 +1,16 @@
 package utn.edu.dds.TP_OPF5.test
 
-import org.junit.Before
-import org.junit.Test
-import org.junit.Assert
-import partido.core.Jugador
-import partido.core.Partido
-import partido.mailSender.MailSender
-import partido.nuevosJugadores.Administrador
-import partido.nuevosJugadores.Propuesta
-import partido.nuevosJugadores.Rechazo
 import exception.NoExisteMailException
 import exception.NoExisteTalJugadorException
 import java.util.ArrayList
 import java.util.List
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import partido.core.Jugador
+import partido.core.Partido
+import partido.nuevosJugadores.Administrador
+import partido.nuevosJugadores.PropuestaBuilder
 
 class TstNuevosJugadores {
 
@@ -39,7 +37,8 @@ class TstNuevosJugadores {
 	@Test
 	def void jugadorCreaPropuestaLaPoseeElAdministrador() {
 		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
-		Assert.assertTrue(partido.administrador.existePropuesta(amigo))
+		var UltimaPropuesta = partido.administrador.ultimaPropuestaAgregada()
+		Assert.assertTrue(partido.administrador.existePropuesta(UltimaPropuesta))
 	}
 
 	@Test
@@ -57,38 +56,52 @@ class TstNuevosJugadores {
 	@Test
 	def void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos() {
 		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
-		partido.administrador.aceptarPropuesta(amigo)
+		var propuesta = partido.administrador.ultimaPropuestaAgregada()
+		partido.administrador.aceptarPropuesta(propuesta)
 		Assert.assertTrue(jugador.existeAmigo(amigo))
 	}
 
 	@Test
 	def void adminNoPuedeAceptarPropuestaQueNoExiste() {
 		val len = jugador.amigos.size
-		var amigoQueNoEsta = "amigoNoEsta@hotmaill.com"
+		var propuestaQNoEsta = crearPropuesta()
 
 		try {
-			administrador.aceptarPropuesta(amigoQueNoEsta)
+			administrador.aceptarPropuesta(propuestaQNoEsta)
 			Assert.fail("No se puede aceptar propuesta que no existe")
 		} catch (NoExisteTalJugadorException e) {
 			Assert.assertNotSame(jugador.amigos.size, len + 1)
 		}
 	}
+	
+	def crearPropuesta() {
+		var propuesta= new PropuestaBuilder()
+		propuesta.conMail(amigo)
+		propuesta.conAmigoDelPropuesto(jugador)
+		propuesta.conAmigos(jugador.amigos)
+		propuesta.conNombre(nombre)
+		propuesta.build()
+		
+	}
 
 	@Test
 	def void adminRechazaPropuestaYRegistraLaDenegacion() {
 		val len = administrador.jugadoresRechazados.size
+		
 		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
-		partido.administrador.rechazarPropuesta(amigo, "Rechazado por X motivo")
-		Assert.assertTrue(administrador.jugadoresRechazados.size == (len + 1))
+		var UltimaPropuesta = partido.administrador.ultimaPropuestaAgregada()
+		
+		partido.administrador.rechazarPropuesta(UltimaPropuesta, "Rechazado por X motivo")
+		
+		Assert.assertEquals(administrador.jugadoresRechazados.size, len + 1)
 	}
 
 	@Test
 	def void adminRechazaPropuestaNoExisteProduceError() {
 		val len = jugador.amigos.size
-		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
-
+		var propuestaQNoEsta = crearPropuesta()
 		try {
-			administrador.rechazarPropuesta(amigoQueNoEsta, "Rechazado por X motivo")
+			administrador.rechazarPropuesta(propuestaQNoEsta, "Rechazado por X motivo")
 			Assert.fail("No se puede rechazar propuesta que no existe")
 		} catch (NoExisteTalJugadorException e) {
 			Assert.assertNotSame(jugador.amigos.size, len + 1)

@@ -1,11 +1,11 @@
 package partido.calificaciones
 
-import partido.core.Partido
-import partido.core.Jugador
 import exception.JugadorNoPerteneceAlPartido
-import exception.YaLoCalifique
-import exception.NotaIncorrecta
 import exception.MeCalificoAMiMismo
+import exception.NotaIncorrecta
+import exception.YaLoCalifique
+import partido.core.Jugador
+import partido.core.Partido
 
 class ClasificacionBuilder {
 	@Property
@@ -24,8 +24,7 @@ class ClasificacionBuilder {
 			throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido")
 		}
 		
-		if (calificado.calificaciones.exists[calificacion|
-			(calificacion.jugadorQueCalifico == calificador) && (calificacion.partido == partido)]) {
+		if (fueCalificado()) {
 			throw new YaLoCalifique("Ya califique a este jugador")
 		}
 		if (nota < 1 || nota > 10) {
@@ -37,6 +36,11 @@ class ClasificacionBuilder {
 		}
 	
 		new Calificacion(critica, calificador, partido, nota)		
+	}
+	
+	def fueCalificado() {
+		calificado.calificaciones.exists[calificacion|
+			(calificacion.jugadorQueCalifico == calificador) && (calificacion.partido == partido)]
 	}
 	
 	def conPartido(Partido partido) {

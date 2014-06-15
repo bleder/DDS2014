@@ -1,18 +1,13 @@
 package partido.core
 
-//import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
 import java.util.List
 import java.util.ArrayList
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.calificaciones.Calificacion
-import exception.NoExisteMailException
-import partido.nuevosJugadores.Propuesta
 import partido.nuevosJugadores.Administrador
 import partido.calificaciones.ClasificacionBuilder
-
-//import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
-
+import partido.nuevosJugadores.PropuestaBuilder
 
 class Jugador {
 	@Property
@@ -66,11 +61,13 @@ class Jugador {
 	}
 			
 	def crearPropuesta(String amigo, Administrador admin, String nombre, List<String> mailsDeAmigos) {
-		if(!existeAmigo(amigo)) {
-			throw new NoExisteMailException("El jugador no tiene a ese amigo")
-		}
-		
-		admin.nuevaPropuesta(new Propuesta(amigo, this, nombre, mailsDeAmigos))
+		var propuesta= new PropuestaBuilder()
+		propuesta.conMail(amigo)
+		propuesta.conAmigoDelPropuesto(this)
+		propuesta.conAmigos(mailsDeAmigos)
+		propuesta.conNombre(nombre)
+			
+		admin.nuevaPropuesta(propuesta.build())
 	}
 	
 	def existeAmigo(String mail) {

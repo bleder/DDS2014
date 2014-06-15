@@ -51,12 +51,11 @@ public class Administrador {
     this.setJugadoresRechazados(_arrayList_1);
   }
   
-  public boolean existePropuesta(final String mail) {
+  public boolean existePropuesta(final Propuesta propuesta) {
     List<Propuesta> _posiblesJugadores = this.getPosiblesJugadores();
     final Function1<Propuesta,Boolean> _function = new Function1<Propuesta,Boolean>() {
-      public Boolean apply(final Propuesta propuesta) {
-        String _mail = propuesta.getMail();
-        return Boolean.valueOf(Objects.equal(_mail, mail));
+      public Boolean apply(final Propuesta p) {
+        return Boolean.valueOf(Objects.equal(p, propuesta));
       }
     };
     return IterableExtensions.<Propuesta>exists(_posiblesJugadores, _function);
@@ -84,27 +83,39 @@ public class Administrador {
     return _posiblesJugadores.add(nuevaPropuesta);
   }
   
+  public Propuesta ultimaPropuestaAgregada() {
+    Propuesta _xblockexpression = null;
+    {
+      List<Propuesta> _posiblesJugadores = this.getPosiblesJugadores();
+      final int ultimo = _posiblesJugadores.size();
+      List<Propuesta> _posiblesJugadores_1 = this.getPosiblesJugadores();
+      _xblockexpression = _posiblesJugadores_1.get((ultimo - 1));
+    }
+    return _xblockexpression;
+  }
+  
   public boolean nuevoRechazo(final Rechazo nuevoRechazo) {
     List<Rechazo> _jugadoresRechazados = this.getJugadoresRechazados();
     return _jugadoresRechazados.add(nuevoRechazo);
   }
   
-  public Jugador aceptarPropuesta(final String mail) {
+  public Jugador aceptarPropuesta(final Propuesta propuesta) {
     try {
       Jugador _xblockexpression = null;
       {
-        boolean _existePropuesta = this.existePropuesta(mail);
+        boolean _existePropuesta = this.existePropuesta(propuesta);
         boolean _not = (!_existePropuesta);
         if (_not) {
           throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
         }
-        Propuesta propuesta = this.getPropuesta(mail);
         String _nombre = propuesta.getNombre();
-        Jugador jugador = new Jugador(_nombre, mail);
+        String _mail = this.getMail();
+        Jugador jugador = new Jugador(_nombre, _mail);
         Jugador _amigo = propuesta.getAmigo();
-        String _mail = _amigo.getMail();
-        jugador.agregarAmigo(_mail);
-        this.removerPropuesta(mail);
+        String _mail_1 = _amigo.getMail();
+        jugador.agregarAmigo(_mail_1);
+        String _mail_2 = this.getMail();
+        this.removerPropuesta(_mail_2);
         List<String> _mailsAmigos = propuesta.getMailsAmigos();
         for (final String mails : _mailsAmigos) {
           jugador.agregarAmigo(mails);
@@ -117,19 +128,22 @@ public class Administrador {
     }
   }
   
-  public boolean rechazarPropuesta(final String mail, final String razon) {
+  public boolean rechazarPropuesta(final Propuesta propuesta, final String razon) {
     try {
       boolean _xblockexpression = false;
       {
-        boolean _existePropuesta = this.existePropuesta(mail);
+        boolean _existePropuesta = this.existePropuesta(propuesta);
         boolean _not = (!_existePropuesta);
         if (_not) {
           throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
         }
-        Propuesta _propuesta = this.getPropuesta(mail);
-        final Rechazo rechazoNuevo = new Rechazo(mail, razon, _propuesta);
+        String _mail = this.getMail();
+        String _mail_1 = this.getMail();
+        Propuesta _propuesta = this.getPropuesta(_mail_1);
+        final Rechazo rechazoNuevo = new Rechazo(_mail, razon, _propuesta);
         this.nuevoRechazo(rechazoNuevo);
-        _xblockexpression = this.removerPropuesta(mail);
+        String _mail_2 = this.getMail();
+        _xblockexpression = this.removerPropuesta(_mail_2);
       }
       return _xblockexpression;
     } catch (Throwable _e) {

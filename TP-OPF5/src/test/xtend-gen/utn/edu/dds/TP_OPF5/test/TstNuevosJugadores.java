@@ -12,6 +12,7 @@ import partido.core.Jugador;
 import partido.core.Partido;
 import partido.nuevosJugadores.Administrador;
 import partido.nuevosJugadores.Propuesta;
+import partido.nuevosJugadores.PropuestaBuilder;
 import partido.nuevosJugadores.Rechazo;
 
 @SuppressWarnings("all")
@@ -50,7 +51,9 @@ public class TstNuevosJugadores {
     Administrador _administrador = this.partido.getAdministrador();
     this.jugador.crearPropuesta(this.amigo, _administrador, this.nombre, this.mailsAmigos);
     Administrador _administrador_1 = this.partido.getAdministrador();
-    boolean _existePropuesta = _administrador_1.existePropuesta(this.amigo);
+    Propuesta UltimaPropuesta = _administrador_1.ultimaPropuestaAgregada();
+    Administrador _administrador_2 = this.partido.getAdministrador();
+    boolean _existePropuesta = _administrador_2.existePropuesta(UltimaPropuesta);
     Assert.assertTrue(_existePropuesta);
   }
   
@@ -79,7 +82,9 @@ public class TstNuevosJugadores {
     Administrador _administrador = this.partido.getAdministrador();
     this.jugador.crearPropuesta(this.amigo, _administrador, this.nombre, this.mailsAmigos);
     Administrador _administrador_1 = this.partido.getAdministrador();
-    _administrador_1.aceptarPropuesta(this.amigo);
+    Propuesta propuesta = _administrador_1.ultimaPropuestaAgregada();
+    Administrador _administrador_2 = this.partido.getAdministrador();
+    _administrador_2.aceptarPropuesta(propuesta);
     boolean _existeAmigo = this.jugador.existeAmigo(this.amigo);
     Assert.assertTrue(_existeAmigo);
   }
@@ -88,9 +93,9 @@ public class TstNuevosJugadores {
   public void adminNoPuedeAceptarPropuestaQueNoExiste() {
     List<String> _amigos = this.jugador.getAmigos();
     final int len = _amigos.size();
-    String amigoQueNoEsta = "amigoNoEsta@hotmaill.com";
+    Propuesta propuestaQNoEsta = this.crearPropuesta();
     try {
-      this.administrador.aceptarPropuesta(amigoQueNoEsta);
+      this.administrador.aceptarPropuesta(propuestaQNoEsta);
       Assert.fail("No se puede aceptar propuesta que no existe");
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteTalJugadorException) {
@@ -104,6 +109,20 @@ public class TstNuevosJugadores {
     }
   }
   
+  public Propuesta crearPropuesta() {
+    Propuesta _xblockexpression = null;
+    {
+      PropuestaBuilder propuesta = new PropuestaBuilder();
+      propuesta.conMail(this.amigo);
+      propuesta.conAmigoDelPropuesto(this.jugador);
+      List<String> _amigos = this.jugador.getAmigos();
+      propuesta.conAmigos(_amigos);
+      propuesta.conNombre(this.nombre);
+      _xblockexpression = propuesta.build();
+    }
+    return _xblockexpression;
+  }
+  
   @Test
   public void adminRechazaPropuestaYRegistraLaDenegacion() {
     List<Rechazo> _jugadoresRechazados = this.administrador.getJugadoresRechazados();
@@ -111,20 +130,21 @@ public class TstNuevosJugadores {
     Administrador _administrador = this.partido.getAdministrador();
     this.jugador.crearPropuesta(this.amigo, _administrador, this.nombre, this.mailsAmigos);
     Administrador _administrador_1 = this.partido.getAdministrador();
-    _administrador_1.rechazarPropuesta(this.amigo, "Rechazado por X motivo");
+    Propuesta UltimaPropuesta = _administrador_1.ultimaPropuestaAgregada();
+    Administrador _administrador_2 = this.partido.getAdministrador();
+    _administrador_2.rechazarPropuesta(UltimaPropuesta, "Rechazado por X motivo");
     List<Rechazo> _jugadoresRechazados_1 = this.administrador.getJugadoresRechazados();
     int _size = _jugadoresRechazados_1.size();
-    boolean _equals = (_size == (len + 1));
-    Assert.assertTrue(_equals);
+    Assert.assertEquals(_size, (len + 1));
   }
   
   @Test
   public void adminRechazaPropuestaNoExisteProduceError() {
     List<String> _amigos = this.jugador.getAmigos();
     final int len = _amigos.size();
-    String amigoQueNoEsta = "amigoNoEsta@hotmail.com";
+    Propuesta propuestaQNoEsta = this.crearPropuesta();
     try {
-      this.administrador.rechazarPropuesta(amigoQueNoEsta, "Rechazado por X motivo");
+      this.administrador.rechazarPropuesta(propuestaQNoEsta, "Rechazado por X motivo");
       Assert.fail("No se puede rechazar propuesta que no existe");
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteTalJugadorException) {
