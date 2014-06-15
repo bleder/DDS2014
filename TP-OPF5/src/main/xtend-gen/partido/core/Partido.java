@@ -67,6 +67,26 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
+  private List<Jugador> _equipo1;
+  
+  public List<Jugador> getEquipo1() {
+    return this._equipo1;
+  }
+  
+  public void setEquipo1(final List<Jugador> equipo1) {
+    this._equipo1 = equipo1;
+  }
+  
+  private List<Jugador> _equipo2;
+  
+  public List<Jugador> getEquipo2() {
+    return this._equipo2;
+  }
+  
+  public void setEquipo2(final List<Jugador> equipo2) {
+    this._equipo2 = equipo2;
+  }
+  
   public Partido(final String nomPartido, final Administrador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();

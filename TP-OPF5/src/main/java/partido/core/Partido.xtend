@@ -20,6 +20,10 @@ class Partido {
 	Administrador administrador
 	@Property 
 	int	maximoLista
+	@Property
+	List<Jugador> equipo1
+	@Property
+	List<Jugador> equipo2
 	
 	new(String nomPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
