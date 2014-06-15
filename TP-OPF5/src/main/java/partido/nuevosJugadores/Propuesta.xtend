@@ -14,10 +14,12 @@ class Propuesta {
 	@Property
 	List<String> mailsAmigos
 	
+	
 	new(String mailDado, Jugador amigoQueRecomendo, String nom, List<String> mails) {
 		mail = mailDado
 		amigo = amigoQueRecomendo
 		nombre = nom
 		mailsAmigos = mails
+		
 	}
 }

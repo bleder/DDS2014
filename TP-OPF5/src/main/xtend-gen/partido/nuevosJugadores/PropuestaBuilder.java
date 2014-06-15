@@ -79,7 +79,8 @@ public class PropuestaBuilder {
         Jugador _amigo_1 = this.getAmigo();
         String _nombre = this.getNombre();
         List<String> _mailsAmigos = this.getMailsAmigos();
-        _xblockexpression = new Propuesta(_mailPropuesto_1, _amigo_1, _nombre, _mailsAmigos);
+        Propuesta propuesta = new Propuesta(_mailPropuesto_1, _amigo_1, _nombre, _mailsAmigos);
+        _xblockexpression = propuesta;
       }
       return _xblockexpression;
     } catch (Throwable _e) {

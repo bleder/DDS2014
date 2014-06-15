@@ -34,7 +34,8 @@ class PropuestaBuilder {
 		if (!amigo.existeAmigo(mailPropuesto)) {
 			throw new NoExisteMailException("El jugador no tiene a ese amigo")
 		}
-		new Propuesta(mailPropuesto, amigo, nombre, mailsAmigos)
+	var propuesta = new Propuesta(mailPropuesto, amigo, nombre, mailsAmigos)
+	propuesta
 	}
 	
 	

@@ -28,8 +28,8 @@ class Administrador {
 		posiblesJugadores.findFirst[propuesta | propuesta.mail == mail]
 	}
 	
-	def removerPropuesta(String mail) {
-		posiblesJugadores.remove(getPropuesta(mail))
+	def removerPropuesta(Propuesta propuesta) {
+		posiblesJugadores.remove(propuesta)
 	}
 	
 	def nuevaPropuesta(Propuesta nuevaPropuesta) {
@@ -46,24 +46,22 @@ class Administrador {
 	}
 	
 	def aceptarPropuesta(Propuesta propuesta) {
-		if (!existePropuesta(propuesta)) {
-			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
-		}
-		var jugador = new Jugador(propuesta.nombre, mail)
-		jugador.agregarAmigo(propuesta.amigo.mail)
-		removerPropuesta(mail)
-		for(String mails : propuesta.mailsAmigos) {
-			jugador.agregarAmigo(mails)
-		}
-		jugador
+		var nuevoJugador=new jugadorBuilder()
+		nuevoJugador.conPropuesta(propuesta)
+		nuevoJugador.suAdministrador(this)
+		nuevoJugador.build()
+		this.removerPropuesta(propuesta)
+		
 	}
 	
 	def rechazarPropuesta(Propuesta propuesta, String razon) {
+		
 		if(!existePropuesta(propuesta)) {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
-		val rechazoNuevo = new Rechazo(mail, razon, getPropuesta(mail))
+		
+		val rechazoNuevo = new Rechazo(razon, propuesta)
 		nuevoRechazo(rechazoNuevo)
-		removerPropuesta(mail)
+		removerPropuesta(propuesta)
 	}
 }

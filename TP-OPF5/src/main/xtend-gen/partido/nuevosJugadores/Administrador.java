@@ -7,9 +7,9 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import partido.core.Jugador;
 import partido.nuevosJugadores.Propuesta;
 import partido.nuevosJugadores.Rechazo;
+import partido.nuevosJugadores.jugadorBuilder;
 
 @SuppressWarnings("all")
 public class Administrador {
@@ -72,10 +72,9 @@ public class Administrador {
     return IterableExtensions.<Propuesta>findFirst(_posiblesJugadores, _function);
   }
   
-  public boolean removerPropuesta(final String mail) {
+  public boolean removerPropuesta(final Propuesta propuesta) {
     List<Propuesta> _posiblesJugadores = this.getPosiblesJugadores();
-    Propuesta _propuesta = this.getPropuesta(mail);
-    return _posiblesJugadores.remove(_propuesta);
+    return _posiblesJugadores.remove(propuesta);
   }
   
   public boolean nuevaPropuesta(final Propuesta nuevaPropuesta) {
@@ -99,33 +98,16 @@ public class Administrador {
     return _jugadoresRechazados.add(nuevoRechazo);
   }
   
-  public Jugador aceptarPropuesta(final Propuesta propuesta) {
-    try {
-      Jugador _xblockexpression = null;
-      {
-        boolean _existePropuesta = this.existePropuesta(propuesta);
-        boolean _not = (!_existePropuesta);
-        if (_not) {
-          throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
-        }
-        String _nombre = propuesta.getNombre();
-        String _mail = this.getMail();
-        Jugador jugador = new Jugador(_nombre, _mail);
-        Jugador _amigo = propuesta.getAmigo();
-        String _mail_1 = _amigo.getMail();
-        jugador.agregarAmigo(_mail_1);
-        String _mail_2 = this.getMail();
-        this.removerPropuesta(_mail_2);
-        List<String> _mailsAmigos = propuesta.getMailsAmigos();
-        for (final String mails : _mailsAmigos) {
-          jugador.agregarAmigo(mails);
-        }
-        _xblockexpression = jugador;
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
+  public boolean aceptarPropuesta(final Propuesta propuesta) {
+    boolean _xblockexpression = false;
+    {
+      jugadorBuilder nuevoJugador = new jugadorBuilder();
+      nuevoJugador.conPropuesta(propuesta);
+      nuevoJugador.suAdministrador(this);
+      nuevoJugador.build();
+      _xblockexpression = this.removerPropuesta(propuesta);
     }
+    return _xblockexpression;
   }
   
   public boolean rechazarPropuesta(final Propuesta propuesta, final String razon) {
@@ -137,13 +119,9 @@ public class Administrador {
         if (_not) {
           throw new NoExisteTalJugadorException("No existe propuesta para ese jugador");
         }
-        String _mail = this.getMail();
-        String _mail_1 = this.getMail();
-        Propuesta _propuesta = this.getPropuesta(_mail_1);
-        final Rechazo rechazoNuevo = new Rechazo(_mail, razon, _propuesta);
+        final Rechazo rechazoNuevo = new Rechazo(razon, propuesta);
         this.nuevoRechazo(rechazoNuevo);
-        String _mail_2 = this.getMail();
-        _xblockexpression = this.removerPropuesta(_mail_2);
+        _xblockexpression = this.removerPropuesta(propuesta);
       }
       return _xblockexpression;
     } catch (Throwable _e) {

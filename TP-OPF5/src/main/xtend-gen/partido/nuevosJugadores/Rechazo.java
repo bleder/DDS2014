@@ -4,16 +4,6 @@ import partido.nuevosJugadores.Propuesta;
 
 @SuppressWarnings("all")
 public class Rechazo {
-  private String _mail;
-  
-  public String getMail() {
-    return this._mail;
-  }
-  
-  public void setMail(final String mail) {
-    this._mail = mail;
-  }
-  
   private String _razon;
   
   public String getRazon() {
@@ -34,8 +24,7 @@ public class Rechazo {
     this._propuesta = propuesta;
   }
   
-  public Rechazo(final String elMail, final String laRazon, final Propuesta propuestaRechazada) {
-    this.setMail(elMail);
+  public Rechazo(final String laRazon, final Propuesta propuestaRechazada) {
     this.setRazon(laRazon);
     this.setPropuesta(propuestaRechazada);
   }
