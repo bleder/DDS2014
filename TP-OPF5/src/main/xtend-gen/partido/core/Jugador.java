@@ -1,17 +1,14 @@
 package partido.core;
 
 import com.google.common.base.Objects;
-import exception.JugadorNoPerteneceAlPartido;
-import exception.MeCalificoAMiMismo;
 import exception.NoExisteMailException;
-import exception.NotaIncorrecta;
-import exception.YaLoCalifique;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import partido.calificaciones.Calificacion;
+import partido.calificaciones.ClasificacionBuilder;
 import partido.core.Infraccion;
 import partido.core.Partido;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
@@ -98,64 +95,23 @@ public class Jugador {
   }
   
   public boolean calificarA(final Jugador jugador, final Partido partido, final int nota, final String critica) {
-    try {
-      boolean _xifexpression = false;
-      boolean _estaInscripto = partido.estaInscripto(jugador);
-      if (_estaInscripto) {
-        boolean _xifexpression_1 = false;
-        List<Calificacion> _calificaciones = jugador.getCalificaciones();
-        final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
-          public Boolean apply(final Calificacion calificacion) {
-            boolean _and = false;
-            Jugador _jugadorQueCalifico = calificacion.getJugadorQueCalifico();
-            boolean _equals = Objects.equal(_jugadorQueCalifico, jugador);
-            if (!_equals) {
-              _and = false;
-            } else {
-              Partido _partido = calificacion.getPartido();
-              boolean _equals_1 = Objects.equal(_partido, partido);
-              _and = _equals_1;
-            }
-            return Boolean.valueOf(_and);
-          }
-        };
-        boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);
-        if (_exists) {
-          throw new YaLoCalifique("Ya califique a este jugador");
-        } else {
-          boolean _xifexpression_2 = false;
-          if (((nota >= 1) && (nota <= 10))) {
-            boolean _xifexpression_3 = false;
-            boolean _notEquals = (!Objects.equal(jugador, this));
-            if (_notEquals) {
-              _xifexpression_3 = this.crearCalificacion(jugador, partido, nota, critica);
-            } else {
-              throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo");
-            }
-            _xifexpression_2 = _xifexpression_3;
-          } else {
-            throw new NotaIncorrecta("La nota ingresada no es correcta");
-          }
-          _xifexpression_1 = _xifexpression_2;
-        }
-        _xifexpression = _xifexpression_1;
-      } else {
-        throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido");
-      }
-      return _xifexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
+    boolean _xblockexpression = false;
+    {
+      ClasificacionBuilder calificacion = new ClasificacionBuilder();
+      calificacion.conPartido(partido);
+      calificacion.conNota(nota);
+      calificacion.conCritica(critica);
+      calificacion.conCalificador(this);
+      calificacion.conCalificado(jugador);
+      Calificacion _build = calificacion.build();
+      _xblockexpression = jugador.agregateCalificacion(_build);
     }
+    return _xblockexpression;
   }
   
   public boolean agregateCalificacion(final Calificacion calificacion) {
     List<Calificacion> _calificaciones = this.getCalificaciones();
     return _calificaciones.add(calificacion);
-  }
-  
-  public boolean crearCalificacion(final Jugador jugador, final Partido partido, final int nota, final String critica) {
-    Calificacion _calificacion = new Calificacion(critica, jugador, partido, nota);
-    return jugador.agregateCalificacion(_calificacion);
   }
   
   public boolean crearPropuesta(final String amigo, final Administrador admin, final String nombre, final List<String> mailsDeAmigos) {

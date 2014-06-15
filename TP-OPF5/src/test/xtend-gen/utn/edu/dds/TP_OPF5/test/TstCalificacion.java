@@ -41,110 +41,92 @@ public class TstCalificacion {
   }
   
   @Test
-  public void calificarAJugadorSoloConNota() {
+  public void sePuedeCalificarAJugadorSoloConNota() {
     List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
     final int len = _calificaciones.size();
     this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, null);
     List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
     int _size = _calificaciones_1.size();
-    boolean _equals = (_size == (len + 1));
-    Assert.assertTrue(_equals);
+    Assert.assertEquals(_size, (len + 1));
   }
   
   @Test
-  public void calificarAJugadorConNotaYMensaje() {
+  public void sePuedeCalificarAJugadorConNotaYMensaje() {
     List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
     final int len = _calificaciones.size();
     this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, "La gambeta que tiro en el minuto 20 fue impresionante");
     List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
     int _size = _calificaciones_1.size();
-    boolean _equals = (_size == (len + 1));
-    Assert.assertTrue(_equals);
+    Assert.assertEquals(_size, (len + 1));
   }
   
   @Test
-  public void calificarAJugadorConNotaIncorrectaSeProduceError() {
-    List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
-    final int len = _calificaciones.size();
+  public void noSePuedeCalificarAJugadorConNotaIncorrecta() {
     try {
       this.jugador.calificarA(this.jugadorCalificado, this.partido, 25, null);
+      Assert.fail("No se puede calificar a jugador con que no este entre 1 y 10");
     } catch (final Throwable _t) {
       if (_t instanceof NotaIncorrecta) {
         final NotaIncorrecta e = (NotaIncorrecta)_t;
-        List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
-        int _size = _calificaciones_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
+        boolean _isEmpty = _calificaciones.isEmpty();
+        Assert.assertTrue(_isEmpty);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
   
   @Test
-  public void calificarAJugadorQueNoExisteEnPartidoProduceError() {
-    List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
-    final int len = _calificaciones.size();
+  public void noSePuedeCalificarAJugadorQueNoExisteEnPartido() {
     Jugador jugadorNoEstaEnPartido = new Jugador("Robert", "Robert22@aol.com");
     try {
       this.jugador.calificarA(jugadorNoEstaEnPartido, this.partido, 9, null);
+      Assert.fail("No se puede calificar a jugador que no existe");
     } catch (final Throwable _t) {
       if (_t instanceof JugadorNoPerteneceAlPartido) {
         final JugadorNoPerteneceAlPartido e = (JugadorNoPerteneceAlPartido)_t;
-        List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
-        int _size = _calificaciones_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
+        boolean _isEmpty = _calificaciones.isEmpty();
+        Assert.assertTrue(_isEmpty);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
   
   @Test
-  public void calificarAJugadorDosVecesTiraError() {
-    List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
-    final int len = _calificaciones.size();
+  public void noSePuedeCalificarAlMismoJugadorDosVecesParaUnMismoPartido() {
     this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, null);
     try {
       this.jugador.calificarA(this.jugadorCalificado, this.partido, 9, null);
+      Assert.fail("No se puede calificar dos veces al mismo jugador");
     } catch (final Throwable _t) {
       if (_t instanceof YaLoCalifique) {
         final YaLoCalifique e = (YaLoCalifique)_t;
-        List<Calificacion> _calificaciones_1 = this.jugadorCalificado.getCalificaciones();
-        int _size = _calificaciones_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertTrue(_equals);
-        return;
+        List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
+        int _size = _calificaciones.size();
+        Assert.assertEquals(_size, 1);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
   
   @Test
-  public void calificarAUnoMismoTiraError() {
-    List<Calificacion> _calificaciones = this.jugador.getCalificaciones();
-    final int len = _calificaciones.size();
+  public void NoSePuedeCalificarAUnoMismo() {
     try {
       this.jugador.calificarA(this.jugador, this.partido, 9, null);
+      Assert.fail("No se puede calificar a uno mismo");
     } catch (final Throwable _t) {
       if (_t instanceof MeCalificoAMiMismo) {
         final MeCalificoAMiMismo e = (MeCalificoAMiMismo)_t;
-        List<Calificacion> _calificaciones_1 = this.jugador.getCalificaciones();
-        int _size = _calificaciones_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        List<Calificacion> _calificaciones = this.jugadorCalificado.getCalificaciones();
+        boolean _isEmpty = _calificaciones.isEmpty();
+        Assert.assertTrue(_isEmpty);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
 }

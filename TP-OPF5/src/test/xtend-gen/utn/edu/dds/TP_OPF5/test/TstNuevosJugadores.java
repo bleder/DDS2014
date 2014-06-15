@@ -55,28 +55,23 @@ public class TstNuevosJugadores {
   }
   
   @Test
-  public void JugadorCreaPropuestaNoExisteAmigoProduceError() {
-    Administrador _administrador = this.partido.getAdministrador();
-    List<Propuesta> _posiblesJugadores = _administrador.getPosiblesJugadores();
-    final int len = _posiblesJugadores.size();
+  public void JugadorNoPuedeCrearPropuestaQueNoExisteAmigo() {
     String amigoQueNoEsta = "amigoNoEsta@hotmail.com";
     try {
-      Administrador _administrador_1 = this.partido.getAdministrador();
-      this.jugador.crearPropuesta(amigoQueNoEsta, _administrador_1, this.nombre, this.mailsAmigos);
+      Administrador _administrador = this.partido.getAdministrador();
+      this.jugador.crearPropuesta(amigoQueNoEsta, _administrador, this.nombre, this.mailsAmigos);
+      Assert.fail("No se puede crear propuesta de un jugador que no es amigo");
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteMailException) {
         final NoExisteMailException e = (NoExisteMailException)_t;
-        Administrador _administrador_2 = this.partido.getAdministrador();
-        List<Propuesta> _posiblesJugadores_1 = _administrador_2.getPosiblesJugadores();
-        int _size = _posiblesJugadores_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        Administrador _administrador_1 = this.partido.getAdministrador();
+        List<Propuesta> _posiblesJugadores = _administrador_1.getPosiblesJugadores();
+        boolean _isEmpty = _posiblesJugadores.isEmpty();
+        Assert.assertTrue(_isEmpty);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
   
   @Test
@@ -90,25 +85,23 @@ public class TstNuevosJugadores {
   }
   
   @Test
-  public void adminAceptaPropuestaNoExisteProduceError() {
+  public void adminNoPuedeAceptarPropuestaQueNoExiste() {
     List<String> _amigos = this.jugador.getAmigos();
     final int len = _amigos.size();
     String amigoQueNoEsta = "amigoNoEsta@hotmaill.com";
     try {
       this.administrador.aceptarPropuesta(amigoQueNoEsta);
+      Assert.fail("No se puede aceptar propuesta que no existe");
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteTalJugadorException) {
         final NoExisteTalJugadorException e = (NoExisteTalJugadorException)_t;
         List<String> _amigos_1 = this.jugador.getAmigos();
         int _size = _amigos_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        Assert.assertNotSame(Integer.valueOf(_size), Integer.valueOf((len + 1)));
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
   
   @Test
@@ -132,18 +125,16 @@ public class TstNuevosJugadores {
     String amigoQueNoEsta = "amigoNoEsta@hotmail.com";
     try {
       this.administrador.rechazarPropuesta(amigoQueNoEsta, "Rechazado por X motivo");
+      Assert.fail("No se puede rechazar propuesta que no existe");
     } catch (final Throwable _t) {
       if (_t instanceof NoExisteTalJugadorException) {
         final NoExisteTalJugadorException e = (NoExisteTalJugadorException)_t;
         List<String> _amigos_1 = this.jugador.getAmigos();
         int _size = _amigos_1.size();
-        boolean _equals = (_size == (len + 1));
-        Assert.assertFalse(_equals);
-        return;
+        Assert.assertNotSame(Integer.valueOf(_size), Integer.valueOf((len + 1)));
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    Assert.assertFalse(true);
   }
 }

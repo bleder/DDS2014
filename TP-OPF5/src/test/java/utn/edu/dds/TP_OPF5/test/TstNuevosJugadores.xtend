@@ -22,7 +22,7 @@ class TstNuevosJugadores {
 	var String amigo
 	var String nombre
 	var List<String> mailsAmigos
-	
+
 	@Before
 	def void init() {
 		jugador = new Jugador("Rodolfo", "rodol@aol.com")
@@ -38,67 +38,61 @@ class TstNuevosJugadores {
 
 	@Test
 	def void jugadorCreaPropuestaLaPoseeElAdministrador() {
-		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
+		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
 		Assert.assertTrue(partido.administrador.existePropuesta(amigo))
 	}
-	
-	@Test
-	def void JugadorCreaPropuestaNoExisteAmigoProduceError(){
-		val len = partido.administrador.posiblesJugadores.size
-		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
-	
-		try{
-			jugador.crearPropuesta(amigoQueNoEsta,partido.administrador,nombre,mailsAmigos)
-		} catch(NoExisteMailException e){
-			Assert.assertFalse(partido.administrador.posiblesJugadores.size==(len+1))
-			return
-		}
-		Assert.assertFalse(true)
-}
 
 	@Test
-	def void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos(){
-		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
+	def void JugadorNoPuedeCrearPropuestaQueNoExisteAmigo() {
+		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
+
+		try {
+			jugador.crearPropuesta(amigoQueNoEsta, partido.administrador, nombre, mailsAmigos)
+			Assert.fail("No se puede crear propuesta de un jugador que no es amigo")
+		} catch (NoExisteMailException e) {
+			Assert.assertTrue(partido.administrador.posiblesJugadores.empty)
+		}
+	}
+
+	@Test
+	def void adminAceptaPropuestaYJugadorLoPoseeEntreSusAmigos() {
+		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
 		partido.administrador.aceptarPropuesta(amigo)
 		Assert.assertTrue(jugador.existeAmigo(amigo))
 	}
-	
+
 	@Test
-	def void adminAceptaPropuestaNoExisteProduceError(){
+	def void adminNoPuedeAceptarPropuestaQueNoExiste() {
 		val len = jugador.amigos.size
 		var amigoQueNoEsta = "amigoNoEsta@hotmaill.com"
-	
-		try{
+
+		try {
 			administrador.aceptarPropuesta(amigoQueNoEsta)
-		} catch(NoExisteTalJugadorException e){
-			Assert.assertFalse(jugador.amigos.size==(len+1))
-			return
+			Assert.fail("No se puede aceptar propuesta que no existe")
+		} catch (NoExisteTalJugadorException e) {
+			Assert.assertNotSame(jugador.amigos.size, len + 1)
 		}
-		Assert.assertFalse(true)
-}
-	
-	
-	@Test
-	def void adminRechazaPropuestaYRegistraLaDenegacion(){
-		val len = administrador.jugadoresRechazados.size
-		jugador.crearPropuesta(amigo,partido.administrador,nombre,mailsAmigos)
-		partido.administrador.rechazarPropuesta(amigo, "Rechazado por X motivo" )
-		Assert.assertTrue(administrador.jugadoresRechazados.size ==(len +1))
 	}
-	
+
 	@Test
-	def void adminRechazaPropuestaNoExisteProduceError(){
+	def void adminRechazaPropuestaYRegistraLaDenegacion() {
+		val len = administrador.jugadoresRechazados.size
+		jugador.crearPropuesta(amigo, partido.administrador, nombre, mailsAmigos)
+		partido.administrador.rechazarPropuesta(amigo, "Rechazado por X motivo")
+		Assert.assertTrue(administrador.jugadoresRechazados.size == (len + 1))
+	}
+
+	@Test
+	def void adminRechazaPropuestaNoExisteProduceError() {
 		val len = jugador.amigos.size
 		var amigoQueNoEsta = "amigoNoEsta@hotmail.com"
-	
-		try{
-			administrador.rechazarPropuesta(amigoQueNoEsta,"Rechazado por X motivo")
-		} catch(NoExisteTalJugadorException e){
-			Assert.assertFalse(jugador.amigos.size==(len+1))
-			return
+
+		try {
+			administrador.rechazarPropuesta(amigoQueNoEsta, "Rechazado por X motivo")
+			Assert.fail("No se puede rechazar propuesta que no existe")
+		} catch (NoExisteTalJugadorException e) {
+			Assert.assertNotSame(jugador.amigos.size, len + 1)
 		}
-		Assert.assertFalse(true)
-}
-	
- 
+	}
+
 }

@@ -6,13 +6,10 @@ import java.util.List
 import java.util.ArrayList
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.calificaciones.Calificacion
-import exception.JugadorNoPerteneceAlPartido
-import exception.NotaIncorrecta
 import exception.NoExisteMailException
 import partido.nuevosJugadores.Propuesta
 import partido.nuevosJugadores.Administrador
-import exception.MeCalificoAMiMismo
-import exception.YaLoCalifique
+import partido.calificaciones.ClasificacionBuilder
 
 //import ar.edu.utn.frba.TP.OPF5.Incripciones.TipoInscripcion
 
@@ -52,41 +49,22 @@ class Jugador {
 		amigos.add(mailAmigo)
 	}
 	
-	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
-		if (partido.estaInscripto(jugador))
-		{
-			if (jugador.calificaciones.exists[calificacion|(calificacion.jugadorQueCalifico==jugador) && (calificacion.partido==partido)])
-			{
-				throw new YaLoCalifique("Ya califique a este jugador")
-			}
-			else
-			{
-			if (nota>=1 && nota<=10){
-			if (jugador!=this)
-			{
-			this.crearCalificacion(jugador,partido,nota,critica)
-			}
-			else{throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo")}
-			}
-			else{throw new NotaIncorrecta("La nota ingresada no es correcta")}			
-			}		
-		}
-		else
-		{
-			throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido")
-		}
+	def calificarA(Jugador jugador, Partido partido, int nota, String critica) {
 		
+		var calificacion = new ClasificacionBuilder()
+		calificacion.conPartido(partido)
+		calificacion.conNota(nota)
+		calificacion.conCritica(critica)
+		calificacion.conCalificador(this)
+		calificacion.conCalificado(jugador)
+		
+		jugador.agregateCalificacion(calificacion.build())
 	}
-	
 
 	def agregateCalificacion(Calificacion calificacion){
 		this.calificaciones.add(calificacion)
 	}
-	
-	def crearCalificacion(Jugador jugador,Partido partido,int nota,String critica){
-		jugador.agregateCalificacion(new Calificacion(critica,jugador,partido,nota))
-	}
-	
+			
 	def crearPropuesta(String amigo, Administrador admin, String nombre, List<String> mailsDeAmigos) {
 		if(!existeAmigo(amigo)) {
 			throw new NoExisteMailException("El jugador no tiene a ese amigo")
