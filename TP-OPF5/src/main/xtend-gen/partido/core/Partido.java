@@ -1,7 +1,9 @@
 package partido.core;
 
 import com.google.common.base.Objects;
+import divisionEquipo.Divisor;
 import exception.PartidoCompletoExcepcion;
+import exception.PartidoConfirmadoNoAceptaBaja;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -14,9 +16,12 @@ import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
+import partido.ordenamiento.Ordenamiento;
 
 @SuppressWarnings("all")
 public class Partido {
+  private List<Inscripcion> incripcionesOrdenadas = new ArrayList<Inscripcion>();
+  
   private String _nombrePartido;
   
   public String getNombrePartido() {
@@ -27,7 +32,7 @@ public class Partido {
     this._nombrePartido = nombrePartido;
   }
   
-  private List<Inscripcion> _jugadoresInscriptos;
+  private List<Inscripcion> _jugadoresInscriptos = new ArrayList<Inscripcion>();
   
   public List<Inscripcion> getJugadoresInscriptos() {
     return this._jugadoresInscriptos;
@@ -45,6 +50,16 @@ public class Partido {
   
   public void setObservers(final List<PartidoObserver> observers) {
     this._observers = observers;
+  }
+  
+  private List<Jugador> _jugadores;
+  
+  public List<Jugador> getJugadores() {
+    return this._jugadores;
+  }
+  
+  public void setJugadores(final List<Jugador> jugadores) {
+    this._jugadores = jugadores;
   }
   
   private Administrador _administrador;
@@ -87,6 +102,36 @@ public class Partido {
     this._equipo2 = equipo2;
   }
   
+  private Ordenamiento _ordenamiento;
+  
+  public Ordenamiento getOrdenamiento() {
+    return this._ordenamiento;
+  }
+  
+  public void setOrdenamiento(final Ordenamiento ordenamiento) {
+    this._ordenamiento = ordenamiento;
+  }
+  
+  private Divisor _divisorEquipo;
+  
+  public Divisor getDivisorEquipo() {
+    return this._divisorEquipo;
+  }
+  
+  public void setDivisorEquipo(final Divisor divisorEquipo) {
+    this._divisorEquipo = divisorEquipo;
+  }
+  
+  private boolean _confirmado;
+  
+  public boolean isConfirmado() {
+    return this._confirmado;
+  }
+  
+  public void setConfirmado(final boolean confirmado) {
+    this._confirmado = confirmado;
+  }
+  
   public Partido(final String nomPartido, final Administrador adminPartido) {
     this.setNombrePartido(nomPartido);
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
@@ -95,6 +140,7 @@ public class Partido {
     this.setObservers(_arrayList_1);
     this.setMaximoLista(10);
     this.setAdministrador(adminPartido);
+    this.setConfirmado(false);
   }
   
   public void eliminarInscripcion(final Jugador jug) {
@@ -122,12 +168,20 @@ public class Partido {
   }
   
   public boolean darBajaA(final Jugador jug) {
-    boolean _xblockexpression = false;
-    {
-      this.eliminarInscripcion(jug);
-      _xblockexpression = this.agregarInfraccion(jug);
+    try {
+      boolean _xblockexpression = false;
+      {
+        boolean _isConfirmado = this.isConfirmado();
+        if (_isConfirmado) {
+          throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador");
+        }
+        this.eliminarInscripcion(jug);
+        _xblockexpression = this.agregarInfraccion(jug);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
     }
-    return _xblockexpression;
   }
   
   public void darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
@@ -248,5 +302,28 @@ public class Partido {
     int _cantidadConfirmados = this.cantidadConfirmados();
     int _maximoLista = this.getMaximoLista();
     return (_cantidadConfirmados == _maximoLista);
+  }
+  
+  public void partidoOrdenaJugadores(final Ordenamiento criterio) {
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    final Function1<Inscripcion,Integer> _function = new Function1<Inscripcion,Integer>() {
+      public Integer apply(final Inscripcion it) {
+        Ordenamiento _ordenamiento = Partido.this.getOrdenamiento();
+        Jugador _jugador = it.getJugador();
+        return Integer.valueOf(_ordenamiento.ordenar(_jugador));
+      }
+    };
+    List<Inscripcion> _sortBy = IterableExtensions.<Inscripcion, Integer>sortBy(_jugadoresInscriptos, _function);
+    this.incripcionesOrdenadas = _sortBy;
+    this.setJugadoresInscriptos(this.incripcionesOrdenadas);
+  }
+  
+  public void partidoDividiEquipos() {
+    Divisor _divisorEquipo = this.getDivisorEquipo();
+    _divisorEquipo.dividir();
+  }
+  
+  public void partidoConfirmate() {
+    this.setConfirmado(true);
   }
 }

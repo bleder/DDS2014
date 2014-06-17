@@ -7,15 +7,21 @@ import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.observers.PartidoObserver
 import partido.nuevosJugadores.Administrador
+import partido.ordenamiento.Ordenamiento
+import divisionEquipo.Divisor
+import exception.PartidoConfirmadoNoAceptaBaja
+import java.util.Comparator
 
-class Partido {
-	
+class Partido  {
+	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
 	@Property
 	private String nombrePartido
 	@Property 
-	private List<Inscripcion> jugadoresInscriptos
+	List<Inscripcion> jugadoresInscriptos = new ArrayList
 	@Property 
 	private List<PartidoObserver> observers
+	@Property 
+	List<Jugador> jugadores
 	@Property
 	Administrador administrador
 	@Property 
@@ -24,6 +30,12 @@ class Partido {
 	List<Jugador> equipo1
 	@Property
 	List<Jugador> equipo2
+	@Property
+	Ordenamiento ordenamiento
+	@Property
+	Divisor divisorEquipo
+	@Property
+	boolean confirmado
 	
 	new(String nomPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
@@ -31,6 +43,7 @@ class Partido {
 		observers = new ArrayList
 		maximoLista = 10
 		administrador = adminPartido
+		confirmado=false
 	}
 	
 	def eliminarInscripcion(Jugador jug) {
@@ -43,6 +56,9 @@ class Partido {
 	}
 	
 	def darBajaA(Jugador jug) {
+		if (confirmado){
+			throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador")
+		}
 		this.eliminarInscripcion(jug)
 		this.agregarInfraccion(jug)
 	}
@@ -104,5 +120,19 @@ class Partido {
 	def boolean estasConfirmado() {
 		this.cantidadConfirmados() == maximoLista
 	}
+	
+	def partidoOrdenaJugadores(Ordenamiento criterio){
+		incripcionesOrdenadas=jugadoresInscriptos.sortBy[ordenamiento.ordenar(jugador)]
+		jugadoresInscriptos=incripcionesOrdenadas
+	}
+	
+	def partidoDividiEquipos(){
+		divisorEquipo.dividir()
+	}
+	
+	def partidoConfirmate(){
+		confirmado=true
+	}
+	
 	
 }

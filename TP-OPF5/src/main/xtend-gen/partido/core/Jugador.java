@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import partido.calificaciones.Calificacion;
 import partido.calificaciones.ClasificacionBuilder;
@@ -66,6 +67,26 @@ public class Jugador {
     this._calificaciones = calificaciones;
   }
   
+  private int _nivelJuego;
+  
+  public int getNivelJuego() {
+    return this._nivelJuego;
+  }
+  
+  public void setNivelJuego(final int nivelJuego) {
+    this._nivelJuego = nivelJuego;
+  }
+  
+  private List<Partido> _partidosJugados = new ArrayList<Partido>();
+  
+  public List<Partido> getPartidosJugados() {
+    return this._partidosJugados;
+  }
+  
+  public void setPartidosJugados(final List<Partido> partidosJugados) {
+    this._partidosJugados = partidosJugados;
+  }
+  
   public Jugador(final String nom, final String newMail) {
     this.setMail(newMail);
     this.setNombre(nom);
@@ -73,6 +94,7 @@ public class Jugador {
     this.setInfracciones(_arrayList);
     ArrayList<String> _arrayList_1 = new ArrayList<String>();
     this.setAmigos(_arrayList_1);
+    this.setNivelJuego(0);
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
@@ -135,5 +157,70 @@ public class Jugador {
       }
     };
     return IterableExtensions.<String>exists(_amigos, _function);
+  }
+  
+  public Integer promedioDeCalificacionesUltimoPartido() {
+    Integer _xblockexpression = null;
+    {
+      Iterable<Integer> _notasUltimoPartido = this.notasUltimoPartido();
+      final Function2<Integer,Integer,Integer> _function = new Function2<Integer,Integer,Integer>() {
+        public Integer apply(final Integer n1, final Integer n2) {
+          return Integer.valueOf(((n1).intValue() + (n2).intValue()));
+        }
+      };
+      final Integer sum = IterableExtensions.<Integer>reduce(_notasUltimoPartido, _function);
+      Iterable<Integer> _notasUltimoPartido_1 = this.notasUltimoPartido();
+      final int cant = IterableExtensions.size(_notasUltimoPartido_1);
+      _xblockexpression = sum;
+    }
+    return _xblockexpression;
+  }
+  
+  public Iterable<Integer> notasUltimoPartido() {
+    List<Calificacion> _calificaciones = this.getCalificaciones();
+    final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+      public Boolean apply(final Calificacion calificacion) {
+        Partido _ultimoPartido = Jugador.this.ultimoPartido();
+        return Boolean.valueOf(Objects.equal(calificacion, _ultimoPartido));
+      }
+    };
+    Iterable<Calificacion> _filter = IterableExtensions.<Calificacion>filter(_calificaciones, _function);
+    final Function1<Calificacion,Integer> _function_1 = new Function1<Calificacion,Integer>() {
+      public Integer apply(final Calificacion calificacion) {
+        return Integer.valueOf(calificacion.getNota());
+      }
+    };
+    return IterableExtensions.<Calificacion, Integer>map(_filter, _function_1);
+  }
+  
+  public Partido ultimoPartido() {
+    List<Partido> _partidosJugados = this.getPartidosJugados();
+    return IterableExtensions.<Partido>last(_partidosJugados);
+  }
+  
+  public Integer promedioDeCalificaciones(final int n) {
+    Integer _xblockexpression = null;
+    {
+      List<Calificacion> _calificaciones = this.getCalificaciones();
+      Iterable<Calificacion> _take = IterableExtensions.<Calificacion>take(_calificaciones, n);
+      final Function1<Calificacion,Integer> _function = new Function1<Calificacion,Integer>() {
+        public Integer apply(final Calificacion calificacion) {
+          return Integer.valueOf(calificacion.getNota());
+        }
+      };
+      Iterable<Integer> _map = IterableExtensions.<Calificacion, Integer>map(_take, _function);
+      final Function2<Integer,Integer,Integer> _function_1 = new Function2<Integer,Integer,Integer>() {
+        public Integer apply(final Integer n1, final Integer n2) {
+          return Integer.valueOf(((n1).intValue() + (n2).intValue()));
+        }
+      };
+      final Integer sum = IterableExtensions.<Integer>reduce(_map, _function_1);
+      _xblockexpression = sum;
+    }
+    return _xblockexpression;
+  }
+  
+  public void tuNivelDeJuegoEs(final int nv) {
+    this.setNivelJuego(nv);
   }
 }

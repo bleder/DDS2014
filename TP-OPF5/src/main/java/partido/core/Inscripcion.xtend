@@ -26,5 +26,7 @@ class Inscripcion {
 		estaConfirmada  = true
 	}
 	
+
+	
 }
 	

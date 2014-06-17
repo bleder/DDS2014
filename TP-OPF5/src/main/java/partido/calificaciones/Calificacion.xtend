@@ -12,13 +12,15 @@ class Calificacion {
 	@Property
 	private Partido partido	
 	@Property
-	private int nota
+	int nota
 	new(String string, Jugador jugador, Partido partidop, int i) {
 		critica=string
 		jugadorQueCalifico=jugador
 		partido=partidop
 		nota=i
 	}
+	
+
 	
 	
 }

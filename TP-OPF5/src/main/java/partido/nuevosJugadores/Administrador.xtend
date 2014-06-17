@@ -64,4 +64,8 @@ class Administrador {
 		nuevoRechazo(rechazoNuevo)
 		removerPropuesta(propuesta)
 	}
+	
+	def otogarNivelJuego(Jugador jugador, int nivelJuego){
+		jugador.tuNivelDeJuegoEs(nivelJuego)
+	}
 }

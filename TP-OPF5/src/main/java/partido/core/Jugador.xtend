@@ -20,12 +20,20 @@ class Jugador {
 	List<String> amigos
 	@Property
 	List<Calificacion> calificaciones  = new ArrayList
+	@Property
+	int nivelJuego
+	@Property
+	List<Partido> partidosJugados  = new ArrayList
 	
+	
+	
+
 	new(String nom, String newMail) {
 		mail = newMail
 		nombre=nom
 		infracciones = new ArrayList
 		amigos = new ArrayList
+		nivelJuego=0
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
@@ -73,5 +81,27 @@ class Jugador {
 	def existeAmigo(String mail) {
 		amigos.exists[amigo | amigo == mail]
 	}
+	
+	def promedioDeCalificacionesUltimoPartido(){
+		val sum= notasUltimoPartido().reduce[n1, n2|n1 + n2]
+		val cant=notasUltimoPartido().size
+		sum
+	 }
+	def Iterable<Integer> notasUltimoPartido(){
+		calificaciones.filter[calificacion |calificacion == ultimoPartido()].map[calificacion|calificacion.nota]
+	}
+	def Partido ultimoPartido(){
+		partidosJugados.last
+	}
+	def promedioDeCalificaciones(int n){
+		val sum=calificaciones.take(n).map[calificacion|calificacion.nota].reduce[n1, n2|n1 + n2]
+		sum
+	}
+	
+	def tuNivelDeJuegoEs(int nv) {
+		nivelJuego=nv
+	}
+	
+
 	
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import partido.core.Jugador;
 import partido.nuevosJugadores.Propuesta;
 import partido.nuevosJugadores.Rechazo;
 import partido.nuevosJugadores.jugadorBuilder;
@@ -127,5 +128,9 @@ public class Administrador {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public void otogarNivelJuego(final Jugador jugador, final int nivelJuego) {
+    jugador.tuNivelDeJuegoEs(nivelJuego);
   }
 }
