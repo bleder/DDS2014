@@ -8,12 +8,15 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import partido.core.Equipo;
 import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
+import partido.dividirEquipos.DivisorDeEquipos;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
+import partido.ordenamiento.builder.OrdenadorLista;
 
 @SuppressWarnings("all")
 public class Partido {
@@ -65,6 +68,46 @@ public class Partido {
   
   public void setMaximoLista(final int maximoLista) {
     this._maximoLista = maximoLista;
+  }
+  
+  private Equipo _equipo1;
+  
+  public Equipo getEquipo1() {
+    return this._equipo1;
+  }
+  
+  public void setEquipo1(final Equipo equipo1) {
+    this._equipo1 = equipo1;
+  }
+  
+  private Equipo _equipo2;
+  
+  public Equipo getEquipo2() {
+    return this._equipo2;
+  }
+  
+  public void setEquipo2(final Equipo equipo2) {
+    this._equipo2 = equipo2;
+  }
+  
+  private OrdenadorLista _ordenador;
+  
+  public OrdenadorLista getOrdenador() {
+    return this._ordenador;
+  }
+  
+  public void setOrdenador(final OrdenadorLista ordenador) {
+    this._ordenador = ordenador;
+  }
+  
+  private DivisorDeEquipos _divisor;
+  
+  public DivisorDeEquipos getDivisor() {
+    return this._divisor;
+  }
+  
+  public void setDivisor(final DivisorDeEquipos divisor) {
+    this._divisor = divisor;
   }
   
   public Partido(final String nomPartido, final Administrador adminPartido) {
@@ -134,6 +177,8 @@ public class Partido {
       if (_hayLugar) {
         List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
         _jugadoresInscriptos.add(inscripcion);
+        Jugador _jugador = inscripcion.getJugador();
+        _jugador.setUltimoPartido(this);
       } else {
         boolean _hayAlgunoQueDejaAnotar = this.hayAlgunoQueDejaAnotar();
         if (_hayAlgunoQueDejaAnotar) {
