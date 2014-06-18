@@ -28,6 +28,10 @@ class Jugador {
 	List<String> amigos
 	@Property
 	List<Calificacion> calificaciones  = new ArrayList
+	@Property
+	int handicap
+	@Property
+	Partido ultimoPartido
 	
 	new(String nom, String newMail) {
 		mail = newMail
@@ -99,4 +103,40 @@ class Jugador {
 		amigos.exists[amigo | amigo == mail]
 	}
 	
+	def comparaPorHandicap(Jugador jugador2)
+	{
+		if (this.handicap>=jugador2.handicap)
+		{
+			return this
+		}
+		else
+		{
+			return jugador2
+		}
+	}
+	
+	def notasUltimoPartido()
+	{
+		calificaciones.filter[calif | calif.partido == ultimoPartido].map[calif | calif.nota]
+	}
+	
+	def cantidadNotasUltimoPartido()
+	{
+		notasUltimoPartido.size()
+	}
+	
+	def promedioUltimoPartido()
+	{
+		val suma=notasUltimoPartido().reduce[nota1,nota2 | nota1+nota2]
+		val cantidad=cantidadNotasUltimoPartido
+		val resultado=suma/cantidad
+		resultado.doubleValue	
+	}
+	
+	def promedioNCalificaciones(int n)
+	{
+		val sum=calificaciones.take(n).map[calif | calif.nota].reduce[nota1,nota2 | nota1+nota2]
+		val resultado=sum/n
+		resultado.doubleValue
+	}
 }

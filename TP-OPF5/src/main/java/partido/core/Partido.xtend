@@ -1,12 +1,13 @@
 package partido.core
 
 import exception.PartidoCompletoExcepcion
-import partido.core.Inscripcion
+import partido.ordenamiento.builder.OrdenadorLista
 import java.util.ArrayList
 import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
-import partido.observers.PartidoObserver
 import partido.nuevosJugadores.Administrador
+import partido.observers.PartidoObserver
+import partido.dividirEquipos.DivisorDeEquipos
 
 class Partido {
 	
@@ -20,6 +21,14 @@ class Partido {
 	Administrador administrador
 	@Property 
 	int	maximoLista
+	@Property
+	Equipo equipo1
+	@Property
+	Equipo equipo2
+	@Property
+	OrdenadorLista ordenador
+	@Property
+	DivisorDeEquipos divisor
 	
 	new(String nomPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
@@ -57,6 +66,7 @@ class Partido {
 		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
 		if (this.hayLugar) {
 			jugadoresInscriptos.add(inscripcion)
+			inscripcion.jugador.ultimoPartido=this
 		} else if (this.hayAlgunoQueDejaAnotar) {
 			this.sacarAlQueDejaAnotar
 			jugadoresInscriptos.add(inscripcion)
@@ -100,5 +110,8 @@ class Partido {
 	def boolean estasConfirmado() {
 		this.cantidadConfirmados() == maximoLista
 	}
+	
+	
+	
 	
 }
