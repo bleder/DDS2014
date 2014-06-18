@@ -8,8 +8,8 @@ import partido.core.Jugador;
 import partido.core.Partido;
 
 @SuppressWarnings("all")
-public class divParImpar extends Divisor {
-  public divParImpar(final Partido partido) {
+public class DivParImpar extends Divisor {
+  public DivParImpar(final Partido partido) {
     super(partido);
   }
   

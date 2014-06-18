@@ -159,8 +159,8 @@ public class Jugador {
     return IterableExtensions.<String>exists(_amigos, _function);
   }
   
-  public Integer promedioDeCalificacionesUltimoPartido() {
-    Integer _xblockexpression = null;
+  public int promedioDeCalificacionesUltimoPartido() {
+    int _xblockexpression = (int) 0;
     {
       Iterable<Integer> _notasUltimoPartido = this.notasUltimoPartido();
       final Function2<Integer,Integer,Integer> _function = new Function2<Integer,Integer,Integer>() {
@@ -171,7 +171,8 @@ public class Jugador {
       final Integer sum = IterableExtensions.<Integer>reduce(_notasUltimoPartido, _function);
       Iterable<Integer> _notasUltimoPartido_1 = this.notasUltimoPartido();
       final int cant = IterableExtensions.size(_notasUltimoPartido_1);
-      _xblockexpression = sum;
+      final int resultado = ((sum).intValue() / cant);
+      _xblockexpression = Integer.valueOf(resultado).intValue();
     }
     return _xblockexpression;
   }
@@ -180,8 +181,9 @@ public class Jugador {
     List<Calificacion> _calificaciones = this.getCalificaciones();
     final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
       public Boolean apply(final Calificacion calificacion) {
+        Partido _partido = calificacion.getPartido();
         Partido _ultimoPartido = Jugador.this.ultimoPartido();
-        return Boolean.valueOf(Objects.equal(calificacion, _ultimoPartido));
+        return Boolean.valueOf(Objects.equal(_partido, _ultimoPartido));
       }
     };
     Iterable<Calificacion> _filter = IterableExtensions.<Calificacion>filter(_calificaciones, _function);
@@ -198,8 +200,8 @@ public class Jugador {
     return IterableExtensions.<Partido>last(_partidosJugados);
   }
   
-  public Integer promedioDeCalificaciones(final int n) {
-    Integer _xblockexpression = null;
+  public int promedioDeCalificaciones(final int n) {
+    int _xblockexpression = (int) 0;
     {
       List<Calificacion> _calificaciones = this.getCalificaciones();
       Iterable<Calificacion> _take = IterableExtensions.<Calificacion>take(_calificaciones, n);
@@ -215,7 +217,11 @@ public class Jugador {
         }
       };
       final Integer sum = IterableExtensions.<Integer>reduce(_map, _function_1);
-      _xblockexpression = sum;
+      List<Calificacion> _calificaciones_1 = this.getCalificaciones();
+      Iterable<Calificacion> _take_1 = IterableExtensions.<Calificacion>take(_calificaciones_1, n);
+      final int cant = IterableExtensions.size(_take_1);
+      final int resultado = ((sum).intValue() / cant);
+      _xblockexpression = Integer.valueOf(resultado).intValue();
     }
     return _xblockexpression;
   }

@@ -1,5 +1,6 @@
 package utn.edu.dds.TP_OPF5.test
 
+import java.util.ArrayList
 import java.util.List
 import org.junit.Assert
 import org.junit.Before
@@ -9,9 +10,10 @@ import partido.core.Partido
 import partido.core.tiposDeInscripcion.Estandar
 import partido.nuevosJugadores.Administrador
 import partido.ordenamiento.Handicap
-import java.util.ArrayList
+import partido.ordenamiento.MixOrdenamiento
+import partido.ordenamiento.Ordenamiento
 import partido.ordenamiento.PromedioCalificaciones
-import partido.core.Inscripcion
+import partido.ordenamiento.PromedioNCalificaciones
 
 class TstOrdenamiento {
 
@@ -22,11 +24,13 @@ class TstOrdenamiento {
 
 	var Handicap handicap
 	var PromedioCalificaciones promcalif
+	var PromedioNCalificaciones promNCalif
+	var MixOrdenamiento mixOrdenamiento
 	var Partido partido
 	var Partido partido2
 	var Estandar tipoIncEstandar
 	var List<Jugador> jugadores = new ArrayList
-	var Inscripcion i
+	var List <Ordenamiento> criterios= new ArrayList
 
 	@Before
 	def void init() {
@@ -36,9 +40,17 @@ class TstOrdenamiento {
 		tipoIncEstandar = new Estandar()
 		initJugadores()
 		initCalificacion()
+		initCriterios()
+	}
+	
+	def initCriterios() {
 		handicap = new Handicap(partido)
 		promcalif= new PromedioCalificaciones(partido)
-
+		promNCalif = new PromedioNCalificaciones(partido,3)
+		criterios.add(handicap)
+		criterios.add(promcalif)
+		criterios.add(promNCalif)
+		mixOrdenamiento= new MixOrdenamiento(partido,criterios)
 	}
 
 	def initJugadores() {
@@ -64,64 +76,76 @@ class TstOrdenamiento {
 	
 	def initCalificacion(){
 		
-		jugador2.calificarA(jugador1, partido, 9, null)
-		jugador3.calificarA(jugador1, partido, 9, null)
+		jugador2.calificarA(jugador1, partido, 9, null)//7
+		jugador3.calificarA(jugador1, partido, 9, null)////6
 		jugador4.calificarA(jugador1, partido, 5, null)
 		jugador4.calificarA(jugador1, partido2, 10, null)
+		
+		jugador1.partidosJugados.add(partido2)
+		jugador1.partidosJugados.add(partido)
 		
 		jugador1.calificarA(jugador2, partido, 2, null)
 		jugador3.calificarA(jugador2, partido, 4, null)
 		jugador4.calificarA(jugador2, partido, 7, null)
 		jugador4.calificarA(jugador2, partido2, 1, null)
 		
+		jugador2.partidosJugados.add(partido2)
+		jugador2.partidosJugados.add(partido)
+		
 		jugador1.calificarA(jugador3, partido, 1, null)
 		jugador2.calificarA(jugador3, partido, 1, null)
 		jugador4.calificarA(jugador3, partido, 1, null)
 		jugador4.calificarA(jugador3, partido2, 1, null)
+		
+		jugador3.partidosJugados.add(partido2)
+		jugador3.partidosJugados.add(partido)
 		
 		jugador1.calificarA(jugador4, partido, 5, null)
 		jugador2.calificarA(jugador4, partido, 8, null)
 		jugador3.calificarA(jugador4, partido, 1, null)
 		jugador3.calificarA(jugador4, partido2, 9, null)
 		
+		jugador4.partidosJugados.add(partido2)
+		jugador4.partidosJugados.add(partido)
+		
 	}
 	@Test
 	def void SePuedeOrdenarJugadoresDePartidoPorHandiCap() {
 		jugadoresEnOrdenPorHandicap()
-		partido.ordenamiento = handicap
 		partido.partidoOrdenaJugadores(handicap)
 		Assert.assertArrayEquals(partido.jugadoresInscriptos.map[inscripcion|inscripcion.jugador], jugadores)
 	}
 	
 	@Test
 	def void SePuedeOrdenarJugadoresDePartidoPorPromedioDeTodasLasCalificaciones() {
-		jugadoresEnOrdenPorPromedioDeTodasLasCalificaciones()
-		partido.ordenamiento = promcalif
-		partido.partidoOrdenaJugadores(handicap)
+		jugadoresEnOrdenPorPromedioDeLasCalificacionesUltimoPartido()
+		partido.partidoOrdenaJugadores(promcalif)
 		Assert.assertArrayEquals(partido.jugadoresInscriptos.map[inscripcion|inscripcion.jugador], jugadores)
 	}
 	
 	@Test
 	def void sePuedeOrdenarJugadoresDePartidoPorPromedioDe3Calificaciones(){
-		
+		jugadoresEnOrdenPorPromedioDeLas3Calificaciones()
+		partido.partidoOrdenaJugadores(promNCalif)	
+		Assert.assertArrayEquals(partido.jugadoresInscriptos.map[inscripcion|inscripcion.jugador], jugadores)
 	}
 	
 	@Test
 	def void sePuedeOrdenarJugadoresDePartidoPorMixDeCriterios(){
-		
-		
+		jugadoresEnOrdenPorMixCriterios3()
+		partido.partidoOrdenaJugadores(mixOrdenamiento)	
+		Assert.assertArrayEquals(partido.jugadoresInscriptos.map[inscripcion|inscripcion.jugador], jugadores)
 	}
 
 	@Test
 	def void seObtieneElPromedioDeTodasLasCalificacionesDeUnJugador() {
-		jugador1.partidosJugados.add(partido)
-		jugador1.partidosJugados.add(partido2)
-		Assert.assertEquals(jugador1.promedioDeCalificacionesUltimoPartido(), 5)
+
+		Assert.assertEquals(jugador1.promedioDeCalificacionesUltimoPartido(), 23/3)
 	}
 
 	@Test
 	def void seObtieneElPromedioDe3LasCalificacionesDeUnJugador() {
-		Assert.assertEquals(jugador1.promedioDeCalificaciones(3), 9 + 9 + 5)
+		Assert.assertEquals(jugador1.promedioDeCalificaciones(3), 23/3)
 	}
 	
 
@@ -135,9 +159,23 @@ class TstOrdenamiento {
 
 	}
 	
-	def jugadoresEnOrdenPorPromedioDeTodasLasCalificaciones(){
+	def jugadoresEnOrdenPorPromedioDeLasCalificacionesUltimoPartido(){
 		jugadores.add(jugador3)
 		jugadores.add(jugador2)
+		jugadores.add(jugador4)
+		jugadores.add(jugador1)
+	}
+	
+		def jugadoresEnOrdenPorPromedioDeLas3Calificaciones(){
+		jugadores.add(jugador3)
+		jugadores.add(jugador2)
+		jugadores.add(jugador4)
+		jugadores.add(jugador1)
+	}
+	
+	def jugadoresEnOrdenPorMixCriterios3(){
+		jugadores.add(jugador2)
+		jugadores.add(jugador3)
 		jugadores.add(jugador4)
 		jugadores.add(jugador1)
 	}

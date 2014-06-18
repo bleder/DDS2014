@@ -4,6 +4,8 @@ import com.google.common.base.Objects;
 import divisionEquipo.Divisor;
 import exception.PartidoCompletoExcepcion;
 import exception.PartidoConfirmadoNoAceptaBaja;
+import exception.PartidoNoPoseeCantidadMaxima;
+import exception.PartidoYaConfirmado;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -13,6 +15,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
+import partido.core.NoSeRealizoDivisionDeEquipos;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
@@ -82,7 +85,7 @@ public class Partido {
     this._maximoLista = maximoLista;
   }
   
-  private List<Jugador> _equipo1;
+  private List<Jugador> _equipo1 = new ArrayList<Jugador>();
   
   public List<Jugador> getEquipo1() {
     return this._equipo1;
@@ -92,7 +95,7 @@ public class Partido {
     this._equipo1 = equipo1;
   }
   
-  private List<Jugador> _equipo2;
+  private List<Jugador> _equipo2 = new ArrayList<Jugador>();
   
   public List<Jugador> getEquipo2() {
     return this._equipo2;
@@ -100,16 +103,6 @@ public class Partido {
   
   public void setEquipo2(final List<Jugador> equipo2) {
     this._equipo2 = equipo2;
-  }
-  
-  private Ordenamiento _ordenamiento;
-  
-  public Ordenamiento getOrdenamiento() {
-    return this._ordenamiento;
-  }
-  
-  public void setOrdenamiento(final Ordenamiento ordenamiento) {
-    this._ordenamiento = ordenamiento;
   }
   
   private Divisor _divisorEquipo;
@@ -122,14 +115,14 @@ public class Partido {
     this._divisorEquipo = divisorEquipo;
   }
   
-  private boolean _confirmado;
+  private boolean _confirmadoAdm;
   
-  public boolean isConfirmado() {
-    return this._confirmado;
+  public boolean isConfirmadoAdm() {
+    return this._confirmadoAdm;
   }
   
-  public void setConfirmado(final boolean confirmado) {
-    this._confirmado = confirmado;
+  public void setConfirmadoAdm(final boolean confirmadoAdm) {
+    this._confirmadoAdm = confirmadoAdm;
   }
   
   public Partido(final String nomPartido, final Administrador adminPartido) {
@@ -140,7 +133,7 @@ public class Partido {
     this.setObservers(_arrayList_1);
     this.setMaximoLista(10);
     this.setAdministrador(adminPartido);
-    this.setConfirmado(false);
+    this.setConfirmadoAdm(false);
   }
   
   public void eliminarInscripcion(final Jugador jug) {
@@ -171,8 +164,8 @@ public class Partido {
     try {
       boolean _xblockexpression = false;
       {
-        boolean _isConfirmado = this.isConfirmado();
-        if (_isConfirmado) {
+        boolean _isConfirmadoAdm = this.isConfirmadoAdm();
+        if (_isConfirmadoAdm) {
           throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador");
         }
         this.eliminarInscripcion(jug);
@@ -185,8 +178,16 @@ public class Partido {
   }
   
   public void darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
-    this.eliminarInscripcion(jugBaja);
-    this.agregarJugador(jugReemplazo, inscripcion);
+    try {
+      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
+      if (_isConfirmadoAdm) {
+        throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador");
+      }
+      this.eliminarInscripcion(jugBaja);
+      this.agregarJugador(jugReemplazo, inscripcion);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
   public void confirmarJugador(final Jugador jugador) {
@@ -308,9 +309,8 @@ public class Partido {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     final Function1<Inscripcion,Integer> _function = new Function1<Inscripcion,Integer>() {
       public Integer apply(final Inscripcion it) {
-        Ordenamiento _ordenamiento = Partido.this.getOrdenamiento();
         Jugador _jugador = it.getJugador();
-        return Integer.valueOf(_ordenamiento.ordenar(_jugador));
+        return Integer.valueOf(criterio.ordenar(_jugador));
       }
     };
     List<Inscripcion> _sortBy = IterableExtensions.<Inscripcion, Integer>sortBy(_jugadoresInscriptos, _function);
@@ -319,11 +319,45 @@ public class Partido {
   }
   
   public void partidoDividiEquipos() {
-    Divisor _divisorEquipo = this.getDivisorEquipo();
-    _divisorEquipo.dividir();
+    try {
+      boolean _estasConfirmado = this.estasConfirmado();
+      boolean _not = (!_estasConfirmado);
+      if (_not) {
+        throw new PartidoNoPoseeCantidadMaxima("Partido no alcanza cantidad de jugadores para dividir en 2 partidos");
+      }
+      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
+      if (_isConfirmadoAdm) {
+        throw new PartidoYaConfirmado("El partido ya se encuentra confirmado");
+      }
+      Divisor _divisorEquipo = this.getDivisorEquipo();
+      _divisorEquipo.dividir();
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
-  public void partidoConfirmate() {
-    this.setConfirmado(true);
+  public void confirmate() {
+    try {
+      boolean _and = false;
+      List<Jugador> _equipo1 = this.getEquipo1();
+      boolean _isEmpty = _equipo1.isEmpty();
+      if (!_isEmpty) {
+        _and = false;
+      } else {
+        List<Jugador> _equipo2 = this.getEquipo2();
+        boolean _isEmpty_1 = _equipo2.isEmpty();
+        _and = _isEmpty_1;
+      }
+      if (_and) {
+        throw new NoSeRealizoDivisionDeEquipos("No se Realizo la division de equipos para poder confirmar el mismo");
+      }
+      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
+      if (_isConfirmadoAdm) {
+        throw new PartidoYaConfirmado("El partido ya se encuentra confirmado");
+      }
+      this.setConfirmadoAdm(true);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
 }

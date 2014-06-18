@@ -2,7 +2,7 @@ package divisionEquipo
 
 import partido.core.Partido
 
-class divParImpar extends Divisor {
+class DivParImpar extends Divisor {
 
 	new(Partido partido) {
 		super(partido)

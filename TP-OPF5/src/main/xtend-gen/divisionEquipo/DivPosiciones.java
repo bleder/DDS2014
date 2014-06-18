@@ -9,8 +9,8 @@ import partido.core.Jugador;
 import partido.core.Partido;
 
 @SuppressWarnings("all")
-public class divPosiciones extends Divisor {
-  private List<Integer> _posiciones = new ArrayList<Integer>(5);
+public class DivPosiciones extends Divisor {
+  private List<Integer> _posiciones = new ArrayList<Integer>();
   
   public List<Integer> getPosiciones() {
     return this._posiciones;
@@ -20,7 +20,7 @@ public class divPosiciones extends Divisor {
     this._posiciones = posiciones;
   }
   
-  public divPosiciones(final Partido partido, final List<Integer> posiciones) {
+  public DivPosiciones(final Partido partido, final List<Integer> posiciones) {
     super(partido);
     this.setPosiciones(posiciones);
   }

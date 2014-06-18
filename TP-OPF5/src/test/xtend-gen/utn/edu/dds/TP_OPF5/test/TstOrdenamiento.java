@@ -14,7 +14,10 @@ import partido.core.Partido;
 import partido.core.tiposDeInscripcion.Estandar;
 import partido.nuevosJugadores.Administrador;
 import partido.ordenamiento.Handicap;
+import partido.ordenamiento.MixOrdenamiento;
+import partido.ordenamiento.Ordenamiento;
 import partido.ordenamiento.PromedioCalificaciones;
+import partido.ordenamiento.PromedioNCalificaciones;
 
 @SuppressWarnings("all")
 public class TstOrdenamiento {
@@ -30,6 +33,10 @@ public class TstOrdenamiento {
   
   private PromedioCalificaciones promcalif;
   
+  private PromedioNCalificaciones promNCalif;
+  
+  private MixOrdenamiento mixOrdenamiento;
+  
   private Partido partido;
   
   private Partido partido2;
@@ -38,7 +45,7 @@ public class TstOrdenamiento {
   
   private List<Jugador> jugadores = new ArrayList<Jugador>();
   
-  private Inscripcion i;
+  private List<Ordenamiento> criterios = new ArrayList<Ordenamiento>();
   
   @Before
   public void init() {
@@ -52,10 +59,25 @@ public class TstOrdenamiento {
     this.tipoIncEstandar = _estandar;
     this.initJugadores();
     this.initCalificacion();
-    Handicap _handicap = new Handicap(this.partido);
-    this.handicap = _handicap;
-    PromedioCalificaciones _promedioCalificaciones = new PromedioCalificaciones(this.partido);
-    this.promcalif = _promedioCalificaciones;
+    this.initCriterios();
+  }
+  
+  public MixOrdenamiento initCriterios() {
+    MixOrdenamiento _xblockexpression = null;
+    {
+      Handicap _handicap = new Handicap(this.partido);
+      this.handicap = _handicap;
+      PromedioCalificaciones _promedioCalificaciones = new PromedioCalificaciones(this.partido);
+      this.promcalif = _promedioCalificaciones;
+      PromedioNCalificaciones _promedioNCalificaciones = new PromedioNCalificaciones(this.partido, 3);
+      this.promNCalif = _promedioNCalificaciones;
+      this.criterios.add(this.handicap);
+      this.criterios.add(this.promcalif);
+      this.criterios.add(this.promNCalif);
+      MixOrdenamiento _mixOrdenamiento = new MixOrdenamiento(this.partido, this.criterios);
+      _xblockexpression = this.mixOrdenamiento = _mixOrdenamiento;
+    }
+    return _xblockexpression;
   }
   
   public void initJugadores() {
@@ -88,18 +110,34 @@ public class TstOrdenamiento {
       this.jugador3.calificarA(this.jugador1, this.partido, 9, null);
       this.jugador4.calificarA(this.jugador1, this.partido, 5, null);
       this.jugador4.calificarA(this.jugador1, this.partido2, 10, null);
+      List<Partido> _partidosJugados = this.jugador1.getPartidosJugados();
+      _partidosJugados.add(this.partido2);
+      List<Partido> _partidosJugados_1 = this.jugador1.getPartidosJugados();
+      _partidosJugados_1.add(this.partido);
       this.jugador1.calificarA(this.jugador2, this.partido, 2, null);
       this.jugador3.calificarA(this.jugador2, this.partido, 4, null);
       this.jugador4.calificarA(this.jugador2, this.partido, 7, null);
       this.jugador4.calificarA(this.jugador2, this.partido2, 1, null);
+      List<Partido> _partidosJugados_2 = this.jugador2.getPartidosJugados();
+      _partidosJugados_2.add(this.partido2);
+      List<Partido> _partidosJugados_3 = this.jugador2.getPartidosJugados();
+      _partidosJugados_3.add(this.partido);
       this.jugador1.calificarA(this.jugador3, this.partido, 1, null);
       this.jugador2.calificarA(this.jugador3, this.partido, 1, null);
       this.jugador4.calificarA(this.jugador3, this.partido, 1, null);
       this.jugador4.calificarA(this.jugador3, this.partido2, 1, null);
+      List<Partido> _partidosJugados_4 = this.jugador3.getPartidosJugados();
+      _partidosJugados_4.add(this.partido2);
+      List<Partido> _partidosJugados_5 = this.jugador3.getPartidosJugados();
+      _partidosJugados_5.add(this.partido);
       this.jugador1.calificarA(this.jugador4, this.partido, 5, null);
       this.jugador2.calificarA(this.jugador4, this.partido, 8, null);
       this.jugador3.calificarA(this.jugador4, this.partido, 1, null);
-      _xblockexpression = this.jugador3.calificarA(this.jugador4, this.partido2, 9, null);
+      this.jugador3.calificarA(this.jugador4, this.partido2, 9, null);
+      List<Partido> _partidosJugados_6 = this.jugador4.getPartidosJugados();
+      _partidosJugados_6.add(this.partido2);
+      List<Partido> _partidosJugados_7 = this.jugador4.getPartidosJugados();
+      _xblockexpression = _partidosJugados_7.add(this.partido);
     }
     return _xblockexpression;
   }
@@ -107,7 +145,6 @@ public class TstOrdenamiento {
   @Test
   public void SePuedeOrdenarJugadoresDePartidoPorHandiCap() {
     this.jugadoresEnOrdenPorHandicap();
-    this.partido.setOrdenamiento(this.handicap);
     this.partido.partidoOrdenaJugadores(this.handicap);
     List<Inscripcion> _jugadoresInscriptos = this.partido.getJugadoresInscriptos();
     final Function1<Inscripcion,Jugador> _function = new Function1<Inscripcion,Jugador>() {
@@ -121,9 +158,8 @@ public class TstOrdenamiento {
   
   @Test
   public void SePuedeOrdenarJugadoresDePartidoPorPromedioDeTodasLasCalificaciones() {
-    this.jugadoresEnOrdenPorPromedioDeTodasLasCalificaciones();
-    this.partido.setOrdenamiento(this.promcalif);
-    this.partido.partidoOrdenaJugadores(this.handicap);
+    this.jugadoresEnOrdenPorPromedioDeLasCalificacionesUltimoPartido();
+    this.partido.partidoOrdenaJugadores(this.promcalif);
     List<Inscripcion> _jugadoresInscriptos = this.partido.getJugadoresInscriptos();
     final Function1<Inscripcion,Jugador> _function = new Function1<Inscripcion,Jugador>() {
       public Jugador apply(final Inscripcion inscripcion) {
@@ -136,26 +172,42 @@ public class TstOrdenamiento {
   
   @Test
   public void sePuedeOrdenarJugadoresDePartidoPorPromedioDe3Calificaciones() {
+    this.jugadoresEnOrdenPorPromedioDeLas3Calificaciones();
+    this.partido.partidoOrdenaJugadores(this.promNCalif);
+    List<Inscripcion> _jugadoresInscriptos = this.partido.getJugadoresInscriptos();
+    final Function1<Inscripcion,Jugador> _function = new Function1<Inscripcion,Jugador>() {
+      public Jugador apply(final Inscripcion inscripcion) {
+        return inscripcion.getJugador();
+      }
+    };
+    List<Jugador> _map = ListExtensions.<Inscripcion, Jugador>map(_jugadoresInscriptos, _function);
+    Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_map, Object.class)), ((Object[])Conversions.unwrapArray(this.jugadores, Object.class)));
   }
   
   @Test
   public void sePuedeOrdenarJugadoresDePartidoPorMixDeCriterios() {
+    this.jugadoresEnOrdenPorMixCriterios3();
+    this.partido.partidoOrdenaJugadores(this.mixOrdenamiento);
+    List<Inscripcion> _jugadoresInscriptos = this.partido.getJugadoresInscriptos();
+    final Function1<Inscripcion,Jugador> _function = new Function1<Inscripcion,Jugador>() {
+      public Jugador apply(final Inscripcion inscripcion) {
+        return inscripcion.getJugador();
+      }
+    };
+    List<Jugador> _map = ListExtensions.<Inscripcion, Jugador>map(_jugadoresInscriptos, _function);
+    Assert.assertArrayEquals(((Object[])Conversions.unwrapArray(_map, Object.class)), ((Object[])Conversions.unwrapArray(this.jugadores, Object.class)));
   }
   
   @Test
   public void seObtieneElPromedioDeTodasLasCalificacionesDeUnJugador() {
-    List<Partido> _partidosJugados = this.jugador1.getPartidosJugados();
-    _partidosJugados.add(this.partido);
-    List<Partido> _partidosJugados_1 = this.jugador1.getPartidosJugados();
-    _partidosJugados_1.add(this.partido2);
-    Integer _promedioDeCalificacionesUltimoPartido = this.jugador1.promedioDeCalificacionesUltimoPartido();
-    Assert.assertEquals((_promedioDeCalificacionesUltimoPartido).intValue(), 5);
+    int _promedioDeCalificacionesUltimoPartido = this.jugador1.promedioDeCalificacionesUltimoPartido();
+    Assert.assertEquals(_promedioDeCalificacionesUltimoPartido, (23 / 3));
   }
   
   @Test
   public void seObtieneElPromedioDe3LasCalificacionesDeUnJugador() {
-    Integer _promedioDeCalificaciones = this.jugador1.promedioDeCalificaciones(3);
-    Assert.assertEquals((_promedioDeCalificaciones).intValue(), ((9 + 9) + 5));
+    int _promedioDeCalificaciones = this.jugador1.promedioDeCalificaciones(3);
+    Assert.assertEquals(_promedioDeCalificaciones, (23 / 3));
   }
   
   public boolean jugadoresEnOrdenPorHandicap() {
@@ -169,11 +221,33 @@ public class TstOrdenamiento {
     return _xblockexpression;
   }
   
-  public boolean jugadoresEnOrdenPorPromedioDeTodasLasCalificaciones() {
+  public boolean jugadoresEnOrdenPorPromedioDeLasCalificacionesUltimoPartido() {
     boolean _xblockexpression = false;
     {
       this.jugadores.add(this.jugador3);
       this.jugadores.add(this.jugador2);
+      this.jugadores.add(this.jugador4);
+      _xblockexpression = this.jugadores.add(this.jugador1);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean jugadoresEnOrdenPorPromedioDeLas3Calificaciones() {
+    boolean _xblockexpression = false;
+    {
+      this.jugadores.add(this.jugador3);
+      this.jugadores.add(this.jugador2);
+      this.jugadores.add(this.jugador4);
+      _xblockexpression = this.jugadores.add(this.jugador1);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean jugadoresEnOrdenPorMixCriterios3() {
+    boolean _xblockexpression = false;
+    {
+      this.jugadores.add(this.jugador2);
+      this.jugadores.add(this.jugador3);
       this.jugadores.add(this.jugador4);
       _xblockexpression = this.jugadores.add(this.jugador1);
     }

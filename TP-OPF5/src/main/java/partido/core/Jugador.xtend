@@ -85,17 +85,20 @@ class Jugador {
 	def promedioDeCalificacionesUltimoPartido(){
 		val sum= notasUltimoPartido().reduce[n1, n2|n1 + n2]
 		val cant=notasUltimoPartido().size
-		sum
+		val resultado=sum/cant
+		resultado.intValue
 	 }
 	def Iterable<Integer> notasUltimoPartido(){
-		calificaciones.filter[calificacion |calificacion == ultimoPartido()].map[calificacion|calificacion.nota]
+		calificaciones.filter[calificacion |calificacion.partido == ultimoPartido()].map[calificacion|calificacion.nota]
 	}
 	def Partido ultimoPartido(){
 		partidosJugados.last
 	}
 	def promedioDeCalificaciones(int n){
 		val sum=calificaciones.take(n).map[calificacion|calificacion.nota].reduce[n1, n2|n1 + n2]
-		sum
+		val cant=calificaciones.take(n).size
+		val resultado=sum/cant
+		resultado.intValue
 	}
 	
 	def tuNivelDeJuegoEs(int nv) {

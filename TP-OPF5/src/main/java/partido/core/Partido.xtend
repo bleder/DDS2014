@@ -10,71 +10,73 @@ import partido.nuevosJugadores.Administrador
 import partido.ordenamiento.Ordenamiento
 import divisionEquipo.Divisor
 import exception.PartidoConfirmadoNoAceptaBaja
-import java.util.Comparator
+import exception.PartidoNoPoseeCantidadMaxima
+import exception.PartidoYaConfirmado
 
-class Partido  {
+class Partido {
 	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
 	@Property
 	private String nombrePartido
-	@Property 
+	@Property
 	List<Inscripcion> jugadoresInscriptos = new ArrayList
-	@Property 
+	@Property
 	private List<PartidoObserver> observers
-	@Property 
+	@Property
 	List<Jugador> jugadores
 	@Property
 	Administrador administrador
-	@Property 
-	int	maximoLista
 	@Property
-	List<Jugador> equipo1
+	int maximoLista
 	@Property
-	List<Jugador> equipo2
+	List<Jugador> equipo1 = new ArrayList
 	@Property
-	Ordenamiento ordenamiento
+	List<Jugador> equipo2 = new ArrayList
 	@Property
 	Divisor divisorEquipo
 	@Property
-	boolean confirmado
-	
-	new(String nomPartido, Administrador adminPartido){
-		nombrePartido=nomPartido
+	boolean confirmadoAdm
+
+	new(String nomPartido, Administrador adminPartido) {
+		nombrePartido = nomPartido
 		jugadoresInscriptos = new ArrayList
 		observers = new ArrayList
 		maximoLista = 10
 		administrador = adminPartido
-		confirmado=false
+		confirmadoAdm = false
 	}
-	
+
 	def eliminarInscripcion(Jugador jug) {
 		jugadoresInscriptos.remove(buscarInscripcionDelJugador(jug))
-		observers.forEach[observer | observer.jugadorDadoDeBaja(jug, this)]
+		observers.forEach[observer|observer.jugadorDadoDeBaja(jug, this)]
 	}
-	
+
 	def buscarInscripcionDelJugador(Jugador jug) {
-		jugadoresInscriptos.findFirst[inscripcion | inscripcion.jugador == jug]
+		jugadoresInscriptos.findFirst[inscripcion|inscripcion.jugador == jug]
 	}
-	
+
 	def darBajaA(Jugador jug) {
-		if (confirmado){
+		if (confirmadoAdm) {
 			throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador")
 		}
 		this.eliminarInscripcion(jug)
 		this.agregarInfraccion(jug)
 	}
 
-	def darBajaA(Jugador jugBaja,Jugador jugReemplazo, TipoInscripcion inscripcion) {
+	def darBajaA(Jugador jugBaja, Jugador jugReemplazo, TipoInscripcion inscripcion) {
+		if (confirmadoAdm) {
+			throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador")
+		}
 		this.eliminarInscripcion(jugBaja)
 		this.agregarJugador(jugReemplazo, inscripcion)
 	}
-	
+
 	def confirmarJugador(Jugador jugador) {
 		this.buscarInscripcionDelJugador(jugador).confirmar()
-		observers.forEach[observer | observer.jugadorConfirmado(jugador, this)]
+		observers.forEach[observer|observer.jugadorConfirmado(jugador, this)]
 	}
-	
-	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion){
-		var Inscripcion inscripcion = new Inscripcion(jugador,tipoIncripcion)
+
+	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion) {
+		var Inscripcion inscripcion = new Inscripcion(jugador, tipoIncripcion)
 		if (this.hayLugar) {
 			jugadoresInscriptos.add(inscripcion)
 		} else if (this.hayAlgunoQueDejaAnotar) {
@@ -83,56 +85,66 @@ class Partido  {
 		} else {
 			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
 		}
-		observers.forEach[observer | observer.jugadorInscripto(jugador, this)]
+		observers.forEach[observer|observer.jugadorInscripto(jugador, this)]
 	}
-	
-	def boolean hayLugar(){
+
+	def boolean hayLugar() {
 		jugadoresInscriptos.size < this.maximoLista
 	}
-	
+
 	def hayAlgunoQueDejaAnotar() {
-		jugadoresInscriptos.exists[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
+		jugadoresInscriptos.exists[inscripcion|inscripcion.tipoInscripcion.dejaAnotar()]
 	}
-	
+
 	def sacarAlQueDejaAnotar() {
 		var Inscripcion inscripcionABorrar
-		inscripcionABorrar=jugadoresInscriptos.findFirst[inscripcion| inscripcion.tipoInscripcion.dejaAnotar()]
+		inscripcionABorrar = jugadoresInscriptos.findFirst[inscripcion|inscripcion.tipoInscripcion.dejaAnotar()]
 		jugadoresInscriptos.remove(inscripcionABorrar)
 	}
-	
+
 	def estaInscripto(Jugador jugador) {
-		jugadoresInscriptos.exists[inscripcion | inscripcion.sosInscripcionDe(jugador)]
+		jugadoresInscriptos.exists[inscripcion|inscripcion.sosInscripcionDe(jugador)]
 	}
-	
-	def agregarInfraccion(Jugador jug){
+
+	def agregarInfraccion(Jugador jug) {
 		jug.nuevaInfraccion(new Infraccion("Dado de baja"))
 	}
-	
-	
+
 	def agregarObserver(PartidoObserver obs) {
 		observers.add(obs)
 	}
-	
+
 	def cantidadConfirmados() {
-		this.jugadoresInscriptos.filter[inscripto | inscripto.estaConfirmada].size()
+		this.jugadoresInscriptos.filter[inscripto|inscripto.estaConfirmada].size()
 	}
-	
+
 	def boolean estasConfirmado() {
 		this.cantidadConfirmados() == maximoLista
 	}
-	
-	def partidoOrdenaJugadores(Ordenamiento criterio){
-		incripcionesOrdenadas=jugadoresInscriptos.sortBy[ordenamiento.ordenar(jugador)]
-		jugadoresInscriptos=incripcionesOrdenadas
+
+	def partidoOrdenaJugadores(Ordenamiento criterio) {
+		incripcionesOrdenadas = jugadoresInscriptos.sortBy[criterio.ordenar(jugador)]
+		jugadoresInscriptos = incripcionesOrdenadas
 	}
-	
-	def partidoDividiEquipos(){
+
+	def partidoDividiEquipos() {
+		if (!estasConfirmado()) {
+			throw new PartidoNoPoseeCantidadMaxima("Partido no alcanza cantidad de jugadores para dividir en 2 partidos")
+		}
+		if (confirmadoAdm) {
+			throw new PartidoYaConfirmado("El partido ya se encuentra confirmado")
+		}
 		divisorEquipo.dividir()
 	}
-	
-	def partidoConfirmate(){
-		confirmado=true
+
+	def confirmate() {
+		if (equipo1.empty && equipo2.empty) {
+			throw new NoSeRealizoDivisionDeEquipos("No se Realizo la division de equipos para poder confirmar el mismo")
+		}
+		if (confirmadoAdm) {
+			throw new PartidoYaConfirmado("El partido ya se encuentra confirmado")
+		}
+		confirmadoAdm = true
+
 	}
-	
-	
 }
