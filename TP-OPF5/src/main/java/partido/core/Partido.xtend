@@ -101,4 +101,10 @@ class Partido {
 		this.cantidadConfirmados() == maximoLista
 	}
 	
+	def jugar() {
+		for(Inscripcion inscripcion : jugadoresInscriptos) {
+			inscripcion.jugador.jugarPartido(this)
+		}
+	}
+	
 }

@@ -27,13 +27,19 @@ class Jugador {
 	@Property 
 	List<String> amigos
 	@Property
-	List<Calificacion> calificaciones  = new ArrayList
+	List<Calificacion> calificaciones
+	@Property
+	int handicap
+	@Property
+	List<Partido> partidosJugados
 	
 	new(String nom, String newMail) {
 		mail = newMail
 		nombre=nom
 		infracciones = new ArrayList
 		amigos = new ArrayList
+		partidosJugados = new ArrayList
+		calificaciones = new ArrayList
 	}
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
@@ -53,26 +59,22 @@ class Jugador {
 	}
 	
 	def calificarA(Jugador jugador,Partido partido,int nota,String critica){
-		if (partido.estaInscripto(jugador))
-		{
-			if (jugador.calificaciones.exists[calificacion|(calificacion.jugadorQueCalifico==jugador) && (calificacion.partido==partido)])
-			{
+		if (partido.estaInscripto(jugador)) {
+			if (jugador.calificaciones.exists[calificacion|(calificacion.jugadorQueCalifico==jugador)
+				&& (calificacion.partido==partido)]) {
 				throw new YaLoCalifique("Ya califique a este jugador")
-			}
-			else
-			{
-			if (nota>=1 && nota<=10){
-			if (jugador!=this)
-			{
-			this.crearCalificacion(jugador,partido,nota,critica)
-			}
-			else{throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo")}
-			}
-			else{throw new NotaIncorrecta("La nota ingresada no es correcta")}			
+			} else {
+				if (nota>=1 && nota<=10) {
+					if (jugador!=this) {
+						this.crearCalificacion(jugador,partido,nota,critica)
+					} else {
+						throw new MeCalificoAMiMismo("No puedo calificarme a mi mismo")
+					}
+				} else {
+					throw new NotaIncorrecta("La nota ingresada no es correcta")
+				}			
 			}		
-		}
-		else
-		{
+		} else {
 			throw new JugadorNoPerteneceAlPartido("No esta ese jugador en el partido")
 		}
 		
@@ -97,6 +99,24 @@ class Jugador {
 	
 	def existeAmigo(String mail) {
 		amigos.exists[amigo | amigo == mail]
+	}
+	
+	def jugarPartido(Partido partido){
+		partidosJugados.add(partido)
+	}
+	
+	def promedioUltimoPartido() {
+		val ultimasCalificaciones = this.calificacionesUltimoPartido
+		ultimasCalificaciones.map[calificaciones | calificaciones.nota].reduce([a, b| a + b]) / ultimasCalificaciones.size()
+	}
+	
+	def calificacionesUltimoPartido() {
+		val ultimoPartido = partidosJugados.last()
+		calificaciones.filter[calificacion | calificacion.partido == ultimoPartido]
+	}
+	
+	def ultimasCalificaciones(Integer n) {
+		calificaciones.reverse().take(n)
 	}
 	
 }

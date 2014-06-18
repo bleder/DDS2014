@@ -229,4 +229,12 @@ public class Partido {
     int _maximoLista = this.getMaximoLista();
     return (_cantidadConfirmados == _maximoLista);
   }
+  
+  public void jugar() {
+    List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
+    for (final Inscripcion inscripcion : _jugadoresInscriptos) {
+      Jugador _jugador = inscripcion.getJugador();
+      _jugador.jugarPartido(this);
+    }
+  }
 }

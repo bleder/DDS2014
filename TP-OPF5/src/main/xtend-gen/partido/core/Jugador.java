@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import partido.calificaciones.Calificacion;
 import partido.core.Infraccion;
 import partido.core.Partido;
@@ -60,7 +62,7 @@ public class Jugador {
     this._amigos = amigos;
   }
   
-  private List<Calificacion> _calificaciones = new ArrayList<Calificacion>();
+  private List<Calificacion> _calificaciones;
   
   public List<Calificacion> getCalificaciones() {
     return this._calificaciones;
@@ -70,6 +72,26 @@ public class Jugador {
     this._calificaciones = calificaciones;
   }
   
+  private int _handicap;
+  
+  public int getHandicap() {
+    return this._handicap;
+  }
+  
+  public void setHandicap(final int handicap) {
+    this._handicap = handicap;
+  }
+  
+  private List<Partido> _partidosJugados;
+  
+  public List<Partido> getPartidosJugados() {
+    return this._partidosJugados;
+  }
+  
+  public void setPartidosJugados(final List<Partido> partidosJugados) {
+    this._partidosJugados = partidosJugados;
+  }
+  
   public Jugador(final String nom, final String newMail) {
     this.setMail(newMail);
     this.setNombre(nom);
@@ -77,6 +99,10 @@ public class Jugador {
     this.setInfracciones(_arrayList);
     ArrayList<String> _arrayList_1 = new ArrayList<String>();
     this.setAmigos(_arrayList_1);
+    ArrayList<Partido> _arrayList_2 = new ArrayList<Partido>();
+    this.setPartidosJugados(_arrayList_2);
+    ArrayList<Calificacion> _arrayList_3 = new ArrayList<Calificacion>();
+    this.setCalificaciones(_arrayList_3);
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
@@ -184,5 +210,55 @@ public class Jugador {
       }
     };
     return IterableExtensions.<String>exists(_amigos, _function);
+  }
+  
+  public boolean jugarPartido(final Partido partido) {
+    List<Partido> _partidosJugados = this.getPartidosJugados();
+    return _partidosJugados.add(partido);
+  }
+  
+  public int promedioUltimoPartido() {
+    int _xblockexpression = (int) 0;
+    {
+      final Iterable<Calificacion> ultimasCalificaciones = this.calificacionesUltimoPartido();
+      final Function1<Calificacion,Integer> _function = new Function1<Calificacion,Integer>() {
+        public Integer apply(final Calificacion calificaciones) {
+          return Integer.valueOf(calificaciones.getNota());
+        }
+      };
+      Iterable<Integer> _map = IterableExtensions.<Calificacion, Integer>map(ultimasCalificaciones, _function);
+      final Function2<Integer,Integer,Integer> _function_1 = new Function2<Integer,Integer,Integer>() {
+        public Integer apply(final Integer a, final Integer b) {
+          return Integer.valueOf(((a).intValue() + (b).intValue()));
+        }
+      };
+      Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
+      int _size = IterableExtensions.size(ultimasCalificaciones);
+      _xblockexpression = ((_reduce).intValue() / _size);
+    }
+    return _xblockexpression;
+  }
+  
+  public Iterable<Calificacion> calificacionesUltimoPartido() {
+    Iterable<Calificacion> _xblockexpression = null;
+    {
+      List<Partido> _partidosJugados = this.getPartidosJugados();
+      final Partido ultimoPartido = IterableExtensions.<Partido>last(_partidosJugados);
+      List<Calificacion> _calificaciones = this.getCalificaciones();
+      final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+        public Boolean apply(final Calificacion calificacion) {
+          Partido _partido = calificacion.getPartido();
+          return Boolean.valueOf(Objects.equal(_partido, ultimoPartido));
+        }
+      };
+      _xblockexpression = IterableExtensions.<Calificacion>filter(_calificaciones, _function);
+    }
+    return _xblockexpression;
+  }
+  
+  public Iterable<Calificacion> ultimasCalificaciones(final Integer n) {
+    List<Calificacion> _calificaciones = this.getCalificaciones();
+    List<Calificacion> _reverse = ListExtensions.<Calificacion>reverse(_calificaciones);
+    return IterableExtensions.<Calificacion>take(_reverse, (n).intValue());
   }
 }
