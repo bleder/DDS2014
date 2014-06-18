@@ -1,4 +1,4 @@
-package partido.core
+package exception
 
 import java.lang.Exception
 

@@ -1,5 +1,6 @@
 package utn.edu.dds.TP_OPF5.test;
 
+import exception.NoSeRealizoDivisionDeEquipos;
 import exception.PartidoConfirmadoNoAceptaBaja;
 import exception.PartidoYaConfirmado;
 import java.util.List;
@@ -8,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import partido.core.Jugador;
-import partido.core.NoSeRealizoDivisionDeEquipos;
 import partido.core.Partido;
 import partido.core.tiposDeInscripcion.Estandar;
 import partido.nuevosJugadores.Administrador;

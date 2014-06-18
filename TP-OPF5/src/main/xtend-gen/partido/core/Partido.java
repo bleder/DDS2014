@@ -2,6 +2,7 @@ package partido.core;
 
 import com.google.common.base.Objects;
 import divisionEquipo.Divisor;
+import exception.NoSeRealizoDivisionDeEquipos;
 import exception.PartidoCompletoExcepcion;
 import exception.PartidoConfirmadoNoAceptaBaja;
 import exception.PartidoNoPoseeCantidadMaxima;
@@ -15,7 +16,6 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
-import partido.core.NoSeRealizoDivisionDeEquipos;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;

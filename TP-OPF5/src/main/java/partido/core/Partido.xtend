@@ -12,6 +12,7 @@ import divisionEquipo.Divisor
 import exception.PartidoConfirmadoNoAceptaBaja
 import exception.PartidoNoPoseeCantidadMaxima
 import exception.PartidoYaConfirmado
+import exception.NoSeRealizoDivisionDeEquipos
 
 class Partido {
 	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
