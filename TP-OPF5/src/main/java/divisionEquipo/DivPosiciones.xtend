@@ -13,17 +13,7 @@ class DivPosiciones extends Divisor {
 		this.posiciones=posiciones
 	}
 	
-	override dividir() {
-		for (idx : 0 ..< partido.jugadoresInscriptos.size) {
-			if (estaEnPosiciones(idx)) {
-				partido.equipo1.add(partido.jugadoresInscriptos.get(idx).jugador)
-			} else {
-				partido.equipo2.add(partido.jugadoresInscriptos.get(idx).jugador)
-			}
-		}
-	}
-	
-	def boolean estaEnPosiciones(int idx){
+	override vaAlEquipo1(int idx){
 		posiciones.contains(idx)
 	}
 	

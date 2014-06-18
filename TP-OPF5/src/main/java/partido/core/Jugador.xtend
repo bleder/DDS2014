@@ -77,7 +77,7 @@ class Jugador {
 			
 		admin.nuevaPropuesta(propuesta.build())
 	}
-	
+	 
 	def existeAmigo(String mail) {
 		amigos.exists[amigo | amigo == mail]
 	}

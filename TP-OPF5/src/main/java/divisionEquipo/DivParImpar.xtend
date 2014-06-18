@@ -8,20 +8,10 @@ class DivParImpar extends Divisor {
 		super(partido)
 	}
 
-	override dividir() {
 
-		for (idx : 0 ..< partido.jugadoresInscriptos.size) {
-			if (esPar(idx)) {
-				partido.equipo1.add(partido.jugadoresInscriptos.get(idx).jugador)
-			} else {
-				partido.equipo2.add(partido.jugadoresInscriptos.get(idx).jugador)
-			}
-		}
-	}
-
-	def boolean esPar(int x) {
+	override vaAlEquipo1(int x) {
 		(x % 2) == 0
 
 	}
-
+	
 }
