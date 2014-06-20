@@ -5,8 +5,8 @@ import partido.core.Jugador
 import exception.NoExisteTalJugadorException
 import java.util.ArrayList
 import partido.core.Partido
-import partido.command.criterios.Criterio
 import partido.command.divisiones.Division
+import partido.strategy.criterios.Criterio
 
 class Administrador {
 	

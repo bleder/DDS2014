@@ -7,13 +7,13 @@ import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.observers.PartidoObserver
 import partido.nuevosJugadores.Administrador
-import partido.command.criterios.Criterio
 import partido.command.divisiones.Division
-import partido.command.criterios.Promedio
 import partido.command.divisiones.ParesImpares
 import exception.AdministradorIncorrectoException
 import exception.JugadorNoPerteneceAlPartido
 import exception.PartidoConfirmadoException
+import partido.strategy.criterios.Criterio
+import partido.strategy.criterios.Handicap
 
 class Partido {
 	
@@ -47,7 +47,7 @@ class Partido {
 		observers = new ArrayList
 		maximoLista = 10
 		administrador = adminPartido
-		criterioOrdenamiento = new Promedio(this)
+		criterioOrdenamiento = new Handicap()
 		criterioDivision = new ParesImpares(this)
 	}
 	
@@ -56,8 +56,13 @@ class Partido {
 		if(adm!=administrador)
 			throw new AdministradorIncorrectoException("El administrador no es el del partido")
 			
-		criterioOrdenamiento.ordenarJugadores()
+
+		jugadoresInscriptos.sortBy[insc | -criterioOrdenamiento.aplicar(insc.jugador)] // ordeno de mayor a menor (descendiente)
 		criterioDivision.dividirJugadores()
+	}
+	
+	def comparar(Jugador jug) {
+		this.criterioOrdenamiento.aplicar(jug)
 	}
 	
 	def confirmar(Administrador adm) {
