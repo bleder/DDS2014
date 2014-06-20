@@ -7,6 +7,13 @@ import java.util.List
 import partido.core.tiposDeInscripcion.TipoInscripcion
 import partido.observers.PartidoObserver
 import partido.nuevosJugadores.Administrador
+import partido.command.criterios.Criterio
+import partido.command.divisiones.Division
+import partido.command.criterios.Promedio
+import partido.command.divisiones.ParesImpares
+import exception.AdministradorIncorrectoException
+import exception.JugadorNoPerteneceAlPartido
+import exception.PartidoConfirmadoException
 
 class Partido {
 	
@@ -15,19 +22,75 @@ class Partido {
 	@Property 
 	private List<Inscripcion> jugadoresInscriptos
 	@Property 
+	private List<Jugador> equipoA
+	@Property 
+	private List<Jugador> equipoB
+	@Property
+	private Boolean partidoConfirmado
+	@Property 
 	private List<PartidoObserver> observers
 	@Property
 	Administrador administrador
 	@Property 
 	int	maximoLista
+	@Property
+	Criterio criterioOrdenamiento
+	@Property
+	Division criterioDivision
 	
 	new(String nomPartido, Administrador adminPartido){
 		nombrePartido=nomPartido
 		jugadoresInscriptos = new ArrayList
+		equipoA = new ArrayList
+		equipoB = new ArrayList
+		partidoConfirmado = false
 		observers = new ArrayList
 		maximoLista = 10
 		administrador = adminPartido
+		criterioOrdenamiento = new Promedio(this)
+		criterioDivision = new ParesImpares(this)
 	}
+	
+	def generarEquipos(Administrador adm) {
+		
+		if(adm!=administrador)
+			throw new AdministradorIncorrectoException("El administrador no es el del partido")
+			
+		criterioOrdenamiento.ordenarJugadores()
+		criterioDivision.dividirJugadores()
+	}
+	
+	def confirmar(Administrador adm) {
+		if(adm!=administrador)
+			throw new AdministradorIncorrectoException("El administrador no es el del partido")
+		
+		partidoConfirmado=true
+	}
+	
+	def cambiarCriterio(Criterio crit, Administrador adm) {
+		if(adm!=administrador)
+			throw new AdministradorIncorrectoException("El administrador no es el del partido")
+		
+		criterioOrdenamiento = crit
+	}
+	
+	def cambiarDivision(Division div, Administrador adm) {
+		if(adm!=administrador)
+			throw new AdministradorIncorrectoException("El administrador no es el del partido")
+		
+		criterioDivision = div
+	}
+	
+	
+	def agregarHandicap(Number niv, Jugador jug, Administrador adm) {
+		if(adm!=administrador)
+			throw new AdministradorIncorrectoException("El administrador no es el del partido")
+		if(!estaInscripto(jug))
+			throw new JugadorNoPerteneceAlPartido("El jugador no pertenece al partido")
+	
+	
+	}
+	
 	
 	def eliminarInscripcion(Jugador jug) {
 		jugadoresInscriptos.remove(buscarInscripcionDelJugador(jug))
@@ -39,11 +102,18 @@ class Partido {
 	}
 	
 	def darBajaA(Jugador jug) {
+		if(this.partidoConfirmado)
+			throw new PartidoConfirmadoException("El partido ya fue confirmado, no se puede agregar ni dar de baja jugadores")
+		
 		this.eliminarInscripcion(jug)
 		this.agregarInfraccion(jug)
 	}
 
 	def darBajaA(Jugador jugBaja,Jugador jugReemplazo, TipoInscripcion inscripcion) {
+		if(this.partidoConfirmado)
+			throw new PartidoConfirmadoException("El partido ya fue confirmado, no se puede agregar ni dar de baja jugadores")
+		
+		
 		this.eliminarInscripcion(jugBaja)
 		this.agregarJugador(jugReemplazo, inscripcion)
 	}
@@ -60,7 +130,9 @@ class Partido {
 		} else if (this.hayAlgunoQueDejaAnotar) {
 			this.sacarAlQueDejaAnotar
 			jugadoresInscriptos.add(inscripcion)
-		} else {
+		} else if(this.partidoConfirmado){
+			throw new PartidoConfirmadoException("El partido ya fue confirmado, no se puede agregar ni dar de baja jugadores")
+		}else {
 			throw new PartidoCompletoExcepcion("No puede anotarse al partido")
 		}
 		observers.forEach[observer | observer.jugadorInscripto(jugador, this)]

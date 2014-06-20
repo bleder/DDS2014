@@ -11,6 +11,7 @@ import exception.NotaIncorrecta
 import exception.YaLoCalifique
 import exception.MeCalificoAMiMismo
 
+
 class TstCalificacion {
 	
 	var Jugador jugador
@@ -36,6 +37,8 @@ def void calificarAJugadorSoloConNota(){
 	
 	Assert.assertTrue(jugadorCalificado.calificaciones.size==(len+1))
 }	
+
+
 
 @Test
 

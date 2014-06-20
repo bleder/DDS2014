@@ -4,6 +4,9 @@ import java.util.List
 import partido.core.Jugador
 import exception.NoExisteTalJugadorException
 import java.util.ArrayList
+import partido.core.Partido
+import partido.command.criterios.Criterio
+import partido.command.divisiones.Division
 
 class Administrador {
 	
@@ -18,6 +21,27 @@ class Administrador {
 		mail = adminMail
 		posiblesJugadores = new ArrayList
 		jugadoresRechazados = new ArrayList
+	}
+	
+	
+	def generarEquipos(Partido part) {
+		part.generarEquipos(this)
+	}
+	
+	def confirmarArmadoEquipos(Partido part) {
+		part.confirmar(this)
+	}
+	
+	def setearCriterio(Criterio crit, Partido part) {
+		part.cambiarCriterio(crit, this)
+	}
+	
+	def setearDivision(Division div, Partido part) {
+		part.cambiarDivision(div, this)
+	}
+	
+	def setearHandicap(Number nivel, Jugador jug, Partido part) {
+		part.agregarHandicap(nivel, jug, this)
 	}
 	
 	def existePropuesta(String mail) {
