@@ -66,23 +66,19 @@ public class PropuestaBuilder {
   
   public Propuesta build() {
     try {
-      Propuesta _xblockexpression = null;
-      {
-        Jugador _amigo = this.getAmigo();
-        String _mailPropuesto = this.getMailPropuesto();
-        boolean _existeAmigo = _amigo.existeAmigo(_mailPropuesto);
-        boolean _not = (!_existeAmigo);
-        if (_not) {
-          throw new NoExisteMailException("El jugador no tiene a ese amigo");
-        }
-        String _mailPropuesto_1 = this.getMailPropuesto();
-        Jugador _amigo_1 = this.getAmigo();
-        String _nombre = this.getNombre();
-        List<String> _mailsAmigos = this.getMailsAmigos();
-        Propuesta propuesta = new Propuesta(_mailPropuesto_1, _amigo_1, _nombre, _mailsAmigos);
-        _xblockexpression = propuesta;
+      Jugador _amigo = this.getAmigo();
+      String _mailPropuesto = this.getMailPropuesto();
+      boolean _existeAmigo = _amigo.existeAmigo(_mailPropuesto);
+      boolean _not = (!_existeAmigo);
+      if (_not) {
+        throw new NoExisteMailException("El jugador no tiene a ese amigo");
       }
-      return _xblockexpression;
+      String _mailPropuesto_1 = this.getMailPropuesto();
+      Jugador _amigo_1 = this.getAmigo();
+      String _nombre = this.getNombre();
+      List<String> _mailsAmigos = this.getMailsAmigos();
+      Propuesta propuesta = new Propuesta(_mailPropuesto_1, _amigo_1, _nombre, _mailsAmigos);
+      return propuesta;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

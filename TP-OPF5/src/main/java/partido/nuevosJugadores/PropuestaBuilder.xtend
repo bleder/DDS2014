@@ -35,7 +35,7 @@ class PropuestaBuilder {
 			throw new NoExisteMailException("El jugador no tiene a ese amigo")
 		}
 		var propuesta = new Propuesta(mailPropuesto, amigo, nombre, mailsAmigos)
-		propuesta
+		return propuesta
 	}
 	
 	
