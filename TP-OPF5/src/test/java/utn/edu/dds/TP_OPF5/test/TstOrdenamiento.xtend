@@ -47,10 +47,10 @@ class TstOrdenamiento {
 		handicap = new Handicap(partido)
 		promcalif= new PromedioCalificaciones(partido)
 		promNCalif = new PromedioNCalificaciones(partido,3)
-		criterios.add(handicap)
-		criterios.add(promcalif)
-		criterios.add(promNCalif)
-		mixOrdenamiento= new MixOrdenamiento(partido,criterios)
+		mixOrdenamiento= new MixOrdenamiento(partido)
+		mixOrdenamiento.agregarCriterioHandicap()
+		mixOrdenamiento.agregarCriterioPromedioUltimoPartido()
+		mixOrdenamiento.agregarCriterioNCalificaciones(3)
 	}
 
 	def initJugadores() {

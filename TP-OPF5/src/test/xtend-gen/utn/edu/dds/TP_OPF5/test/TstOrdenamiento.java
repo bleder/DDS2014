@@ -62,8 +62,8 @@ public class TstOrdenamiento {
     this.initCriterios();
   }
   
-  public MixOrdenamiento initCriterios() {
-    MixOrdenamiento _xblockexpression = null;
+  public boolean initCriterios() {
+    boolean _xblockexpression = false;
     {
       Handicap _handicap = new Handicap(this.partido);
       this.handicap = _handicap;
@@ -71,11 +71,11 @@ public class TstOrdenamiento {
       this.promcalif = _promedioCalificaciones;
       PromedioNCalificaciones _promedioNCalificaciones = new PromedioNCalificaciones(this.partido, 3);
       this.promNCalif = _promedioNCalificaciones;
-      this.criterios.add(this.handicap);
-      this.criterios.add(this.promcalif);
-      this.criterios.add(this.promNCalif);
-      MixOrdenamiento _mixOrdenamiento = new MixOrdenamiento(this.partido, this.criterios);
-      _xblockexpression = this.mixOrdenamiento = _mixOrdenamiento;
+      MixOrdenamiento _mixOrdenamiento = new MixOrdenamiento(this.partido);
+      this.mixOrdenamiento = _mixOrdenamiento;
+      this.mixOrdenamiento.agregarCriterioHandicap();
+      this.mixOrdenamiento.agregarCriterioPromedioUltimoPartido();
+      _xblockexpression = this.mixOrdenamiento.agregarCriterioNCalificaciones(Integer.valueOf(3));
     }
     return _xblockexpression;
   }
