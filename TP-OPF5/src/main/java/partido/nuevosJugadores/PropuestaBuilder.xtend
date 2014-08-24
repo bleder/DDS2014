@@ -30,7 +30,7 @@ class PropuestaBuilder {
 		this.nombre=nombre
 	}
 	
-	def build() {
+	def Propuesta build() {
 		if (!amigo.existeAmigo(mailPropuesto)) {
 			throw new NoExisteMailException("El jugador no tiene a ese amigo")
 		}
