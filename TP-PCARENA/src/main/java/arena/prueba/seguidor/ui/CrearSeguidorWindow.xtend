@@ -13,15 +13,18 @@ import arena.prueba.seguidor.domain.Materia
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.widgets.tables.Column
+import java.util.List
+import java.util.ArrayList
+import arena.prueba.seguidor.domain.ManejadorMaterias
 
 /**
  * 
  */
 @Observable
-class CrearSeguidorWindow extends SimpleWindow<Materia> {
+class CrearSeguidorWindow extends SimpleWindow<ManejadorMaterias> {
 	
 	new(WindowOwner parent) {
-		super(parent, new Materia)
+		super(parent, new ManejadorMaterias)
 		title = "Seguidor de carrera"
 		taskDescription = "Seguidor de carrera"
 	}
@@ -35,7 +38,7 @@ class CrearSeguidorWindow extends SimpleWindow<Materia> {
 		var table = new Table<Materia>(mainPanel, typeof(Materia))
 		table.heigth = 200
 		table.width = 400
-		//table.bindItemsToProperty("")
+		table.bindItemsToProperty("materias")
 		//table.bindValueToProperty("")
 		
 		new Column<Materia>(table) //
@@ -66,8 +69,9 @@ class CrearSeguidorWindow extends SimpleWindow<Materia> {
 		this.openDialog(new NuevaMateria(this))
 	}
 	
-	def openDialog(Object object) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def openDialog(NuevaMateria dialog) {
+		dialog.onAccept([| modelObject])
+		dialog.open()
 	}
 
 }
