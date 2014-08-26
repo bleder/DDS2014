@@ -20,6 +20,7 @@ import org.uqbar.arena.widgets.CheckBox
 import arena.prueba.seguidor.domain.Nota
 import org.uqbar.arena.widgets.Selector
 
+
 /**
  * Ventana de búsqueda de celulares.
  *
@@ -79,7 +80,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		table.heigth = 200
 		table.width = 450
 		table.bindItemsToProperty("materiaSeleccionada.notas")
-		//table.bindValueToProperty("notaSeleccionada")
+		table.bindValueToProperty("notaSeleccionada")
 		
 		new Column<Nota>(table) //
 			.setTitle("Fecha")
@@ -91,19 +92,17 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 			.setFixedSize(150)
 			.bindContentsToProperty("descripcion")
 
-		new Column<Nota>(table) // todo implementar SI / NO
+		new Column<Nota>(table) 
 			.setTitle("Aprobado")
-			.setFixedSize(150)
-			.bindContentsToProperty("aprobada")		
-
-/*
-		var labelNombre = new Label(searchFormPanel)
-		labelNombre.text = "Nombre del cliente"
-		labelNombre.foreground = Color::BLUE
-
-		new TextBox(searchFormPanel).bindValueToProperty("nombre")
-		
-		*/
+			.setFixedSize(150)		
+			.bindContentsToTransformer([nota | if (nota.aprobada) "Si" else "No"])
+			
+		var panelNotas = new Panel(mainPanel)
+		panelNotas.setLayout(new HorizontalLayout)
+		new Button(panelNotas)
+			.setCaption("Editar Nota")
+			.onClick [ | this.editarNota]
+			
 	}
 
 	/**
@@ -129,6 +128,8 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	 * Define las columnas de la grilla
 	 */
 	def void describeResultsGrid(Table<Materia> table) {
+		
+	
 		new Column<Materia>(table) //
 			.setTitle("Materia")
 			.setFixedSize(150)
@@ -144,7 +145,6 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 			.setTitle("Aprobada")
 			.setFixedSize(100)
 			.bindContentsToTransformer([materia | if (materia.finalAprobado) "Si" else "No"])
-			
 			
 	}
 
@@ -162,6 +162,10 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	// ********************************************************
 	def void agregarMateria() {
 		this.openDialog(new CrearMateriaWindow(this))
+	}
+	
+	def void editarNota() {
+		this.openDialog(new EditarNotaWindow(this))
 	}
 
 

@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.ApplicationContext
 import java.util.ArrayList
 import arena.prueba.seguidor.domain.Materia
 import arena.prueba.seguidor.home.HomeMaterias
+import arena.prueba.seguidor.domain.Nota
 
 /**
  * Application model que representa la búsqueda de {@link Celular}.
@@ -30,6 +31,7 @@ class IniciarMateria implements Serializable {
 
 	@Property List<Materia> resultados
 	@Property Materia materiaSeleccionada
+	@Property Nota notaSeleccionada
 
 	
 	def void iniciar() { 

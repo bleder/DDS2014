@@ -6,6 +6,7 @@ import org.uqbar.commons.model.CollectionBasedHome
 import org.uqbar.commons.utils.Observable
 import org.apache.commons.collections15.Predicate;
 import arena.prueba.seguidor.domain.Materia
+import arena.prueba.seguidor.domain.Nota
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -27,7 +28,17 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		materia.anio = anio
 		materia.finalAprobado = finalAprobado
 		materia.profe = profe
-		materia.notas = {}
+		
+		var nota = new Nota
+		nota.aprobada = true
+		nota.fecha = 111111111
+		nota.descripcion = "Parcial A"
+		
+		var nota2 = new Nota
+		nota2.aprobada = false
+		nota2.fecha = 222222222
+		nota2.descripcion = "Parcialito"
+		materia.notas = #[nota,nota2]
 		this.create(materia)
 	}
 
