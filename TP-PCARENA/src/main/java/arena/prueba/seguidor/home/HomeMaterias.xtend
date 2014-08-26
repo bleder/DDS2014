@@ -23,11 +23,11 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	
 	def void create(String nombre, int anio, boolean finalAprobado, String profe) {
 		var materia = new Materia
-		
 		materia.nombre = nombre
 		materia.anio = anio
 		materia.finalAprobado = finalAprobado
 		materia.profe = profe
+		materia.notas = {}
 		this.create(materia)
 	}
 

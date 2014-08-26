@@ -2,7 +2,7 @@ package arena.prueba.seguidor.ui
 
 
 
-import org.uqbar.arena.bindings.NotNullObservable
+
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
@@ -13,11 +13,12 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import arena.prueba.seguidor.applicationModel.IniciarMateria
 import arena.prueba.seguidor.domain.Materia
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.CheckBox
+import arena.prueba.seguidor.domain.Nota
+import org.uqbar.arena.widgets.Selector
 
 /**
  * Ventana de búsqueda de celulares.
@@ -51,8 +52,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		
 	
 		var labelNumero = new Label(panel)
-		labelNumero.setText("MATERIA:")
-		
+		labelNumero.setText("Materia Seleccionada:")
 
 		new TextBox(panel).bindValueToProperty("materiaSeleccionada.nombre")
 		
@@ -65,6 +65,45 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new Label(panel).setText("Final Aprobado:")
 		var check = new CheckBox(panel)
 		check.bindValueToProperty("materiaSeleccionada.finalAprobado")
+		
+		new Label(panel).setText("Ubicacion materia:")
+		new Selector(panel) => [
+			allowNull = false
+			width = 100
+			bindItemsToProperty("materiaSeleccionada.ubicaciones")
+			bindValueToProperty("materiaSeleccionada.ubicacion")			
+		]
+	
+		new Label(panel).setText("Notas de cursada:")
+		var table = new Table<Nota>(panel, typeof(Nota))
+		table.heigth = 200
+		table.width = 450
+		table.bindItemsToProperty("materiaSeleccionada.notas")
+		//table.bindValueToProperty("notaSeleccionada")
+		
+		new Column<Nota>(table) //
+			.setTitle("Fecha")
+			.setFixedSize(150)
+			.bindContentsToProperty("fecha")
+			
+		new Column<Nota>(table) //
+			.setTitle("Descripcion")
+			.setFixedSize(150)
+			.bindContentsToProperty("descripcion")
+
+		new Column<Nota>(table) // todo implementar SI / NO
+			.setTitle("Aprobado")
+			.setFixedSize(150)
+			.bindContentsToProperty("aprobada")		
+
+/*
+		var labelNombre = new Label(searchFormPanel)
+		labelNombre.text = "Nombre del cliente"
+		labelNombre.foreground = Color::BLUE
+
+		new TextBox(searchFormPanel).bindValueToProperty("nombre")
+		
+		*/
 	}
 
 	/**
@@ -112,7 +151,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	def void createGridActions(Panel mainPanel) {
 		var actionsPanel = new Panel(mainPanel)
 		actionsPanel.setLayout(new HorizontalLayout)
-		var nueva = new Button(actionsPanel)
+		new Button(actionsPanel)
 			.setCaption("Nueva Materia")
 			.onClick [ | this.agregarMateria]
 		
