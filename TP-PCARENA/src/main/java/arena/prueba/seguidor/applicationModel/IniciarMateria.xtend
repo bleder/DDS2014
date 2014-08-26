@@ -30,7 +30,6 @@ class IniciarMateria implements Serializable {
 
 	@Property List<Materia> resultados
 	@Property Materia materiaSeleccionada
-	//@Property Materia celularSeleccionado
 
 	
 	def void iniciar() { 
