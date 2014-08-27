@@ -20,14 +20,6 @@ import org.uqbar.arena.widgets.CheckBox
 import arena.prueba.seguidor.domain.Nota
 import org.uqbar.arena.widgets.Selector
 
-
-/**
- * Ventana de búsqueda de celulares.
- *
- * @see BuscadorCelular el modelo subyacente.
- *
- * @author ?
- */
 class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 
 	new(WindowOwner parent) {
@@ -105,15 +97,11 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 			
 	}
 
-	/**
-	 *
-	 */
+
 	override protected addActions(Panel actionsPanel) {
 	}
 
-	/**
-	 * Se crea la grilla en el panel de abajo
-	 */
+
 	def protected createResultsGrid(Panel mainPanel) {
 		var table = new Table<Materia>(mainPanel, typeof(Materia))
 		table.heigth = 200
@@ -124,9 +112,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 
 	}
 
-	/**
-	 * Define las columnas de la grilla
-	 */
+
 	def void describeResultsGrid(Table<Materia> table) {
 		
 	
@@ -157,9 +143,8 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		
 	}
 
-	// ********************************************************
+
 	// ** Acciones
-	// ********************************************************
 	def void agregarMateria() {
 		this.openDialog(new CrearMateriaWindow(this))
 	}
