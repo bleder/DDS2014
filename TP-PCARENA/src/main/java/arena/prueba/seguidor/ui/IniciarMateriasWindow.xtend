@@ -19,6 +19,7 @@ import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.CheckBox
 import arena.prueba.seguidor.domain.Nota
 import org.uqbar.arena.widgets.Selector
+import com.uqbar.commons.StringUtils
 
 class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 
@@ -50,10 +51,13 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new TextBox(panel).bindValueToProperty("materiaSeleccionada.nombre")
 		
 		new Label(panel).setText("Anio:")
-		new TextBox(panel).bindValueToProperty("materiaSeleccionada.anio")
+		new TextBox(panel)
+		.withFilter [ event | StringUtils.isNumeric(event.potentialTextResult) ]
+		.bindValueToProperty("materiaSeleccionada.anio")
 		
 		new Label(panel).setText("Profesor:")
-		new TextBox(panel).bindValueToProperty("materiaSeleccionada.profe")
+		new TextBox(panel)
+		.bindValueToProperty("materiaSeleccionada.profe")
 		
 		new Label(panel).setText("Final Aprobado:")
 		var check = new CheckBox(panel)

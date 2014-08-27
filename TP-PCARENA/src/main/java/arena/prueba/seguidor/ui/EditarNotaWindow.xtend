@@ -10,7 +10,9 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.CheckBox
 import arena.prueba.seguidor.domain.Nota
-
+import org.uqbar.arena.widgets.TextFilter
+import org.uqbar.arena.widgets.TextInputEvent
+import java.util.ArrayList
 
 class EditarNotaWindow extends Dialog<Nota> {
 
@@ -28,8 +30,10 @@ class EditarNotaWindow extends Dialog<Nota> {
 		val form = new Panel(mainPanel)
 		form.layout = new ColumnLayout(2)
 		
-		new Label(form).setText("Fecha:")
-		new TextBox(form).bindValueToProperty("fecha")
+		new Label(form).setText("Fecha: (dd/mm/aaaa)")
+		new TextBox(form)
+		.withFilter(new DateTextFilter)
+		
 		
 		new Label(form).setText("Descripcion:")
 		new TextBox(form).bindValueToProperty("descripcion")
@@ -53,4 +57,13 @@ class EditarNotaWindow extends Dialog<Nota> {
 			]
 	}
 	
+}
+
+
+class DateTextFilter implements TextFilter {
+      override accept(TextInputEvent event) {
+            val expected = new ArrayList(#["\\d", "\\d?", "/", "\\d", "\\d?", "/", "\\d{0,4}"])
+            val regex = expected.reverse.fold("")[result, element| '''(«element»«result»)?''']
+            event.potentialTextResult.matches(regex)
+      }
 }

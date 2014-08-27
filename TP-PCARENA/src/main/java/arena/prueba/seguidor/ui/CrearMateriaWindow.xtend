@@ -40,9 +40,9 @@ class CrearMateriaWindow extends Dialog<Materia> {
 			.onClick [|this.accept]
 			.setAsDefault.disableOnError
 
-		new Button(actions) //
+		new Button(actions) 
 			.setCaption("Volver")
-			.onClick [|////
+			.onClick [|
 				this.cancel
 			]
 	}

@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.Observable
 import org.apache.commons.collections15.Predicate;
 import arena.prueba.seguidor.domain.Materia
 import arena.prueba.seguidor.domain.Nota
+import java.util.Date
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -31,12 +32,12 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		
 		var nota = new Nota
 		nota.aprobada = true
-		nota.fecha = 111111111
+		nota.fecha = new Date(2004,4,12)
 		nota.descripcion = "Parcial A"
 		
 		var nota2 = new Nota
 		nota2.aprobada = false
-		nota2.fecha = 222222222
+		nota2.fecha = new Date(2004,8,23)
 		nota2.descripcion = "Parcialito"
 		materia.notas = #[nota,nota2]
 		this.create(materia)
