@@ -1,3 +1,5 @@
+# Ignore del TP de Fulbol 5
+
 /TP-OPF5/.classpath
 /TP-OPF5/.settings
 /TP-OPF5/.project
@@ -10,6 +12,8 @@
 /home/utnso/DDS2014/TP-OPF5/src/main/xtend-gen
 /home/utnso/DDS2014/TP-OPF5/src/test/xtend-gen
 
+# Ignore del TP Prueba de Concepto Arena
+
 /TP-PCARENA/.classpath
 /TP-PCARENA/.settings
 /TP-PCARENA/.project
@@ -21,3 +25,17 @@
 /TP-PCARENA/src/test/xtend-gen
 /home/utnso/DDS2014/TP-PCARENA/src/main/xtend-gen
 /home/utnso/DDS2014/TP-PCARENA/src/test/xtend-gen
+
+# Ignore del TP Prueba de Concepto Wicket
+
+/TP-PCWICKET/.classpath
+/TP-PCWICKET/.settings
+/TP-PCWICKET/.project
+/TP-PCWICKET/target
+/TP-PCWICKET/bin
+/TP-PCWICKET/src/main/generated-sources
+/TP-PCWICKET/src/test/generated-sources
+/TP-PCWICKET/src/main/xtend-gen
+/TP-PCWICKET/src/test/xtend-gen
+/home/utnso/DDS2014/TP-PCWICKET/src/main/xtend-gen
+/home/utnso/DDS2014/TP-PCWICKET/src/test/xtend-gen
