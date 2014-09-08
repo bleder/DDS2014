@@ -1,14 +1,12 @@
-package prueba.wicket
+
+package wicket.prueba.seguidor.wicket
+
+import org.apache.wicket.markup.html.WebPage
 
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 
-/**
- * 
- * @author ?
- */
-class HomePage extends WebPage {
+class IniciarMateriasPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 
 	new() {
@@ -18,4 +16,5 @@ class HomePage extends WebPage {
 
 		// TODO Add your page's components here
     }
+
 }
