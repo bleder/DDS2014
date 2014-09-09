@@ -24,6 +24,11 @@ class Materia extends Entity {
 	def asObjects(List<?> list) {
 		list.map[it as Object]
 	}
+	
+	def validar(){
+		//TODO implementar
+		true
+	}
 }
 
 

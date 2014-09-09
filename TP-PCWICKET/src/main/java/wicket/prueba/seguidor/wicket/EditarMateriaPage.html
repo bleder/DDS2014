@@ -5,9 +5,33 @@
 <title>Insert title here</title>
 </head>
 <body>
+ 	<div class="container">
+ 	
+		<table width="80%">
+	            <tr>
+	                <td>
+	                    <h1 wicket:id="titulo">Editar Datos de materia</h1>
+	                </td>
+	            </tr>
+	     </table>
+	        
 
-<form wicket:id="editarMateriasForm">
-	<input wicket:id="materiaNombre" type="text" />
-</form>
+		<form wicket:id="editarMateriasForm">
+			<fieldset>
+			
+			<input wicket:id="nombre" type="text" />
+			
+			
+
+				<div class="form-actions">
+                    <button wicket:id="aceptar" type="submit" class="btn btn-primary">Aceptar</button>
+                    <button wicket:id="cancelar" type="submit" class="btn">Cancelar</button>
+                </div>
+			</fieldset>
+		</form>
+		
+		
+		
+	</div>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XButton
 
+
 class IniciarMateriasPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 
