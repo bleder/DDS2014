@@ -2,11 +2,12 @@ package wicket.prueba.seguidor.wicket
 
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.model.CompoundPropertyModel
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XButton
+import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.apache.wicket.markup.html.form.CheckBox
 
 //Se usa tanto para agregar celus nuevos o editar uno existente
 
@@ -18,11 +19,7 @@ class EditarMateriaPage extends WebPage {
 	private final IniciarMateriasPage mainPage
 	
 	
-	
-	
-	@Property Materia materiaSeleccionada
-	@Property IniciarMateriasPage returnPage
-	
+
 	new(Materia materiaAEditar, IniciarMateriasPage mainPage) {
 		
 		this.mainPage = mainPage
@@ -48,21 +45,28 @@ class EditarMateriaPage extends WebPage {
 
 	
 	def agregarCamposEdicion(Form<Materia> form) {
+		
 		val textField = new TextField("nombre")
 		form.addChild(textField)
-		/* 
-		parent.addChild(new TextField<String>("numero"))
-		parent.addChild(new TextField<String>("nombre"))
-		parent.addChild(new DropDownChoice<Modelo>("modeloCelular") => [
+		
+		form.addChild(new TextField("anio"))
+		form.addChild(new TextField("profe"))
+
+		// TODO implementar selector de ubicaciones
+		/*
+		parent.addChild(new DropDownChoice<String>("ubicacion") => [
 			choices = loadableModel([| Modelo.home.allInstances ])
 			choiceRenderer = choiceRenderer([Modelo m| m.descripcion ])
 		]) 
-		parent.addChild(new CheckBox("recibeResumenCuenta"))
-		parent.addChild(new FeedbackPanel("feedbackPanel"))
+		*/
+		form.addChild(new CheckBox("finalAprobado"))
+		
+		form.addChild(new FeedbackPanel("feedbackPanel"))
+		
+		// TODO implementar lista de notas...
 	}
-	*/
-	}
-
+	
+	
 	def void agregarAcciones(Form<Materia> parent) {
 		
 		parent.addChild(new XButton("aceptar") => [

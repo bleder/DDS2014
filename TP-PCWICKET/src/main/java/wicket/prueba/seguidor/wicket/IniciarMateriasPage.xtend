@@ -9,7 +9,6 @@ import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XButton
 
-
 class IniciarMateriasPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 
@@ -19,7 +18,7 @@ class IniciarMateriasPage extends WebPage {
 		this.iniciador = new IniciarMateria()
 		val Form<IniciarMateria> iniciarForm = new Form<IniciarMateria>("iniciarMateriasForm", new CompoundPropertyModel<IniciarMateria>(this.iniciador))
 		//this.agregarCamposBusqueda(iniciarForm)
-		//this.agregarAcciones(iniciarForm)
+		this.agregarAcciones(iniciarForm)
 		this.agregarGrillaMaterias(iniciarForm)
 		this.addChild(iniciarForm)
 
@@ -30,7 +29,11 @@ class IniciarMateriasPage extends WebPage {
 		this.iniciador.iniciar()
 	}
 
-
+	def agregarAcciones(Form<IniciarMateria> parent){
+		
+		parent.addChild(new XButton("nueva").onClick = [| editar(new Materia) ])
+		
+	}
 	def agregarGrillaMaterias(Form<IniciarMateria> parent) {
 		val listView = new XListView("resultados")
 		listView.populateItem = [ item |
