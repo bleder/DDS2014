@@ -19,7 +19,7 @@ class IniciarMateriasPage extends WebPage {
 		val Form<IniciarMateria> iniciarForm = new Form<IniciarMateria>("iniciarMateriasForm", new CompoundPropertyModel<IniciarMateria>(this.iniciador))
 		//this.agregarCamposBusqueda(iniciarForm)
 		//this.agregarAcciones(iniciarForm)
-		this.agregarGrillaResultados(iniciarForm)
+		this.agregarGrillaMaterias(iniciarForm)
 		this.addChild(iniciarForm)
 
 		this.iniciarMaterias()
@@ -30,7 +30,7 @@ class IniciarMateriasPage extends WebPage {
 	}
 
 
-	def agregarGrillaResultados(Form<IniciarMateria> parent) {
+	def agregarGrillaMaterias(Form<IniciarMateria> parent) {
 		val listView = new XListView("resultados")
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
