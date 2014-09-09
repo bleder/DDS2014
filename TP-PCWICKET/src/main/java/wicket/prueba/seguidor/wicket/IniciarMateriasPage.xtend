@@ -53,7 +53,7 @@ class IniciarMateriasPage extends WebPage {
 	}
 	
 	def editar(Materia materia) {
-		//responsePage = new EditarMateriaPage(materia, this) 
+		responsePage = new EditarMateriaPage(materia, this) 
 	}		
 
 

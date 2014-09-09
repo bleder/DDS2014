@@ -12,7 +12,6 @@ class MateriasWicketApplication extends WebApplication {
 	override protected init() {
 		super.init()
 		ApplicationContext.instance.configureSingleton(Materia, new HomeMaterias)
-		//ApplicationContext.instance.configureSingleton(Celular, new HomeCelulares)
 	}
 	
 	override getHomePage() {

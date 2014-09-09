@@ -67,4 +67,8 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		null
 	}
 	
+	def add(Materia materia) {
+		this.create(materia)
+	}
+	
 }
