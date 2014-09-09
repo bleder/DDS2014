@@ -22,7 +22,7 @@ class EditarMateriaPage extends WebPage {
 	}
 	
 	def agregarCampos(Form<EditarMateria> form) {
-		val textField = new TextField("Materia")
+		val textField = new TextField("materiaNombre")
 		
 		form.addChild(textField)
 	}
