@@ -1,25 +1,23 @@
 package arena.prueba.seguidor.ui
 
-
-
-
+import arena.prueba.seguidor.applicationModel.IniciarMateria
+import arena.prueba.seguidor.domain.Materia
+import arena.prueba.seguidor.domain.Nota
+import com.uqbar.commons.StringUtils
+import java.text.SimpleDateFormat
+import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
+import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import arena.prueba.seguidor.applicationModel.IniciarMateria
-import arena.prueba.seguidor.domain.Materia
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.CheckBox
-import arena.prueba.seguidor.domain.Nota
-import org.uqbar.arena.widgets.Selector
-import com.uqbar.commons.StringUtils
 
 class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 
@@ -39,12 +37,9 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	}
 
 	override def void createFormPanel(Panel mainPanel) {
-		
 		var panel = new Panel(mainPanel)
 		panel.setLayout(new ColumnLayout(2))
 		
-		
-	
 		var labelNumero = new Label(panel)
 		labelNumero.setText("Materia Seleccionada:")
 
@@ -67,6 +62,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new Selector(panel) => [
 			allowNull = false
 			width = 100
+			//OJO: ¿Una materia sabe todas las ubicaciones posibles? ¿por qué?
 			bindItemsToProperty("materiaSeleccionada.ubicaciones")
 			bindValueToProperty("materiaSeleccionada.ubicacion")			
 		]
@@ -74,13 +70,13 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new Label(panel).setText("Notas de cursada:")
 		var table = new Table<Nota>(panel, typeof(Nota))
 		table.heigth = 200
-		table.width = 450
 		table.bindItemsToProperty("materiaSeleccionada.notas")
 		table.bindValueToProperty("notaSeleccionada")
 		
-		new Column<Nota>(table) //
+		new Column<Nota>(table) 
 			.setTitle("Fecha")
 			.setFixedSize(150)
+			//>>> transformer para que tenga mas sentido 
 			.bindContentsToProperty("fecha")
 			
 		new Column<Nota>(table) //
@@ -90,7 +86,6 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 
 		new Column<Nota>(table) 
 			.setTitle("Aprobado")
-			.setFixedSize(150)		
 			.bindContentsToTransformer([nota | if (nota.aprobada) "Si" else "No"])
 			
 		var panelNotas = new Panel(mainPanel)
@@ -98,7 +93,6 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new Button(panelNotas)
 			.setCaption("Editar Nota")
 			.onClick [ | this.editarNota]
-			
 	}
 
 
@@ -106,6 +100,7 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	}
 
 
+	//OJO: que no es una tabla de resultados
 	def protected createResultsGrid(Panel mainPanel) {
 		var table = new Table<Materia>(mainPanel, typeof(Materia))
 		table.heigth = 200
@@ -113,13 +108,10 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		table.bindItemsToProperty("resultados")
 		table.bindValueToProperty("materiaSeleccionada")
 		this.describeResultsGrid(table)
-
 	}
 
 
 	def void describeResultsGrid(Table<Materia> table) {
-		
-	
 		new Column<Materia>(table) //
 			.setTitle("Materia")
 			.setFixedSize(150)
@@ -129,13 +121,11 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 			.setTitle("Profesor")
 			.setFixedSize(150)
 			.bindContentsToProperty("profe")
-		
  
 		new Column<Materia>(table) //
 			.setTitle("Aprobada")
 			.setFixedSize(100)
 			.bindContentsToTransformer([materia | if (materia.finalAprobado) "Si" else "No"])
-			
 	}
 
 	def void createGridActions(Panel mainPanel) {
@@ -144,7 +134,6 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 		new Button(actionsPanel)
 			.setCaption("Nueva Materia")
 			.onClick [ | this.agregarMateria]
-		
 	}
 
 
@@ -154,14 +143,11 @@ class IniciarMateriasWindow extends SimpleWindow<IniciarMateria> {
 	}
 	
 	def void editarNota() {
-		this.openDialog(new EditarNotaWindow(this))
+		this.openDialog(new EditarNotaWindow(this, this.modelObject.notaParaEdicion()))
 	}
-
-
 
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.iniciar]
 		dialog.open
 	}
-
 }

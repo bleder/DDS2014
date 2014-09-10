@@ -17,8 +17,8 @@ import java.util.ArrayList
 class EditarNotaWindow extends Dialog<Nota> {
 
 	
-	new(WindowOwner owner) {
-		super(owner, new Nota)
+	new(WindowOwner owner, Nota nota) {
+		super(owner, nota)
 	}
 	
 	override executeTask() {
@@ -56,7 +56,6 @@ class EditarNotaWindow extends Dialog<Nota> {
 				this.cancel
 			]
 	}
-	
 }
 
 

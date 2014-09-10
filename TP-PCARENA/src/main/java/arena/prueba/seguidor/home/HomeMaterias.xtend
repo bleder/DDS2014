@@ -8,6 +8,7 @@ import org.apache.commons.collections15.Predicate;
 import arena.prueba.seguidor.domain.Materia
 import arena.prueba.seguidor.domain.Nota
 import java.util.Date
+import java.util.ArrayList
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -39,7 +40,7 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		nota2.aprobada = false
 		nota2.fecha = new Date(2004,8,23)
 		nota2.descripcion = "Parcialito"
-		materia.notas = #[nota,nota2]
+		materia.notas = new ArrayList(#[nota,nota2])
 		this.create(materia)
 	}
 

@@ -13,7 +13,6 @@ class Materia extends Entity {
 	@Property String profe
 	@Property String ubicacion
 	@Property List<Nota> notas
-	@Property Nota notaSeleccionada	
 	
 	val ubicaciones = #["1er Cuatrimestre", "2do Cuatrimestre", "Curso de verano"]
 	
