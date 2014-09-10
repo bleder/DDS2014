@@ -8,6 +8,7 @@ import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XButton
+import org.apache.wicket.markup.html.form.CheckBox
 
 class IniciarMateriasPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -18,8 +19,9 @@ class IniciarMateriasPage extends WebPage {
 		this.iniciador = new IniciarMateria()
 		val Form<IniciarMateria> iniciarForm = new Form<IniciarMateria>("iniciarMateriasForm", new CompoundPropertyModel<IniciarMateria>(this.iniciador))
 		//this.agregarCamposBusqueda(iniciarForm)
-		this.agregarAcciones(iniciarForm)
+		
 		this.agregarGrillaMaterias(iniciarForm)
+		this.agregarAcciones(iniciarForm)
 		this.addChild(iniciarForm)
 
 		this.iniciarMaterias()
@@ -39,7 +41,11 @@ class IniciarMateriasPage extends WebPage {
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombre"))
-			item.addChild(new Label("anio"))
+			item.addChild(new Label("profe"))
+			
+			val checkResumen = new CheckBox("finalAprobado")
+			checkResumen.setEnabled(false)
+			item.addChild(checkResumen)
 			
 			//val checkResumen = new CheckBox("recibeResumenCuenta")
 			//checkResumen.setEnabled(false)

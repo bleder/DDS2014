@@ -16,18 +16,19 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	}
 
 	def void init() {
-		this.create("Mate discreta", 2005, true, "Alejandra Isola")
-		this.create("Paradigmas", 2009, true, "Spagariol")
-		this.create("Algebra", 2009, true, "Monica perez")
-		this.create("Sistemas operativos", 2009, true, "Scarfiello")
+		this.create("Mate discreta", 2005, true, "Alejandra Isola","1er cuatrimestre")
+		this.create("Paradigmas", 2009, false, "Spagariol","1er cuatrimestre")
+		this.create("Algebra", 2009, true, "Monica perez","2do cuatrimestre")
+		this.create("Sistemas operativos", 2009, false, "Scarfiello","Curso de Verano")
 	}
 	
-	def void create(String nombre, int anio, boolean finalAprobado, String profe) {
+	def void create(String nombre, int anio, boolean finalAprobado, String profe, String ubicacion) {
 		var materia = new Materia
 		materia.nombre = nombre
 		materia.anio = anio
 		materia.finalAprobado = finalAprobado
 		materia.profe = profe
+		materia.ubicacion=ubicacion
 		
 		var nota = new Nota
 		nota.aprobada = true
@@ -40,6 +41,10 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 		nota2.descripcion = "Parcialito"
 		materia.notas = #[nota,nota2]
 		this.create(materia)
+	}
+
+	override void validateCreate(Materia materia) {
+		materia.validar()
 	}
 
 	def List<Materia> getMaterias() {

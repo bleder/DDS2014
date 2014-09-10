@@ -8,6 +8,8 @@ import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.markup.html.form.CheckBox
+import org.apache.wicket.markup.html.form.DropDownChoice
+import org.uqbar.commons.model.UserException
 
 //Se usa tanto para agregar celus nuevos o editar uno existente
 
@@ -18,6 +20,7 @@ class EditarMateriaPage extends WebPage {
 	private final boolean alta
 	private final IniciarMateriasPage mainPage
 	
+	private final val ubicaciones = #["1er Cuatrimestre", "2do Cuatrimestre", "Curso de verano"]
 	
 
 	new(Materia materiaAEditar, IniciarMateriasPage mainPage) {
@@ -51,7 +54,7 @@ class EditarMateriaPage extends WebPage {
 		
 		form.addChild(new TextField("anio"))
 		form.addChild(new TextField("profe"))
-
+		form.addChild(new DropDownChoice("ubicacion",ubicaciones))
 		// TODO implementar selector de ubicaciones
 		/*
 		parent.addChild(new DropDownChoice<String>("ubicacion") => [
@@ -80,8 +83,10 @@ class EditarMateriaPage extends WebPage {
 						Materia.home.create(materia)
 					}
 					volver()
+				} catch (UserException e) {
+					info(e.getMessage())
 				} catch (RuntimeException e) {
-					error("Ocurrió un error")
+					error("Ocurrió un error al procesar el pedido")
 				}
 			]				
 		])
