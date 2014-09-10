@@ -18,6 +18,7 @@ class EditarMateriaPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	private final Materia materia
+	private final Materia materiaReal
 	private final boolean alta
 	private final IniciarMateriasPage mainPage
 	
@@ -28,7 +29,15 @@ class EditarMateriaPage extends WebPage {
 		
 		this.mainPage = mainPage
 		this.alta = materiaAEditar.isNew()
-		this.materia = materiaAEditar
+		this.materia = new Materia
+		this.materiaReal = materiaAEditar
+		
+		materia.nombre = materiaReal.nombre
+		materia.anio = materiaReal.anio
+		materia.finalAprobado = materiaReal.finalAprobado
+		materia.profe = materiaReal.profe
+		materia.ubicacion = materiaReal.ubicacion
+		materia.notas = materiaReal.notas
 		
 		this.addChild(new Label("titulo", if (this.alta) "Nueva Materia" else "Editar Datos de Materia"))
 		
@@ -97,8 +106,12 @@ class EditarMateriaPage extends WebPage {
 					if (alta) {
 						Materia.home.create(materia)
 					} else {
-						Materia.home.delete(materia)
-						Materia.home.create(materia)
+						materiaReal.nombre = materia.nombre
+						materiaReal.anio = materia.anio
+						materiaReal.finalAprobado = materia.finalAprobado
+						materiaReal.profe = materia.profe
+						materiaReal.ubicacion = materia.ubicacion
+						materiaReal.notas = materia.notas
 					}
 					volver()
 				} catch (UserException e) {
