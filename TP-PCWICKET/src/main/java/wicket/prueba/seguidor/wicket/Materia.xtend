@@ -13,15 +13,9 @@ class Materia extends Entity {
 	@Property String profe
 	@Property String ubicacion
 	@Property List<Nota> notas
-	@Property Nota notaSeleccionada	
-	
 
-	def asObjects(List<?> list) {
-		list.map[it as Object]
-	}
-	
+
 	def validar(){
-		//TODO implementar
 		
 		if (getAnio <=1900 || getAnio>=2300) {
 			throw new UserException("Debe ingresar número valido!!")
@@ -36,6 +30,8 @@ class Materia extends Entity {
 	def ingresoNombre() {
 		 getNombre != null && !getNombre.trim().equals("")
 	}
+	
+
 }
 
 

@@ -2,7 +2,6 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-
     <head>
        	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<!-- Bootstrap --> 
@@ -11,7 +10,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Seguidor de carrera</title>
     </head>
-    
     
 <body>
  <div class="container">
@@ -23,9 +21,7 @@
             </tr>
         </table>
 
-
-
-<form wicket:id="iniciarMateriasForm" class="form-horizontal">
+  <form wicket:id="iniciarMateriasForm" class="form-horizontal">
 	
            	<table class="table table-striped table-bordered table-condensed">
            		<thead>
@@ -33,8 +29,7 @@
 	               		<th id="main">Nombre</th>
 	               		<th id="main">Profe</th>
 	               		<th id="main">Aprobada</th>
-
-	               
+	               		
 	               		<th id="main">Acciones</th>
 	               	</tr>
 	            </thead>
@@ -49,14 +44,6 @@
 	           	        <td>
 	       	            	<input type="checkbox" wicket:id="finalAprobado"/>
 	   	                </td> 
-	   	                <!--  
-	           	        <td>
-	       	            	<span wicket:id="modeloCelular.descripcion">unModelo</span>
-	   	                </td> 
-	           	        <td>
-	       	            	<input type="checkbox" wicket:id="recibeResumenCuenta"/>
-	   	                </td> 
-	   	                -->
 	           	        <td>
 	           	        	<div class="btn-group">
 	           	        		<button wicket:id="editar" class="btn-link">Editar/Ver</button>
@@ -67,18 +54,10 @@
                	</tbody>
            	</table>
 	
-	
-	
-	
             <div class="form-actions">
                 <button wicket:id="nueva" class="btn btn-success">Nueva Materia</button>
             </div>
-
-</form>
-
-
-	
-	
+  </form>
  </div>
 </body>
 </html>

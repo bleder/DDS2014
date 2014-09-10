@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.uqbar.commons.model.UserException
+import org.uqbar.wicket.xtend.XListView
 
 //Se usa tanto para agregar celus nuevos o editar uno existente
 
@@ -36,14 +37,6 @@ class EditarMateriaPage extends WebPage {
 		this.agregarAcciones(editarForm)
 		this.addChild(editarForm)
 		
-		/*
-		materiaSeleccionada = materia
-		returnPage = page
-		
-		val Form<EditarMateria> editarForm = new Form<EditarMateria>("editarMateriasForm", new CompoundPropertyModel<EditarMateria>(new EditarMateria(materia)))
-		this.agregarCampos(editarForm)
-		this.addChild(editarForm)
-		*/
 	}
 
 	
@@ -55,18 +48,43 @@ class EditarMateriaPage extends WebPage {
 		form.addChild(new TextField("anio"))
 		form.addChild(new TextField("profe"))
 		form.addChild(new DropDownChoice("ubicacion",ubicaciones))
-		// TODO implementar selector de ubicaciones
-		/*
-		parent.addChild(new DropDownChoice<String>("ubicacion") => [
-			choices = loadableModel([| Modelo.home.allInstances ])
-			choiceRenderer = choiceRenderer([Modelo m| m.descripcion ])
-		]) 
-		*/
 		form.addChild(new CheckBox("finalAprobado"))
 		
-		form.addChild(new FeedbackPanel("feedbackPanel"))
+		this.agregarGrillaNotas(form)
 		
-		// TODO implementar lista de notas...
+		form.addChild(new FeedbackPanel("feedbackPanel"))
+	}
+	
+	def agregarGrillaNotas(Form<Materia> form) {
+		
+		/*  Lo de abjao es copy paste de lo que hicimos en IniciarMateriasPage.html...
+		 
+		 
+		val listView = new XListView("notas")
+
+		listView.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			item.addChild(new Label("nombre"))
+			item.addChild(new Label("profe"))
+			
+			val checkResumen = new CheckBox("finalAprobado")
+			checkResumen.setEnabled(false)
+			item.addChild(checkResumen)
+			
+			
+			item.addChild(new XButton("editar").onClick = [| editar(item.modelObject) ])
+			item.addChild(new XButton("eliminar")
+				.onClick = [| 
+					iniciador.materiaSeleccionada = item.modelObject
+					iniciador.eliminarMateriaSeleccionada
+				]
+			)
+		]
+
+		form.addChild(listView)
+	
+		*/
+		
 	}
 	
 	
@@ -90,7 +108,6 @@ class EditarMateriaPage extends WebPage {
 				}
 			]				
 		])
-		
 		
 		parent.addChild(new XButton("cancelar") => [
 			onClick = [| volver ]

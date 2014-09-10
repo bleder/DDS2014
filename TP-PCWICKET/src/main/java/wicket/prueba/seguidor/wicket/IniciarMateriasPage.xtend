@@ -18,8 +18,7 @@ class IniciarMateriasPage extends WebPage {
 	new() {
 		this.iniciador = new IniciarMateria()
 		val Form<IniciarMateria> iniciarForm = new Form<IniciarMateria>("iniciarMateriasForm", new CompoundPropertyModel<IniciarMateria>(this.iniciador))
-		//this.agregarCamposBusqueda(iniciarForm)
-		
+
 		this.agregarGrillaMaterias(iniciarForm)
 		this.agregarAcciones(iniciarForm)
 		this.addChild(iniciarForm)
@@ -47,10 +46,6 @@ class IniciarMateriasPage extends WebPage {
 			checkResumen.setEnabled(false)
 			item.addChild(checkResumen)
 			
-			//val checkResumen = new CheckBox("recibeResumenCuenta")
-			//checkResumen.setEnabled(false)
-			//item.addChild(checkResumen)
-			
 			item.addChild(new XButton("editar").onClick = [| editar(item.modelObject) ])
 			item.addChild(new XButton("eliminar")
 				.onClick = [| 
@@ -69,14 +64,3 @@ class IniciarMateriasPage extends WebPage {
 
 }
 
-/* 
-	new() {
-		val label = new Label("version", application.frameworkSettings.version)
-		
-		this.addChild(label);
-
-		// TODO Add your page's components here
-    }
-
-}
-*/
