@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.ApplicationContext
 import wicket.prueba.seguidor.wicket.Materia
 import wicket.prueba.seguidor.wicket.HomeMaterias
 
+
 class MateriasWicketApplication extends WebApplication {
 	
 	override protected init() {
@@ -16,6 +17,7 @@ class MateriasWicketApplication extends WebApplication {
 	
 	override getHomePage() {
 		return IniciarMateriasPage
+		
 
 	}
 	
