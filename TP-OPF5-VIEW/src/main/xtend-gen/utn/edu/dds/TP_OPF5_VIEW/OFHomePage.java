@@ -26,7 +26,7 @@ public class OFHomePage extends WebPage {
     {
       XButton _xButton = new XButton("GenerarEquipos");
       this._wicketExtensionFactoryMethods.addChild(form, _xButton);
-      XButton _xButton_1 = new XButton("BuscarJugadores");
+      XButton _xButton_1 = new XButton("BuscarJ");
       _xblockexpression = this._wicketExtensionFactoryMethods.addChild(form, _xButton_1);
     }
     return _xblockexpression;

@@ -18,7 +18,8 @@ class OFHomePage extends WebPage {
 	def agregarAcciones(Form <Object> form){
 		
 		form.addChild(new XButton("GenerarEquipos"))
-		form.addChild(new XButton("BuscarJugadores"))
+		form.addChild(new XButton("BuscarJ"))
+		
 	}
 	
 	
