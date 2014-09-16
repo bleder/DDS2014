@@ -36,6 +36,8 @@ class Jugador {
 		nivelJuego=0
 	}
 	
+
+	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
 	}
