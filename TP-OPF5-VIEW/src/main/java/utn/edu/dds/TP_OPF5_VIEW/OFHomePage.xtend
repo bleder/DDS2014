@@ -11,11 +11,14 @@ class OFHomePage extends WebPage {
 	new(){
 		var Object objeto
 		val Form <Object> generalForm = new Form<Object>("generalForm",new CompoundPropertyModel<Object>(objeto))
+		agregarAcciones(generalForm)
+		this.addChild(generalForm)
 	}
 	
-	def agregarAcciones(){
-		val generarEquipos= new XButton("GenerarEquipos")
-		//item.addChild(new XButton("eliminar")
+	def agregarAcciones(Form <Object> form){
+		
+		form.addChild(new XButton("GenerarEquipos"))
+		form.addChild(new XButton("BuscarJugadores"))
 	}
 	
 	
