@@ -25,4 +25,8 @@ public class GenerarEquiposPage extends WebPage {
     XButton _xButton = new XButton("Generar");
     return this._wicketExtensionFactoryMethods.addChild(form, _xButton);
   }
+  
+  public Object agregarCamposEdicion(final Form<Object> form) {
+    return null;
+  }
 }
