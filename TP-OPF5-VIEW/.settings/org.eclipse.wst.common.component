@@ -4,11 +4,11 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/xtend-gen"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/generated-sources"/>
         <dependent-module archiveName="TP-OPF5-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/TP-OPF5/TP-OPF5">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="java-output-path" value="/TP-OPF5-VIEW/target/classes"/>
         <property name="context-root" value="Wicket.HelloWorld"/>
+        <property name="java-output-path" value="/TP-OPF5-VIEW/target/classes"/>
     </wb-module>
 </project-modules>
