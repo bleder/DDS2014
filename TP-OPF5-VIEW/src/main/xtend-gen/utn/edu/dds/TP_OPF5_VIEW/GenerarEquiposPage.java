@@ -5,6 +5,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
 
@@ -23,7 +24,12 @@ public class GenerarEquiposPage extends WebPage {
   
   public MarkupContainer agregarAcciones(final Form<Object> form) {
     XButton _xButton = new XButton("Generar");
-    return this._wicketExtensionFactoryMethods.addChild(form, _xButton);
+    final Procedure0 _function = new Procedure0() {
+      public void apply() {
+      }
+    };
+    XButton _setOnClick = _xButton.setOnClick(_function);
+    return this._wicketExtensionFactoryMethods.addChild(form, _setOnClick);
   }
   
   public Object agregarCamposEdicion(final Form<Object> form) {

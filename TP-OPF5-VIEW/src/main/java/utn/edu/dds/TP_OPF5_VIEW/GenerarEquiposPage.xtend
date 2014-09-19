@@ -23,7 +23,9 @@ class GenerarEquiposPage extends WebPage {
 	}
 	
 	def agregarAcciones(Form<Object> form) {
-		form.addChild(new XButton("Generar"))
+		form.addChild(new XButton("Generar")
+			.onClick=[|]
+		)
 	}
 	
 	def agregarCamposEdicion(Form<Object> form){

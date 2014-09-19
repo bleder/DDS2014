@@ -35,7 +35,12 @@ public class OFHomePage extends WebPage {
       XButton _setOnClick = _xButton.setOnClick(_function);
       this._wicketExtensionFactoryMethods.addChild(form, _setOnClick);
       XButton _xButton_1 = new XButton("BuscarJ");
-      _xblockexpression = this._wicketExtensionFactoryMethods.addChild(form, _xButton_1);
+      final Procedure0 _function_1 = new Procedure0() {
+        public void apply() {
+        }
+      };
+      XButton _setOnClick_1 = _xButton_1.setOnClick(_function_1);
+      _xblockexpression = this._wicketExtensionFactoryMethods.addChild(form, _setOnClick_1);
     }
     return _xblockexpression;
   }

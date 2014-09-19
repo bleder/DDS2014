@@ -20,7 +20,9 @@ class OFHomePage extends WebPage {
 		form.addChild(new XButton("GenerarEquipos")
 			.onClick=[|generarEquipos()]
 		)
-		form.addChild(new XButton("BuscarJ"))
+		form.addChild(new XButton("BuscarJ")
+			.onClick=[|]
+		)
 		
 	}
 	
