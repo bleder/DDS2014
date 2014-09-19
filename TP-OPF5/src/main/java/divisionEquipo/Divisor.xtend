@@ -1,8 +1,9 @@
 package divisionEquipo
 
 import partido.core.Partido
+import org.uqbar.commons.model.Entity
 
-abstract class Divisor {
+abstract class Divisor extends Entity {
 
 	@Property
 	Partido partido
