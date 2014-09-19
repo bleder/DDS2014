@@ -31,6 +31,7 @@ class GenerarEquiposPage extends WebPage {
 	def agregarCamposEdicion(Form<Object> form){
 		//parent.addChild(new DropDownChoice<Divisor>("cDivision")=> []) 
 	}
+	
 //	def agregarGrillaResultados(Form<Object> form) {
 //		val listView = new XListView("equipo1")
 //		listView.populateItem = [ item |
