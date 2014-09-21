@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5_VIEW
+package utn.edu.dds.TP_OPF5_VIEW.home
 
 import org.uqbar.commons.model.CollectionBasedHome
 import divisionEquipo.Divisor

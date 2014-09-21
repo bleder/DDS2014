@@ -184,7 +184,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	<finalName>Wicket.HelloWorld</finalName>
+	<finalName>Organizador de Futbol 5</finalName>
 	</build>
 
 	<repositories>

@@ -8,8 +8,9 @@ import partido.calificaciones.Calificacion
 import partido.nuevosJugadores.Administrador
 import partido.calificaciones.ClasificacionBuilder
 import partido.nuevosJugadores.PropuestaBuilder
+import org.uqbar.commons.model.Entity
 
-class Jugador {
+class Jugador extends Entity{
 	@Property
 	String nombre
 	@Property
