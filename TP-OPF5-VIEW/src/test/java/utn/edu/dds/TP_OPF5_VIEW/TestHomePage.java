@@ -4,6 +4,9 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import utn.edu.dds.TP_OPF5_VIEW.runnable.WicketApplication;
+import utn.edu.dds.TP_OPF5_VIEW.ui.OFHomePage;
+
 /**
  * Simple test using the WicketTester
  */
