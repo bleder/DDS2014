@@ -58,6 +58,7 @@ class IniciarMateriasPage extends WebPage {
 	}
 	
 	def editar(Materia materia) {
+		
 		responsePage = new EditarMateriaPage(materia, this) 
 	}		
 

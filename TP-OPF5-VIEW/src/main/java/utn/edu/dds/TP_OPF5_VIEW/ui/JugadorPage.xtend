@@ -1,4 +1,4 @@
-package utn.edu.dds.TP_OPF5_VIEW
+package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.basic.Label
@@ -13,21 +13,27 @@ class JugadorPage extends WebPage  {
 	
 	new(Jugador jugadorAvisualizar) {
 		this.jugador=jugadorAvisualizar	
-		val formJugador = new Form<Jugador>("nuevoCelularForm", this.jugador.asCompoundModel)
-		agregarCamposEdicion(formJugador)
+		val formJugador = new Form<Jugador>("jugadorView", this.jugador.asCompoundModel)
+		agregarCampos(formJugador)
 					
 	}
 	
-	def agregarCamposEdicion(Form<Jugador> parent) {
+	def agregarCampos(Form<Jugador> parent) {
 		parent.addChild(new Label("nombre"))
 		parent.addChild(new Label("apodo"))
 		parent.addChild(new Label("handicap"))
 		parent.addChild(new Label("promedioUltimoPartido"))
 		parent.addChild(new Label("promedioTodosLosPartidos"))
 		parent.addChild(new Label("fechaNacimiento"))
-		parent.addChild(new Label("amigos"))//Esto tiene que ser una grilla
-		parent.addChild(new Label("infracciones"))//Esto tiene que ser una grilla
-		parent.addChild(new Label("cantidadDePartidos"))//Esto tiene que ser una grilla
+		parent.addChild(new Label("cantidadDePartidos"))
+		
+	}
+	
+	def agregarGrillaInfracciones(Form<Jugador> parent){
+		
+	}
+	
+	def agregarGrillaAmigos(Form<Jugador> parent){
 		
 	}
 }
