@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.uqbar.commons.model.Entity;
 import partido.calificaciones.Calificacion;
 import partido.calificaciones.ClasificacionBuilder;
 import partido.core.Infraccion;
@@ -16,7 +17,7 @@ import partido.nuevosJugadores.Propuesta;
 import partido.nuevosJugadores.PropuestaBuilder;
 
 @SuppressWarnings("all")
-public class Jugador {
+public class Jugador extends Entity {
   private String _nombre;
   
   public String getNombre() {

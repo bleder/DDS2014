@@ -2,12 +2,13 @@ package divisionEquipo;
 
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.uqbar.commons.model.Entity;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
 import partido.core.Partido;
 
 @SuppressWarnings("all")
-public abstract class Divisor {
+public abstract class Divisor extends Entity {
   private Partido _partido;
   
   public Partido getPartido() {

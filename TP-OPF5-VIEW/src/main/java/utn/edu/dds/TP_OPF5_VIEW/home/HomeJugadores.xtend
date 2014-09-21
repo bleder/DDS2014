@@ -12,7 +12,6 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 
 	def void init() {
-		//this.create("Laura Iturbe", 88022202, getModelo("NOKIA LUMIA 625"), false)
 		this.create("Rodolfo", "rodol@yahoo.com")
 		this.create("Pepita", "pepita22@aol.com")
 		this.create("Julian", "br@hotmail.com")
