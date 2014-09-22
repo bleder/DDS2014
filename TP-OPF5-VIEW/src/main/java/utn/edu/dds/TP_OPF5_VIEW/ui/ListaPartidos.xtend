@@ -11,6 +11,7 @@ class ListaPartidos implements Serializable {
 	
 	@Property List<Partido> partidos
 	
+	
 	def List<Partido> iniciar() {
 		partidos = getHomePartidos().iniciar()
 		partidos

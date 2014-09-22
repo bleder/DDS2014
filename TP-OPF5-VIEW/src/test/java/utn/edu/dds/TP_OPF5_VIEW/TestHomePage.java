@@ -19,6 +19,7 @@ public class TestHomePage
 	{
 		tester = new WicketTester(new WicketApplication());
 	}
+	
 
 	@Test
 	public void homepageRendersSuccessfully()

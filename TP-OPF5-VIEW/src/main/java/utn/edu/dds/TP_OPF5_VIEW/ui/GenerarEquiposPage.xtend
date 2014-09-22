@@ -16,8 +16,29 @@ import org.uqbar.commons.utils.ApplicationContext
 class GenerarEquiposPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
+	var Partido partidoAEditar
+	
 	new(Partido partido) {
 		//TODO: dado un equipo, dar las opciones de generarlo
+		
+		partidoAEditar = partido
+		val generarEquiposForm = new Form<Partido>("partidoForm", this.partidoAEditar.asCompoundModel)
+		//this.agregarCampos(generarEquiposForm)
+		this.agregarGrillasEquipos(generarEquiposForm)
+		//this.agregarAcciones(buscarForm)
+		this.addChild(generarEquiposForm)
 	}
+	
+		def agregarGrillasEquipos(Form <Partido> form) {
+		val listView = new XListView("jugadoresHome")
+		listView.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			item.addChild(new Label("nombre"))
+			item.addChild(new Label("mail"))
+		]
+		
+		form.addChild(listView)
+	}
+	
 	
 }

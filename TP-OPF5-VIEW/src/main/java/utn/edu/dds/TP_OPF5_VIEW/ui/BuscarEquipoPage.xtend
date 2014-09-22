@@ -25,6 +25,7 @@ class BuscarEquipoPage extends WebPage {
 		listaPartidos.iniciar()
 	}
 	
+	
 	def agregarGrillaPartidos(Form <ListaPartidos> form) {
 		val listView = new XListView("partidos")
 		listView.populateItem = [ item |
@@ -47,5 +48,6 @@ class BuscarEquipoPage extends WebPage {
 			.onClick=[| responsePage = new OFHomePage]
 		)
 	}
+	
 	
 }

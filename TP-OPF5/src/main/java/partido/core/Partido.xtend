@@ -37,6 +37,9 @@ class Partido extends Entity {
 	Divisor divisorEquipo
 	@Property
 	boolean confirmadoAdm
+	
+	@Property
+	List<Jugador> jugadoresHome
 
 	new(String nomPartido, Administrador adminPartido) {
 		nombrePartido = nomPartido

@@ -3,10 +3,10 @@ package utn.edu.dds.TP_OPF5_VIEW.home
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.CollectionBasedHome
 import partido.core.Jugador
-
+import java.util.List
 
 @Observable
-class HomeJugadores extends CollectionBasedHome<JugadorUI> {
+class HomeJugadores extends CollectionBasedHome<Jugador> {
 
 	new() {
 		this.init
@@ -21,23 +21,28 @@ class HomeJugadores extends CollectionBasedHome<JugadorUI> {
 	}
 
 	def void create(String nom, String mail) {
-		var jugador = new JugadorUI(new Jugador(nom,mail))
+		var jugador = new Jugador(nom, mail)
 		this.create(jugador)
+	}
+	
+	def List<Jugador> getJugadores() {
+		allInstances	
 	}
 
 	def search() {
 		//todo: hacer
 	}
 
-	override def getEntityType() {
-		typeof(JugadorUI)
-	}
 	
-	override protected getCriterio(JugadorUI example) {
+	override protected getCriterio(Jugador example) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 	override createExample() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	override getEntityType() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 
