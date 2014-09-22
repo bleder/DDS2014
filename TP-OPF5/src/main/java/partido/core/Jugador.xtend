@@ -108,6 +108,9 @@ class Jugador extends Entity{
 		nivelJuego=nv
 	}
 	
+	def cantidadPartidosJugados(){
+		partidosJugados.length
+	}
 
 	
 }

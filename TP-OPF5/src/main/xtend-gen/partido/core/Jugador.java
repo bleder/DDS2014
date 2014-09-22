@@ -3,6 +3,7 @@ package partido.core;
 import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -229,5 +230,10 @@ public class Jugador extends Entity {
   
   public void tuNivelDeJuegoEs(final int nv) {
     this.setNivelJuego(nv);
+  }
+  
+  public int cantidadPartidosJugados() {
+    List<Partido> _partidosJugados = this.getPartidosJugados();
+    return ((Object[])Conversions.unwrapArray(_partidosJugados, Object.class)).length;
   }
 }

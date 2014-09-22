@@ -4,8 +4,9 @@ import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.CollectionBasedHome
 import partido.core.Jugador
 
+
 @Observable
-class HomeJugadores extends CollectionBasedHome<Jugador> {
+class HomeJugadores extends CollectionBasedHome<JugadorUI> {
 
 	new() {
 		this.init
@@ -20,7 +21,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 
 	def void create(String nom, String mail) {
-		var jugador = new Jugador(nom,mail)
+		var jugador = new JugadorUI(new Jugador(nom,mail))
 		this.create(jugador)
 	}
 
@@ -29,10 +30,10 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 
 	override def getEntityType() {
-		typeof(Jugador)
+		typeof(JugadorUI)
 	}
 	
-	override protected getCriterio(Jugador example) {
+	override protected getCriterio(JugadorUI example) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
