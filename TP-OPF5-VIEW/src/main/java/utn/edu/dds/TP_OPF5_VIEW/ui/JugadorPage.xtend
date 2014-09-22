@@ -5,16 +5,23 @@ import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import partido.core.Jugador
 import org.apache.wicket.markup.html.form.Form
+import org.uqbar.wicket.xtend.XListView
+import org.uqbar.wicket.xtend.XButton
 
 class JugadorPage extends WebPage  {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	private final Jugador jugador
+	private final OFHomePage mainPage
 	
 	
-	new(Jugador jugadorAvisualizar) {
+	new(Jugador jugadorAvisualizar, OFHomePage mainPage) {
+		this.mainPage = mainPage
 		this.jugador=jugadorAvisualizar	
 		val formJugador = new Form<Jugador>("jugadorView", this.jugador.asCompoundModel)
 		agregarCampos(formJugador)
+		agregarGrillaInfracciones(formJugador)
+		agregarGrillaAmigos(formJugador)
+		this.addChild(formJugador)
 					
 	}
 	
@@ -30,10 +37,27 @@ class JugadorPage extends WebPage  {
 	}
 	
 	def agregarGrillaInfracciones(Form<Jugador> parent){
-		
+		val listView = new XListView("infraciones")
+		listView.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			item.addChild(new Label("fecha")) //En nuestro dominio no tenemos hora como pide el enunciado
+			item.addChild(new Label("motivo"))]
+		parent.addChild(listView)
 	}
 	
 	def agregarGrillaAmigos(Form<Jugador> parent){
+		val listView = new XListView("amigos")
 		
+		parent.addChild(listView)
+	}
+	
+	def agregarAcciones(Form<Jugador> parent){
+		parent.addChild(new XButton("volver") => [
+			onClick = [| volver ]
+		])
+	}
+	
+	def volver() {
+		responsePage = mainPage
 	}
 }
