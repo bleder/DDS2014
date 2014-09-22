@@ -13,8 +13,9 @@ import exception.PartidoConfirmadoNoAceptaBaja
 import exception.PartidoNoPoseeCantidadMaxima
 import exception.PartidoYaConfirmado
 import exception.NoSeRealizoDivisionDeEquipos
+import org.uqbar.commons.model.Entity
 
-class Partido {
+class Partido extends Entity {
 	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
 	@Property
 	private String nombrePartido

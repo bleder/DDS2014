@@ -9,35 +9,15 @@ import org.apache.wicket.markup.html.form.DropDownChoice
 import divisionEquipo.Divisor
 import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
+import partido.core.Partido
+import java.util.List
+import org.uqbar.commons.utils.ApplicationContext
 
 class GenerarEquiposPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
-	new(){
-		var Object unForm
-		val Form <Object> generarEquiposForm = new Form<Object>("generarEquiposForm",new CompoundPropertyModel<Object>(unForm))
-		agregarAcciones(generarEquiposForm)
-		//agregarGrillaResultados(generarEquiposForm)
-		//agregarCamposEdicion(generarEquiposForm)
-		this.addChild(generarEquiposForm)
+	new(Partido partido) {
+		//TODO: dado un equipo, dar las opciones de generarlo
 	}
-	
-	def agregarAcciones(Form<Object> form) {
-		form.addChild(new XButton("Generar")
-			.onClick=[|]
-		)
-	}
-	
-	def agregarCamposEdicion(Form<Object> form){
-		//parent.addChild(new DropDownChoice<Divisor>("cDivision")=> []) 
-	}
-	
-//	def agregarGrillaResultados(Form<Object> form) {
-//		val listView = new XListView("equipo1")
-//		listView.populateItem = [ item |
-//			item.model = item.modelObject.asCompoundModel
-//			item.addChild(new Label("nombre")) 	]
-//		parent.addChild(listView)
-//	}
 	
 }

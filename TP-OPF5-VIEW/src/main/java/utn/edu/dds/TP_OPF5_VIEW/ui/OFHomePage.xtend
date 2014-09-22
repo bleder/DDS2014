@@ -28,7 +28,7 @@ class OFHomePage extends WebPage {
 	}
 	
 	def generarEquipos() {
-		responsePage = new GenerarEquiposPage()
+		responsePage = new BuscarEquipoPage()
 	}
 	
 	
