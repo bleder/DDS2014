@@ -29,8 +29,18 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		allInstances	
 	}
 
-	def search() {
-		//todo: hacer
+	def search(String nombre) {
+		allInstances.filter[jug|this.match(nombre, jug.nombre)].toList
+	}
+	
+	def match(Object expectedValue, Object realValue) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
 	}
 
 	

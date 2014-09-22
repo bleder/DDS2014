@@ -27,7 +27,6 @@ class Jugador extends Entity{
 	List<Partido> partidosJugados  = new ArrayList
 	
 	
-	
 
 	new(String nom, String newMail) {
 		mail = newMail
@@ -111,6 +110,5 @@ class Jugador extends Entity{
 	def cantidadPartidosJugados(){
 		partidosJugados.length
 	}
-
 	
 }

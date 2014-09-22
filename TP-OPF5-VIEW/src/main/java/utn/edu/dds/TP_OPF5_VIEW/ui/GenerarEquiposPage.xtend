@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.basic.Label
 import partido.core.Partido
 import java.util.List
 import org.uqbar.commons.utils.ApplicationContext
+import partido.core.Jugador
 
 class GenerarEquiposPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -35,10 +36,14 @@ class GenerarEquiposPage extends WebPage {
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombre"))
 			item.addChild(new Label("mail"))
+			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 		]
 		
 		form.addChild(listView)
 	}
 	
+	def verJugador(Jugador jug) {
+		responsePage = new JugadorPage(jug, this)
+	}
 	
 }

@@ -22,7 +22,7 @@ class OFHomePage extends WebPage {
 			.onClick=[|generarEquipos()]
 		)
 		form.addChild(new XButton("BuscarJ")
-			.onClick=[|]
+			.onClick=[|buscarJugadores()]
 		)
 		
 	}
@@ -32,7 +32,9 @@ class OFHomePage extends WebPage {
 	}
 	
 	
+	def buscarJugadores() {
+		responsePage = new BuscarJugadorPage()
+	}
 	
-	
-	
+
 }
