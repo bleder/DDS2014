@@ -15,9 +15,9 @@ class JugadorUI extends Entity {
 	
 	new(Jugador jugador){
 		this.jugador=jugador
-		this.cantidadDePartidos=jugador.cantidadPartidosJugados()
-		this.promedioUltimoPartido=jugador.promedioDeCalificacionesUltimoPartido()
-		this.promedioTodosLosPartidos=jugador.promedioDeCalificaciones(cantidadDePartidos)
+		//this.cantidadDePartidos=jugador.cantidadPartidosJugados()
+		//this.promedioUltimoPartido=jugador.promedioDeCalificacionesUltimoPartido()
+		//this.promedioTodosLosPartidos=jugador.promedioDeCalificaciones(cantidadDePartidos)
 		
 	}
 }

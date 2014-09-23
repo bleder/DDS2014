@@ -12,14 +12,14 @@ import org.apache.wicket.request.component.IRequestablePage
 
 class JugadorPage extends WebPage  {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
-	private final Jugador jugador
+	private final JugadorUI jugador
 	private final IRequestablePage mainPage
 	
 	
 	new(Jugador jugadorAvisualizar, IRequestablePage mainPage) { // use IRequestablePage generico para que se pueda usar con cualquiera
 		this.mainPage = mainPage
-		this.jugador=jugadorAvisualizar	
-		val formJugador = new Form<Jugador>("jugadorView", this.jugador.asCompoundModel)
+		this.jugador = new JugadorUI(jugadorAvisualizar)
+		val formJugador = new Form<JugadorUI>("jugadorView", this.jugador.asCompoundModel)
 		agregarCampos(formJugador)
 //		agregarGrillaInfracciones(formJugador)
 //		agregarGrillaAmigos(formJugador)
@@ -28,10 +28,10 @@ class JugadorPage extends WebPage  {
 					
 	}
 	
-	def agregarCampos(Form<Jugador> parent) {
-		parent.addChild(new Label("nombre"))
+	def agregarCampos(Form<JugadorUI> parent) {
+		parent.addChild(new Label("jugador.nombre"))
 		//parent.addChild(new Label("apodo")) En el dominio no tenemos Apodo
-		parent.addChild(new Label("nivelJuego")) //Es el Handicap
+		parent.addChild(new Label("jugador.nivelJuego")) //Es el Handicap
 //		parent.addChild(new Label("promedioUltimoPartido"))
 //		parent.addChild(new Label("promedioTodosLosPartidos"))
 		//parent.addChild(new Label("fechaNacimiento")) En el dominio no tenemos Fecha de Nacimiento
@@ -39,7 +39,7 @@ class JugadorPage extends WebPage  {
 		
 	}
 	
-	def agregarGrillaInfracciones(Form<Jugador> parent){
+	def agregarGrillaInfracciones(Form<JugadorUI> parent){
 		val listView = new XListView("infraciones")
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
@@ -48,13 +48,13 @@ class JugadorPage extends WebPage  {
 		parent.addChild(listView)
 	}
 	
-	def agregarGrillaAmigos(Form<Jugador> parent){
+	def agregarGrillaAmigos(Form<JugadorUI> parent){
 		val listView = new XListView("amigos")
 		
 		parent.addChild(listView)
 	}
 	
-	def agregarAcciones(Form<Jugador> parent){
+	def agregarAcciones(Form<JugadorUI> parent){
 		parent.addChild(new XButton("volver") => [
 			onClick = [| volver ]
 		])
