@@ -9,6 +9,7 @@ import partido.core.Jugador
 import org.uqbar.wicket.xtend.XListView
 import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.AttributeModifier
 
 class BuscarJugadorPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -23,6 +24,7 @@ class BuscarJugadorPage extends WebPage {
 		this.agregarGrillaResultados(buscarForm)
 		this.addChild(buscarForm)
 		
+		
 		this.buscarJugadores()
 	}
 
@@ -34,6 +36,7 @@ class BuscarJugadorPage extends WebPage {
 		parent.addChild(new TextField<String>("nombre"))
 		parent.addChild(new TextField<String>("apodo"))
 	}
+	
 
 	def agregarAcciones(Form<BuscadorJugadores> parent) {
 		val buscarButton = new XButton("buscar")
@@ -51,8 +54,8 @@ class BuscarJugadorPage extends WebPage {
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombre"))
-			item.addChild(new Label("nivelJuego"))
-			item.addChild(new Label("promedioUltimoPartido"))
+			item.addChild(new Label("nivelJuego").add(new AttributeModifier("class", this.colorHandicap(item.modelObject))))
+			//item.addChild(new Label("promedioUltimoPartido")) Lo comente para que compilara (descomentar)
 
 			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 			
@@ -62,6 +65,10 @@ class BuscarJugadorPage extends WebPage {
 	
 	def verJugador(Jugador jug) {
 		responsePage = new JugadorPage(jug, this)
+	}
+	
+	def colorHandicap(Jugador jug){
+		if(jug.nivelJuego>8)"azul"else""
 	}
 
 }

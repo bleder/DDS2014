@@ -30,6 +30,7 @@ class GenerarEquiposPage extends WebPage {
 		this.addChild(generarEquiposForm)
 	}
 	
+	
 		def agregarGrillasEquipos(Form <Partido> form) {
 		val listView = new XListView("jugadoresHome")
 		listView.populateItem = [ item |

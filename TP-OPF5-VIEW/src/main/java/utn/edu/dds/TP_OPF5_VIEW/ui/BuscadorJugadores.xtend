@@ -22,6 +22,7 @@ class BuscadorJugadores implements Serializable {
 
 	def void clear() {
 		nombre = null
+		apodo = null
 	}
 
 	def HomeJugadores getHomeJugadores() {
@@ -29,3 +30,4 @@ class BuscadorJugadores implements Serializable {
 	}
 
 }
+

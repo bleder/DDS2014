@@ -8,7 +8,7 @@ import utn.edu.dds.TP_OPF5_VIEW.home.HomePartidos
 
 @org.uqbar.commons.utils.Observable
 class ListaPartidos implements Serializable {
-	
+	 
 	@Property List<Partido> partidos
 	
 	

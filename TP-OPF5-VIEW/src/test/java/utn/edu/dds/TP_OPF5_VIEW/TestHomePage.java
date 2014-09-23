@@ -26,6 +26,7 @@ public class TestHomePage
 	{
 		//start and render the test page
 		tester.startPage(OFHomePage.class);
+		
 
 		//assert rendered page class
 		tester.assertRenderedPage(OFHomePage.class);

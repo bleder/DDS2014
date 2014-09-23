@@ -4,6 +4,7 @@ import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.CollectionBasedHome
 import partido.core.Jugador
 import java.util.List
+import java.util.Random
 
 @Observable
 class HomeJugadores extends CollectionBasedHome<Jugador> {
@@ -16,12 +17,18 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		this.create("Rodolfo", "rodol@yahoo.com")
 		this.create("Pepita", "pepita22@aol.com")
 		this.create("Julian", "br@hotmail.com")
-		this.create("Romina", "romi@aol.com")
+		this.create("Romina", "romis@aol.com")
+		this.create("Franco", "romifran@aol.com")
+		this.create("Lucho", "lu@hotmail.com")
+		this.create("Fede", "fede@hotmail.com")
+		this.create("Mica", "Mica@hotmail.com")
+		this.create("Carolina", "romi@yahoo.es")
 		
 	}
 
 	def void create(String nom, String mail) {
 		var jugador = new Jugador(nom, mail)
+		jugador.nivelJuego = new Random().nextInt(11) //le doy num aleatorios (0 a 11) para probar el color
 		this.create(jugador)
 	}
 	

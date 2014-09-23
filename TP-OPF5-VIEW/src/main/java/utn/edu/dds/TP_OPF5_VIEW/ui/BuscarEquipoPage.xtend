@@ -26,13 +26,14 @@ class BuscarEquipoPage extends WebPage {
 	}
 	
 	
+	
 	def agregarGrillaPartidos(Form <ListaPartidos> form) {
 		val listView = new XListView("partidos")
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombrePartido"))
 			
-			item.addChild(new XButton("Generar Equipos").onClick = [| generarEquipo(item.modelObject)])
+			item.addChild(new XButton("GenerarEquipos").onClick = [| generarEquipo(item.modelObject)])
 		]
 		
 		form.addChild(listView)
@@ -40,6 +41,7 @@ class BuscarEquipoPage extends WebPage {
 	
 	def generarEquipo(Partido partido) {
 		responsePage = new GenerarEquiposPage(partido)
+		
 		//TODO: Mandar a la pagina donde se generan realmente los equipos
 	}
 	
