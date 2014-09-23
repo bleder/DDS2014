@@ -7,6 +7,7 @@ import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XButton
 import utn.edu.dds.TP_OPF5_VIEW.ui.GenerarEquiposPage
 
+
 class OFHomePage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	new(){
@@ -35,6 +36,7 @@ class OFHomePage extends WebPage {
 	def buscarJugadores() {
 		responsePage = new BuscarJugadorPage()
 	}
+	
 	
 
 }

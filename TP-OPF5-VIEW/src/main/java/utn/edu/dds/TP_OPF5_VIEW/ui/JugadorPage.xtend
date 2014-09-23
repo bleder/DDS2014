@@ -9,6 +9,7 @@ import org.uqbar.wicket.xtend.XListView
 import org.uqbar.wicket.xtend.XButton
 import utn.edu.dds.TP_OPF5_VIEW.home.JugadorUI
 import org.apache.wicket.request.component.IRequestablePage
+import org.apache.wicket.AttributeModifier
 
 class JugadorPage extends WebPage  {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -28,10 +29,11 @@ class JugadorPage extends WebPage  {
 					
 	}
 	
+	
 	def agregarCampos(Form<JugadorUI> parent) {
 		parent.addChild(new Label("jugador.nombre"))
 		//parent.addChild(new Label("apodo")) En el dominio no tenemos Apodo
-		parent.addChild(new Label("jugador.nivelJuego")) //Es el Handicap
+		parent.addChild(new Label("jugador.nivelJuego").add(new AttributeModifier("class", this.colorHandicap(parent.modelObject.jugador)))) //Es el Handicap
 //		parent.addChild(new Label("promedioUltimoPartido"))
 //		parent.addChild(new Label("promedioTodosLosPartidos"))
 		//parent.addChild(new Label("fechaNacimiento")) En el dominio no tenemos Fecha de Nacimiento
@@ -62,5 +64,9 @@ class JugadorPage extends WebPage  {
 	
 	def volver() {
 		responsePage = mainPage
+	}
+	
+	def colorHandicap(Jugador jug){
+		if(jug.nivelJuego>8)"azul"else""
 	}
 }
