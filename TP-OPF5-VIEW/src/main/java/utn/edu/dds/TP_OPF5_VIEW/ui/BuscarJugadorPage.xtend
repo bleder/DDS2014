@@ -32,6 +32,7 @@ class BuscarJugadorPage extends WebPage {
 
 	def agregarCamposBusqueda(Form<BuscadorJugadores> parent) {
 		parent.addChild(new TextField<String>("nombre"))
+		parent.addChild(new TextField<String>("apodo"))
 	}
 
 	def agregarAcciones(Form<BuscadorJugadores> parent) {

@@ -10,13 +10,14 @@ import org.uqbar.commons.utils.ApplicationContext
 class BuscadorJugadores implements Serializable {
 
 	@Property String nombre
+	@Property String apodo
 	@Property List<Jugador> resultados
 
 
 	def void search() { 
 		resultados = new ArrayList<Jugador>
 		
-		resultados = getHomeJugadores().search(getNombre)
+		resultados = getHomeJugadores().search(getNombre,getApodo)
 	}
 
 	def void clear() {

@@ -29,11 +29,11 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		allInstances	
 	}
 
-	def search(String nombre) {
-		allInstances.filter[jug|this.match(nombre, jug.nombre)].toList
+	def search(String nombre, String apodo) {
+		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre))].toList
 	}
 	
-	def match(Object expectedValue, Object realValue) {
+	def matchApodo(Object expectedValue, Object realValue) {
 		if (expectedValue == null) {
 			return true
 		}
@@ -41,8 +41,18 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 			return false
 		}
 		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+
 	}
 
+	def matchComienza(Object expectedValue, Object realValue) { //todo: Validar que solo permita 1 letra
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().charAt(0)==expectedValue.toString().toLowerCase().charAt(0)
+	}
 	
 	override protected getCriterio(Jugador example) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")

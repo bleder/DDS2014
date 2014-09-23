@@ -19,9 +19,13 @@
         <form wicket:id="buscarJugadoresForm" class="form-horizontal">
         
         	<div class="form-group">
-           		<label class="control-label" for="nombre">Nombre</label>
+           		<label class="control-label" for="nombre">Nombre (comienza con):</label>
               	<div class="controls">
-            		<input wicket:id="nombre" type="text" placeholder="unNombre" class="form-control">
+            		<input wicket:id="nombre" type="text" placeholder="unaLetra" class="form-control">
+   		       	</div>
+           		<label class="control-label" for="nombre">Apodo (contiene):</label>
+              	<div class="controls">
+            		<input wicket:id="apodo" type="text" placeholder="unApodo" class="form-control">
    		       	</div>
         	</div>
 
@@ -49,9 +53,9 @@
 	       	            	<span wicket:id="nivelJuego">unNivelJuego</span>
 	   	                </td> 
 	   	                
-	           	        <div class="btn-group">
+	           	       <td>
 	           	        	<button wicket:id="verDatos" class="btn-link">VerDatos</button>
-	           	        </div>
+	           	       </td>
 	   	                
 	               	</tr>
                	</tbody>
