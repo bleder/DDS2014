@@ -24,9 +24,9 @@ class BuscarJugadorPage extends WebPage {
 		this.agregarCamposBusqueda(buscarForm)
 		this.agregarAcciones(buscarForm)
 		this.agregarGrillaResultados(buscarForm)
+		this.agregarBotones(buscarForm)
 		this.addChild(buscarForm)
-		
-		
+
 		this.buscarJugadores()
 	}
 
@@ -70,6 +70,12 @@ class BuscarJugadorPage extends WebPage {
 			
 		]
 		parent.addChild(listView)
+	}
+	
+	def agregarBotones(Form<BuscadorJugadores> parent){
+		parent.addChild(new XButton("Volver")
+		.onClick=[| responsePage = new OFHomePage]
+		)
 	}
 	
 	def verJugador(Jugador jug) {

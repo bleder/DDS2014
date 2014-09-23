@@ -25,6 +25,8 @@ class BuscadorJugadores implements Serializable {
 	def void clear() {
 		nombre = null
 		apodo = null
+		desdeHasta = null
+		valorHandicap = null
 	}
 
 	def HomeJugadores getHomeJugadores() {
