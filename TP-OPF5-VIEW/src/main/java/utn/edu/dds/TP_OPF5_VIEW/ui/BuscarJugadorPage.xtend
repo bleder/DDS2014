@@ -52,6 +52,7 @@ class BuscarJugadorPage extends WebPage {
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombre"))
 			item.addChild(new Label("nivelJuego"))
+			item.addChild(new Label("promedioUltimoPartido"))
 
 			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 			

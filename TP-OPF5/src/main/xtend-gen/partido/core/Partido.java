@@ -13,6 +13,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.uqbar.commons.model.Entity;
 import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
@@ -22,7 +23,7 @@ import partido.observers.PartidoObserver;
 import partido.ordenamiento.Ordenamiento;
 
 @SuppressWarnings("all")
-public class Partido {
+public class Partido extends Entity {
   private List<Inscripcion> incripcionesOrdenadas = new ArrayList<Inscripcion>();
   
   private String _nombrePartido;
@@ -123,6 +124,16 @@ public class Partido {
   
   public void setConfirmadoAdm(final boolean confirmadoAdm) {
     this._confirmadoAdm = confirmadoAdm;
+  }
+  
+  private List<Jugador> _jugadoresHome;
+  
+  public List<Jugador> getJugadoresHome() {
+    return this._jugadoresHome;
+  }
+  
+  public void setJugadoresHome(final List<Jugador> jugadoresHome) {
+    this._jugadoresHome = jugadoresHome;
   }
   
   public Partido(final String nomPartido, final Administrador adminPartido) {

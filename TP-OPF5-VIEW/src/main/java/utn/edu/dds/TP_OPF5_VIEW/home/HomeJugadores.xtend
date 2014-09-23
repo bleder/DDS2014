@@ -33,6 +33,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre))].toList
 	}
 	
+	//TODO: Hacer refactor de metodos Match cuando se pueda
 	def matchApodo(Object expectedValue, Object realValue) {
 		if (expectedValue == null) {
 			return true

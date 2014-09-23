@@ -173,8 +173,11 @@ public class Jugador extends Entity {
       final Integer sum = IterableExtensions.<Integer>reduce(_notasUltimoPartido, _function);
       Iterable<Integer> _notasUltimoPartido_1 = this.notasUltimoPartido();
       final int cant = IterableExtensions.size(_notasUltimoPartido_1);
-      final int resultado = ((sum).intValue() / cant);
-      _xblockexpression = Integer.valueOf(resultado).intValue();
+      if ((cant != 0)) {
+        final int resultado = ((sum).intValue() / cant);
+        return Integer.valueOf(resultado).intValue();
+      }
+      _xblockexpression = 0;
     }
     return _xblockexpression;
   }
@@ -222,8 +225,11 @@ public class Jugador extends Entity {
       List<Calificacion> _calificaciones_1 = this.getCalificaciones();
       Iterable<Calificacion> _take_1 = IterableExtensions.<Calificacion>take(_calificaciones_1, n);
       final int cant = IterableExtensions.size(_take_1);
-      final int resultado = ((sum).intValue() / cant);
-      _xblockexpression = Integer.valueOf(resultado).intValue();
+      if ((cant != 0)) {
+        final int resultado = ((sum).intValue() / cant);
+        Integer.valueOf(resultado).intValue();
+      }
+      _xblockexpression = 0;
     }
     return _xblockexpression;
   }
