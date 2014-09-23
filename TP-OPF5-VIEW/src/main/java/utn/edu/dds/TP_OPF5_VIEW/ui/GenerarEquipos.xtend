@@ -6,9 +6,14 @@ import divisionEquipo.Divisor
 import divisionEquipo.DivParImpar
 import divisionEquipo.DivPosiciones
 import org.uqbar.commons.model.UserException
+import java.util.ArrayList
+import partido.core.Jugador
+import java.util.List
 
 class GenerarEquipos extends Entity {
 	
+	@Property List<Jugador> equipo1 = new ArrayList
+	@Property List<Jugador> equipo2 = new ArrayList
 	@Property Partido partido
 	@Property String criterio
 	@Property OrdenamientosHandler handler
@@ -20,6 +25,8 @@ class GenerarEquipos extends Entity {
 	def generarEquipos() {
 		partido.partidoOrdenaJugadores(handler.dameCriterio(partido))
 		getDivisor().dividir()
+		equipo1 = partido.equipo1
+		equipo2 = partido.equipo2
 	}
 	
 	def Divisor getDivisor() {
