@@ -40,7 +40,6 @@ class BuscarEquipoPage extends WebPage {
 	
 	def generarEquipo(Partido partido) {
 		responsePage = new GenerarEquiposPage(partido)
-		//TODO: Mandar a la pagina donde se generan realmente los equipos
 	}
 	
 	def agregarAcciones(Form<ListaPartidos> form) {

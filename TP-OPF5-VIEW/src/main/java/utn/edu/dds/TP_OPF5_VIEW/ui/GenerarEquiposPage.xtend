@@ -2,44 +2,62 @@ package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
+import partido.core.Partido
+import partido.core.Jugador
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.model.CompoundPropertyModel
-import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.form.DropDownChoice
-import divisionEquipo.Divisor
-import org.uqbar.wicket.xtend.XListView
-import org.apache.wicket.markup.html.basic.Label
-import partido.core.Partido
-import java.util.List
-import org.uqbar.commons.utils.ApplicationContext
-import partido.core.Jugador
+import org.apache.wicket.markup.html.form.CheckBox
+import org.apache.wicket.markup.html.form.TextField
+import org.uqbar.wicket.xtend.XButton
+import divisionEquipo.DivParImpar
+import divisionEquipo.DivPosiciones
 
 class GenerarEquiposPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
-	var Partido partidoAEditar
+	var GenerarEquipos generador
 	
 	new(Partido partido) {
-		//TODO: dado un equipo, dar las opciones de generarlo
+		generador = new GenerarEquipos(partido)
+		val Form <GenerarEquipos> form = new Form<GenerarEquipos>("generarForm",new CompoundPropertyModel<GenerarEquipos>(generador))
+		agregarCriteriosDivision(form)
+		agregarCriteriosOrdenamiento(form)
+		agregarAcciones(form)
 		
-		partidoAEditar = partido
-		val generarEquiposForm = new Form<Partido>("partidoForm", this.partidoAEditar.asCompoundModel)
-		//this.agregarCampos(generarEquiposForm)
-		this.agregarGrillasEquipos(generarEquiposForm)
-		//this.agregarAcciones(buscarForm)
-		this.addChild(generarEquiposForm)
+		agregarGrillasEquipos(form)
+		
+		this.addChild(form)
 	}
 	
-		def agregarGrillasEquipos(Form <Partido> form) {
-		val listView = new XListView("jugadoresHome")
-		listView.populateItem = [ item |
-			item.model = item.modelObject.asCompoundModel
-			item.addChild(new Label("nombre"))
-			item.addChild(new Label("mail"))
-			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
-		]
+	def agregarGrillasEquipos(Form<GenerarEquipos> form) {
+		//TODO: Esto deberia mostrar los equipos que se van generando
+	}
+	
+	def agregarAcciones(Form<GenerarEquipos> form) {
+		form.addChild(new XButton("Generar")
+			.onClick = [| generador.generarEquipos()]
+		)
+		form.addChild(new XButton("Confirmar")
+			.onClick = [| generador.confirmarEquipos()]
+		)
+	}
+	
+	def agregarCriteriosOrdenamiento(Form<GenerarEquipos> form) {
+		var handler = new OrdenamientosHandler
+		generador.handler = handler
+		val handlerForm = new Form<OrdenamientosHandler> ("ordenador", new CompoundPropertyModel<OrdenamientosHandler>(handler))
 		
-		form.addChild(listView)
+		handlerForm.addChild(new CheckBox("handicap"))
+		handlerForm.addChild(new CheckBox("promedioUltimo"))
+		handlerForm.addChild(new TextField("ultimosN"))
+		
+		form.addChild(handlerForm)
+	}
+	
+	def agregarCriteriosDivision(Form<GenerarEquipos> form) {
+		val dropDown = new DropDownChoice("criterio", #["Par/Impar", "Posiciones"])
+		form.addChild(dropDown)
 	}
 	
 	def verJugador(Jugador jug) {

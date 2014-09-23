@@ -19,34 +19,50 @@
         </table>
         </div>
         
-        <form wicket:id="partidoForm" class="form-horizontal">
-       		<table class="table table-striped table-bordered table-condensed">
-           		<thead>
-	           		<tr>
-	               		<th id="main">Nombre</th>
-	               		
-	               		<th id="main">Email</th>
-	               	</tr>
-	            </thead>
-				<tbody>
-	               	<tr wicket:id="jugadoresHome">
-	                   	<td>
-	                   	    <span wicket:id="nombre">unNombre</span> 
-	               	    </td> 
-	                   	<td>
-	                   	    <span wicket:id="mail">unMail</span> 
-	               	    </td> 
-	           	        <td>
-	           	        	<div class="btn-group">
-	           	        		<button wicket:id="verDatos" class="btn-link">VerDatos</button>
-	           	        	</div>
-	   	                </td> 
-	               	</tr>
-               	</tbody>
-           	</table>
+        <form wicket:id="generarForm" class="form-horizontal">
+        	<div class="form-group">
+				<h2>Criterio Division</h2>
+				<div class="controls">
+					<select wicket:id="criterio">
+						<option>Par/Impar</option>
+						<option>14589</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<form wicket:id="ordenador" class="form-horizontal">
+        			<h2>Criterios de ordenamiento</h2>
+					<div class="form-group">
+						<label class="control-label" for="nombre">Handicap</label>
+						<div class="controls">
+							<input wicket:id="handicap" type="checkbox"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="nombre">Ultimo Partido</label>
+						<div class="controls">
+							<input wicket:id="promedioUltimo" type="checkbox"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="nombre">Ultimos N Partidos</label>
+						<div class="controls">
+							<input wicket:id="ultimosN" type="text" placeholder="Ej: 3" class="form-control"/>
+						</div>
+					</div>
 
+       			 </form>
+			</div>
+			
+			<div class="form-actions">
+				<button wicket:id="Generar" type="submit" class="btn btn-primary">Generar</button>
+				<button wicket:id="Confirmar" type="submit" class="btn">Confirmar</button>
+            </div>
+			
         </form>
-        
         
 		<div id="ft">
 		</div>
