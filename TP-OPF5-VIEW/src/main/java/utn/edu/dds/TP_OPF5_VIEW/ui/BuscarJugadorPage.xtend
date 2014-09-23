@@ -10,6 +10,8 @@ import org.uqbar.wicket.xtend.XListView
 import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.AttributeModifier
+import org.apache.wicket.markup.html.form.DropDownChoice
+import java.util.ArrayList
 
 class BuscarJugadorPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -35,6 +37,12 @@ class BuscarJugadorPage extends WebPage {
 	def agregarCamposBusqueda(Form<BuscadorJugadores> parent) {
 		parent.addChild(new TextField<String>("nombre"))
 		parent.addChild(new TextField<String>("apodo"))
+
+		val lista=new ArrayList<String>()
+		lista.add("desde")
+		lista.add("hasta")
+		parent.addChild(new DropDownChoice("desdeHasta",lista))
+		parent.addChild(new TextField<String>("valorHandicap"))
 	}
 	
 
@@ -54,6 +62,7 @@ class BuscarJugadorPage extends WebPage {
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
 			item.addChild(new Label("nombre"))
+			item.addChild(new Label("apodo"))
 			item.addChild(new Label("nivelJuego").add(new AttributeModifier("class", this.colorHandicap(item.modelObject))))
 			//item.addChild(new Label("promedioUltimoPartido")) Lo comente para que compilara (descomentar)
 

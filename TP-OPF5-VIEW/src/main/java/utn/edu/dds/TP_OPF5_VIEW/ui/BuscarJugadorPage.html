@@ -29,9 +29,16 @@
               	<div class="controls">
             		<input wicket:id="nombre" type="text" placeholder="unaLetra" class="form-control">
    		       	</div>
-           		<label class="control-label" for="nombre">Apodo (contiene):</label>
+           		<label class="control-label" for="apodo">Apodo (contiene):</label>
               	<div class="controls">
             		<input wicket:id="apodo" type="text" placeholder="unApodo" class="form-control">
+   		       	</div>
+				<div class="controls">
+					<p> Handicap Desde/hasta: </p>
+					<select name="desdeHasta" wicket:id="desdeHasta"></select>
+				</div>
+              	<div class="controls">
+            		<input wicket:id="valorHandicap" type="text" placeholder="unValorHandicap" class="form-control">
    		       	</div>
         	</div>
 
@@ -46,6 +53,7 @@
            		<thead>
 	           		<tr>
 	               		<th id="main">Nombre</th>
+	               		<th id="main">Apodo</th>
 	               		<th id="main">Handicap</th>
 	               		<th id="main">Promedio</th>
 	               		<th id="main">Acciones</th>
@@ -55,6 +63,9 @@
 	               	<tr wicket:id="resultados">
 	                   	<td>
 	                   	    <span wicket:id="nombre">unNombre</span> 
+	               	    </td> 
+	                   	<td>
+	                   	    <span wicket:id="apodo">unApodo</span> 
 	               	    </td> 
 	           	        <td>
 	       	            	<span class="" wicket:id="nivelJuego">unNivelJuego</span>

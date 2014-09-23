@@ -36,8 +36,8 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		allInstances	
 	}
 
-	def search(String nombre, String apodo) {
-		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre))].toList
+	def search(String nombre, String apodo,String desdeHasta, String valorHandicap) {
+		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre)) && matchDesdeHastaHandicap(valorHandicap, jug.nivelJuego, desdeHasta)].toList
 	}
 	
 	//TODO: Hacer refactor de metodos Match cuando se pueda
@@ -60,6 +60,21 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 			return false
 		}
 		realValue.toString().toLowerCase().charAt(0)==expectedValue.toString().toLowerCase().charAt(0)
+	}
+	
+	
+	def matchDesdeHastaHandicap(Object expectedValue, Object realValue, String eleccion) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		
+		if(eleccion=="desde")
+			(Integer.parseInt((expectedValue.toString())))<=(Integer.parseInt(realValue.toString()))
+		else
+			(Integer.parseInt((expectedValue.toString())))>=(Integer.parseInt(realValue.toString()))
 	}
 	
 	override protected getCriterio(Jugador example) {
