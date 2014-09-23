@@ -29,6 +29,26 @@ public class Jugador extends Entity {
     this._nombre = nombre;
   }
   
+  private String _apodo;
+  
+  public String getApodo() {
+    return this._apodo;
+  }
+  
+  public void setApodo(final String apodo) {
+    this._apodo = apodo;
+  }
+  
+  private String _fechaNac;
+  
+  public String getFechaNac() {
+    return this._fechaNac;
+  }
+  
+  public void setFechaNac(final String fechaNac) {
+    this._fechaNac = fechaNac;
+  }
+  
   private String _mail;
   
   public String getMail() {
@@ -92,6 +112,13 @@ public class Jugador extends Entity {
   public Jugador(final String nom, final String newMail) {
     this.setMail(newMail);
     this.setNombre(nom);
+    String _nombre = this.getNombre();
+    String _nombre_1 = this.getNombre();
+    int _length = _nombre_1.length();
+    int _divide = (_length / 2);
+    String _substring = _nombre.substring(0, _divide);
+    this.setApodo(_substring);
+    this.setFechaNac("01/07/2013");
     ArrayList<Infraccion> _arrayList = new ArrayList<Infraccion>();
     this.setInfracciones(_arrayList);
     ArrayList<String> _arrayList_1 = new ArrayList<String>();

@@ -9,10 +9,19 @@ import partido.nuevosJugadores.Administrador
 import partido.calificaciones.ClasificacionBuilder
 import partido.nuevosJugadores.PropuestaBuilder
 import org.uqbar.commons.model.Entity
+import java.util.Calendar
+import java.util.Random
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.security.Timestamp
 
 class Jugador extends Entity{
 	@Property
 	String nombre
+	@Property
+	String apodo
+	@Property
+	String fechaNac
 	@Property
 	String mail
 	@Property 
@@ -31,6 +40,8 @@ class Jugador extends Entity{
 	new(String nom, String newMail) {
 		mail = newMail
 		nombre=nom
+		apodo=nombre.substring(0, nombre.length/2)//TODO:potencialmente puede fallar
+		fechaNac="01/07/2013"
 		infracciones = new ArrayList
 		amigos = new ArrayList
 		nivelJuego=0
@@ -117,5 +128,9 @@ class Jugador extends Entity{
 	def cantidadPartidosJugados(){
 		partidosJugados.length
 	}
+	
+
+
+
 	
 }
