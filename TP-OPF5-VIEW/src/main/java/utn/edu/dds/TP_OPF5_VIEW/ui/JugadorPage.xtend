@@ -22,7 +22,7 @@ class JugadorPage extends WebPage  {
 		this.jugador = new JugadorUI(jugadorAvisualizar)
 		val formJugador = new Form<JugadorUI>("jugadorView", this.jugador.asCompoundModel)
 		agregarCampos(formJugador)
-//		agregarGrillaInfracciones(formJugador)
+//		agregarGrillaInfracciones(formJugador) 
 //		agregarGrillaAmigos(formJugador)
 		agregarAcciones(formJugador)
 		this.addChild(formJugador)
@@ -32,11 +32,11 @@ class JugadorPage extends WebPage  {
 	
 	def agregarCampos(Form<JugadorUI> parent) {
 		parent.addChild(new Label("jugador.nombre"))
-		//parent.addChild(new Label("apodo")) En el dominio no tenemos Apodo
+		parent.addChild(new Label("jugador.apodo"))
 		parent.addChild(new Label("jugador.nivelJuego").add(new AttributeModifier("class", this.colorHandicap(parent.modelObject.jugador)))) //Es el Handicap
 //		parent.addChild(new Label("promedioUltimoPartido"))
 //		parent.addChild(new Label("promedioTodosLosPartidos"))
-		//parent.addChild(new Label("fechaNacimiento")) En el dominio no tenemos Fecha de Nacimiento
+//		parent.addChild(new Label("fechaNacimiento"))  TODO: Pasarla a formato Date
 //		parent.addChild(new Label("cantidadDePartidos"))
 		
 	}
