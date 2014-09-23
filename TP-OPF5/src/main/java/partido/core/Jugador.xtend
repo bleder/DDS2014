@@ -87,9 +87,13 @@ class Jugador extends Entity{
 	def promedioDeCalificacionesUltimoPartido(){
 		val sum= notasUltimoPartido().reduce[n1, n2|n1 + n2]
 		val cant=notasUltimoPartido().size
-		val resultado=sum/cant
-		resultado.intValue
+		if(cant!=0){
+			val resultado=sum/cant
+			return resultado.intValue
+		}
+		0
 	 }
+	 
 	def Iterable<Integer> notasUltimoPartido(){
 		calificaciones.filter[calificacion |calificacion.partido == ultimoPartido()].map[calificacion|calificacion.nota]
 	}
@@ -99,8 +103,11 @@ class Jugador extends Entity{
 	def promedioDeCalificaciones(int n){
 		val sum=calificaciones.take(n).map[calificacion|calificacion.nota].reduce[n1, n2|n1 + n2]
 		val cant=calificaciones.take(n).size
-		val resultado=sum/cant
-		resultado.intValue
+		if(cant!=0){
+			val resultado=sum/cant
+			resultado.intValue
+		}
+		0
 	}
 	
 	def tuNivelDeJuegoEs(int nv) {
