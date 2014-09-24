@@ -23,7 +23,7 @@ class JugadorPage extends WebPage  {
 		val formJugador = new Form<Jugador>("jugadorView", this.jugador.asCompoundModel)
 		agregarCampos(formJugador)
 		agregarGrillaInfracciones(formJugador) 
-//		agregarGrillaAmigos(formJugador)
+		agregarGrillaAmigos(formJugador)
 		agregarAcciones(formJugador)
 		this.addChild(formJugador)
 					
@@ -52,7 +52,10 @@ class JugadorPage extends WebPage  {
 	
 	def agregarGrillaAmigos(Form<Jugador> parent){
 		val listView = new XListView("amigos")
-		
+		listView.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			//item.addChild(new Label("fecha")) //En nuestro dominio no tenemos hora como pide el enunciado
+			]
 		parent.addChild(listView)
 	}
 	
