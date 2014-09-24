@@ -21,11 +21,13 @@ class GenerarEquipos extends Entity {
 	
 	new (Partido part) {
 		partido = part
+		if (partido.confirmadoAdm) {
+			equipo1 = partido.equipo1
+			equipo2 = partido.equipo2
+		}
 	}
 	
 	def generarEquipos() {
-		partido.equipo1 = new ArrayList
-		partido.equipo2 = new ArrayList
 		partido.divisorEquipo=getDivisor()
 		partido.partidoDividiEquipos()
 		partido.partidoOrdenaJugadores(handler.dameCriterio(partido))

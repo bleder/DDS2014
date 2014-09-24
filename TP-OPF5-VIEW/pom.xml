@@ -184,7 +184,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	<finalName>Organizador de Futbol 5</finalName>
+	<finalName>org.fut5</finalName>
 	</build>
 
 	<repositories>

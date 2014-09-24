@@ -44,14 +44,14 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	
 	def agregarInfracciones(Jugador jugador){
 		var infraccion1= new Infraccion("No inscribio bien a su amigo")
-		var infraccion2= new Infraccion("Fallo al partido")
-		var infraccion3= new Infraccion("Su amigo fallo al partido")
+		var infraccion2= new Infraccion("Falto al partido")
+		var infraccion3= new Infraccion("Su amigo falto al partido")
 		infraccion1.fecha="23/09/2014"
 		infraccion2.fecha="20/09/2014"
 		infraccion3.fecha="20/08/2014"
 		jugador.nuevaInfraccion(infraccion1)
 		jugador.nuevaInfraccion(infraccion2)
-		jugador.nuevaInfraccion(infraccion2)
+		jugador.nuevaInfraccion(infraccion3)
 	}
 	
 	def List<Jugador> getJugadores() {

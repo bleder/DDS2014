@@ -1,7 +1,7 @@
 package divisionEquipo
 
 import partido.core.Partido
-import org.uqbar.commons.model.Entity
+import java.util.ArrayList
 
 abstract class Divisor {
 
@@ -13,6 +13,8 @@ abstract class Divisor {
 	}
 
 	def dividir() {
+		partido.equipo1 = new ArrayList
+		partido.equipo2 = new ArrayList
 		for (idx : 0 ..< partido.jugadoresInscriptos.size) {
 			if (vaAlEquipo1(idx)) {
 				partido.equipo1.add(partido.jugadoresInscriptos.get(idx).jugador)
