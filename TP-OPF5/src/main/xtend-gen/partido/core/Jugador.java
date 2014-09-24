@@ -109,6 +109,12 @@ public class Jugador extends Entity {
     this._partidosJugados = partidosJugados;
   }
   
+  private int cantidadDePartidos;
+  
+  private int promedioUltimoPartido;
+  
+  private int promedioTodosLosPartidos;
+  
   public Jugador(final String nom, final String newMail) {
     this.setMail(newMail);
     this.setNombre(nom);
@@ -268,5 +274,17 @@ public class Jugador extends Entity {
   public int cantidadPartidosJugados() {
     List<Partido> _partidosJugados = this.getPartidosJugados();
     return ((Object[])Conversions.unwrapArray(_partidosJugados, Object.class)).length;
+  }
+  
+  public int getCantidadDePartidos() {
+    return this.cantidadPartidosJugados();
+  }
+  
+  public int getPromedioUltimoPartido() {
+    return this.promedioDeCalificacionesUltimoPartido();
+  }
+  
+  public int getPromedioTodosLosPartidos() {
+    return this.promedioDeCalificaciones(this.cantidadDePartidos);
   }
 }
