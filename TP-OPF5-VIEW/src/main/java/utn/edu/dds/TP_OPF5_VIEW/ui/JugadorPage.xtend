@@ -36,7 +36,7 @@ class JugadorPage extends WebPage  {
 		parent.addChild(new Label("nivelJuego").add(new AttributeModifier("class", this.colorHandicap(parent.modelObject)))) //Es el Handicap
 		parent.addChild(new Label("promedioUltimoPartido"))
 		parent.addChild(new Label("promedioTodosLosPartidos"))
-//		parent.addChild(new Label("fechaNacimiento"))  TODO: Pasarla a formato Date
+		parent.addChild(new Label("fechaNac"))  
 		parent.addChild(new Label("cantidadDePartidos"))
 		
 	}
