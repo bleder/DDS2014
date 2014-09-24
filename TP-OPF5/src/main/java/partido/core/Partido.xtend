@@ -84,7 +84,7 @@ class Partido extends Entity {
 	def inscribiYConfirmarATodosLosJugadores(){
 		val tipoIncEstandar = new Estandar()
 
-		this.jugadores.forEach[jugador|confirmarJugador(jugador) jugador.inscribite(this,tipoIncEstandar)]
+		this.jugadores.forEach[jugador|jugador.inscribite(this,tipoIncEstandar) confirmarJugador(jugador) ]
 	}
 
 

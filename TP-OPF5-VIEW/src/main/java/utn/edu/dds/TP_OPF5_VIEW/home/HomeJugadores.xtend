@@ -23,6 +23,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		this.create("Fede", "fede@hotmail.com")
 		this.create("Mica", "Mica@hotmail.com")
 		this.create("Carolina", "romi@yahoo.es")
+		this.create("Sofia", "laSofi@yahoo.es")
 		
 	}
 
