@@ -54,7 +54,7 @@ class JugadorPage extends WebPage  {
 		val listView = new XListView("amigos")
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
-			//item.addChild(new Label("fecha")) //En nuestro dominio no tenemos hora como pide el enunciado
+			item.addChild(new Label("intern"))
 			]
 		parent.addChild(listView)
 	}
