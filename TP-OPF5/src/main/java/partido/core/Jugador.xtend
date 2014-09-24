@@ -35,6 +35,10 @@ class Jugador extends Entity{
 	@Property
 	List<Partido> partidosJugados  = new ArrayList
 	
+	//agregado para la vista wicket
+	int cantidadDePartidos
+	int promedioUltimoPartido
+	int promedioTodosLosPartidos
 	
 
 	new(String nom, String newMail) {
@@ -130,7 +134,17 @@ class Jugador extends Entity{
 	}
 	
 
-
+	def getCantidadDePartidos(){
+		this.cantidadPartidosJugados()
+	}
+	
+	def getPromedioUltimoPartido(){
+		this.promedioDeCalificacionesUltimoPartido()
+	}
+	
+	def getPromedioTodosLosPartidos(){
+		this.promedioDeCalificaciones(cantidadDePartidos)
+	}
 
 	
 }

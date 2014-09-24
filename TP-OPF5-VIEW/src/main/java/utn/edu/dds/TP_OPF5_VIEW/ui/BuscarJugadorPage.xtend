@@ -1,3 +1,4 @@
+
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
@@ -64,7 +65,7 @@ class BuscarJugadorPage extends WebPage {
 			item.addChild(new Label("nombre"))
 			item.addChild(new Label("apodo"))
 			item.addChild(new Label("nivelJuego").add(new AttributeModifier("class", this.colorHandicap(item.modelObject))))
-			//item.addChild(new Label("promedioUltimoPartido")) Lo comente para que compilara (descomentar)
+			item.addChild(new Label("promedioUltimoPartido"))
 
 			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 			
