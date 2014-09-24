@@ -219,8 +219,8 @@ public class Partido extends Entity {
     List<Jugador> _jugadores = this.getJugadores();
     final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
       public void apply(final Jugador jugador) {
-        Partido.this.confirmarJugador(jugador);
         jugador.inscribite(Partido.this, tipoIncEstandar);
+        Partido.this.confirmarJugador(jugador);
       }
     };
     IterableExtensions.<Jugador>forEach(_jugadores, _function);

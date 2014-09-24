@@ -35,7 +35,7 @@ class GenerarEquiposPage extends WebPage {
 	
 	def agregarGrillaEquipos(Form<GenerarEquipos> form){
 		agregarGrillasEquipo(form,"equipo1")
-		//agregarGrillasEquipo(form,"equipo2")
+		agregarGrillasEquipo(form,"equipo2")
 	}
 	
 	def agregarGrillasEquipo(Form<GenerarEquipos> form, String equipo) {
@@ -57,7 +57,7 @@ class GenerarEquiposPage extends WebPage {
 			.onClick = [| generador.generarEquipos()]
 		)
 		form.addChild(new XButton("Confirmar")
-			.onClick = [| generador.confirmarEquipos()]
+			.onClick = [| generador.confirmarEquipos() responsePage = new OFHomePage]
 		)
 	}
 	
