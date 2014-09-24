@@ -14,11 +14,13 @@ class HomePartidos extends CollectionBasedHome<Partido> {
 		part.jugadoresHome = getJugadores()
 		part.jugadores=getJugadores()
 		this.create(part)
+		part.inscribiYConfirmarATodosLosJugadores()
 		
 		val Partido part2 = new Partido("PartidoPrimavera", new Administrador("martin@aol.com"))
 		part2.jugadores=getJugadores()
 		part2.jugadoresHome = getJugadores()
 		this.create(part2)
+		part2.inscribiYConfirmarATodosLosJugadores()
 	}
 	
 	def getJugadores() {
