@@ -58,7 +58,9 @@ class GenerarEquiposPage extends WebPage {
 			.onClick = [| generador.generarEquipos()]
 		)
 		form.addChild(new XButton("Confirmar")
-			.onClick = [| generador.confirmarEquipos() responsePage = new OFHomePage]
+			.onClick = [| 
+				generador.confirmarEquipos() responsePage = new OFHomePage
+			]
 		)
 	}
 	

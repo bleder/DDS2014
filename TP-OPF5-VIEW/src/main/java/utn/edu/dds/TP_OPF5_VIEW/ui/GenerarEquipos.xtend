@@ -13,14 +13,17 @@ import java.util.List
 
 class GenerarEquipos extends Entity {
 	
-	@Property List<Jugador> equipo1 = new ArrayList
-	@Property List<Jugador> equipo2 = new ArrayList
+	@Property List<Jugador> equipo1
+	@Property List<Jugador> equipo2
 	@Property Partido partido
 	@Property String criterio
 	@Property OrdenamientosHandler handler
 	
+	@Property boolean confirmadoAdm
+	
 	new (Partido part) {
 		partido = part
+		confirmadoAdm = partido.confirmadoAdm
 		if (partido.confirmadoAdm) {
 			equipo1 = partido.equipo1
 			equipo2 = partido.equipo2
@@ -47,6 +50,7 @@ class GenerarEquipos extends Entity {
 	
 	def confirmarEquipos() {
 		partido.confirmate()
+		confirmadoAdm = true
 	}
 	
 }
