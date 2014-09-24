@@ -12,6 +12,9 @@ import org.apache.wicket.markup.html.form.TextField
 import org.uqbar.wicket.xtend.XButton
 import divisionEquipo.DivParImpar
 import divisionEquipo.DivPosiciones
+import org.uqbar.wicket.xtend.XListView
+import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.AttributeModifier
 
 class GenerarEquiposPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -25,14 +28,29 @@ class GenerarEquiposPage extends WebPage {
 		agregarCriteriosOrdenamiento(form)
 		agregarAcciones(form)
 		
-		agregarGrillasEquipos(form)
+		agregarGrillaEquipos(form)
 		
 		this.addChild(form)
 	}
 	
-	def agregarGrillasEquipos(Form<GenerarEquipos> form) {
-		//TODO: Esto deberia mostrar los equipos que se van generando
+	def agregarGrillaEquipos(Form<GenerarEquipos> form){
+		agregarGrillasEquipo(form,"equipo1")
+		//agregarGrillasEquipo(form,"equipo2")
 	}
+	
+	def agregarGrillasEquipo(Form<GenerarEquipos> form, String equipo) {
+		val listView = new XListView(equipo)
+		listView.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			item.addChild(new Label("nombre"))
+			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
+			]
+		form.addChild(listView)
+	}
+	
+	
+	
+	
 	
 	def agregarAcciones(Form<GenerarEquipos> form) {
 		form.addChild(new XButton("Generar")

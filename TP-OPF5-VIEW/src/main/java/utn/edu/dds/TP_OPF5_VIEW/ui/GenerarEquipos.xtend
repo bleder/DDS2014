@@ -23,8 +23,11 @@ class GenerarEquipos extends Entity {
 	}
 	
 	def generarEquipos() {
+		partido.inscribiYConfirmarATodosLosJugadores()
+		partido.divisorEquipo=getDivisor()
+		partido.partidoDividiEquipos()
 		partido.partidoOrdenaJugadores(handler.dameCriterio(partido))
-		getDivisor().dividir()
+		//getDivisor().dividir()
 		equipo1 = partido.equipo1
 		equipo2 = partido.equipo2
 	}
@@ -40,7 +43,7 @@ class GenerarEquipos extends Entity {
 	}
 	
 	def confirmarEquipos() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		partido.confirmate()
 	}
 	
 }

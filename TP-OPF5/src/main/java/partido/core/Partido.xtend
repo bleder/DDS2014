@@ -14,6 +14,7 @@ import exception.PartidoNoPoseeCantidadMaxima
 import exception.PartidoYaConfirmado
 import exception.NoSeRealizoDivisionDeEquipos
 import org.uqbar.commons.model.Entity
+import partido.core.tiposDeInscripcion.Estandar
 
 class Partido extends Entity {
 	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
@@ -79,6 +80,13 @@ class Partido extends Entity {
 		this.buscarInscripcionDelJugador(jugador).confirmar()
 		observers.forEach[observer|observer.jugadorConfirmado(jugador, this)]
 	}
+	
+	def inscribiYConfirmarATodosLosJugadores(){
+		val tipoIncEstandar = new Estandar()
+
+		this.jugadores.forEach[jugador|confirmarJugador(jugador) jugador.inscribite(this,tipoIncEstandar)]
+	}
+
 
 	def agregarJugador(Jugador jugador, TipoInscripcion tipoIncripcion) {
 		var Inscripcion inscripcion = new Inscripcion(jugador, tipoIncripcion)

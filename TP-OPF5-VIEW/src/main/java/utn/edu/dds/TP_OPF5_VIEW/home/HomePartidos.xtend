@@ -10,11 +10,11 @@ import partido.core.Jugador
 class HomePartidos extends CollectionBasedHome<Partido> {
 	
 	new(){
-		val Partido part = new Partido("Hola", new Administrador("martin@aol.com"))
+		val Partido part = new Partido("PartidoVerano", new Administrador("martin@aol.com"))
 		part.jugadoresHome = getJugadores()
 		this.create(part)
 		
-		val Partido part2 = new Partido("partido2", new Administrador("martin@aol.com"))
+		val Partido part2 = new Partido("PartidoPrimavera", new Administrador("martin@aol.com"))
 		part2.jugadoresHome = getJugadores()
 		this.create(part2)
 	}

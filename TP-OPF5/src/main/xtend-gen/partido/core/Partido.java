@@ -17,6 +17,7 @@ import org.uqbar.commons.model.Entity;
 import partido.core.Infraccion;
 import partido.core.Inscripcion;
 import partido.core.Jugador;
+import partido.core.tiposDeInscripcion.Estandar;
 import partido.core.tiposDeInscripcion.TipoInscripcion;
 import partido.nuevosJugadores.Administrador;
 import partido.observers.PartidoObserver;
@@ -211,6 +212,18 @@ public class Partido extends Entity {
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+  }
+  
+  public void inscribiYConfirmarATodosLosJugadores() {
+    final Estandar tipoIncEstandar = new Estandar();
+    List<Jugador> _jugadores = this.getJugadores();
+    final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
+      public void apply(final Jugador jugador) {
+        Partido.this.confirmarJugador(jugador);
+        jugador.inscribite(Partido.this, tipoIncEstandar);
+      }
+    };
+    IterableExtensions.<Jugador>forEach(_jugadores, _function);
   }
   
   public void agregarJugador(final Jugador jugador, final TipoInscripcion tipoIncripcion) {
