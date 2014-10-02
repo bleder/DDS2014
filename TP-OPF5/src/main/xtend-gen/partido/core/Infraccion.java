@@ -1,7 +1,9 @@
 package partido.core;
 
+import org.uqbar.commons.model.Entity;
+
 @SuppressWarnings("all")
-public class Infraccion {
+public class Infraccion extends Entity {
   private String _fecha;
   
   public String getFecha() {

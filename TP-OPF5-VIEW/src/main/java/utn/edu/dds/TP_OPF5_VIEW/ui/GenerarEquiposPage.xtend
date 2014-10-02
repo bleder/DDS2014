@@ -62,6 +62,9 @@ class GenerarEquiposPage extends WebPage {
 				generador.confirmarEquipos() responsePage = new OFHomePage
 			]
 		)
+		form.addChild(new XButton("Volver")
+		.onClick=[| responsePage = new OFHomePage]
+		)
 	}
 	
 	def agregarCriteriosOrdenamiento(Form<GenerarEquipos> form) {
@@ -71,6 +74,7 @@ class GenerarEquiposPage extends WebPage {
 		
 		handlerForm.addChild(new CheckBox("handicap"))
 		handlerForm.addChild(new CheckBox("promedioUltimo"))
+		handlerForm.addChild(new CheckBox("checkUltimosN"))
 		handlerForm.addChild(new TextField("ultimosN"))
 		
 		form.addChild(handlerForm)

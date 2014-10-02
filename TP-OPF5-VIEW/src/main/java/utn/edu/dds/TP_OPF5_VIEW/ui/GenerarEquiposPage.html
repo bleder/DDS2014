@@ -34,22 +34,23 @@
 				<form wicket:id="ordenador" class="form-horizontal">
         			<h2>Criterios de ordenamiento</h2>
 					<div class="form-group">
-						<label class="control-label" for="nombre">Handicap</label>
+						<label class="control-label" for="nombre">Handicap (Nivel de Juego)</label>
 						<div class="controls">
 							<input wicket:id="handicap" type="checkbox"/>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label" for="nombre">Ultimo Partido</label>
+						<label class="control-label" for="nombre">Promedio de Calificaciones del último Partido</label>
 						<div class="controls">
 							<input wicket:id="promedioUltimo" type="checkbox"/>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label" for="nombre">Ultimos N Partidos</label>
+						<label class="control-label" for="nombre">Promedio de Calificaciones de los últimos N Partidos</label>
 						<div class="controls">
+							<input wicket:id="checkUltimosN" type="checkbox"/>
 							<input wicket:id="ultimosN" type="text" placeholder="Ej: 3" class="form-control"/>
 						</div>
 					</div>
@@ -103,6 +104,9 @@
 	               	</tr>
                	</tbody>
            	</table>
+           	<div class="btn-group">
+				<button wicket:id="Volver" class="btn-link">Volver</button>
+	      	</div>
 			
         </form>
         

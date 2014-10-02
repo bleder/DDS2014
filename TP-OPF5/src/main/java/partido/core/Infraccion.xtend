@@ -1,6 +1,8 @@
 package partido.core
 
-class Infraccion {
+import org.uqbar.commons.model.Entity
+
+class Infraccion extends Entity {
 	@Property
 	private String fecha
 	@Property

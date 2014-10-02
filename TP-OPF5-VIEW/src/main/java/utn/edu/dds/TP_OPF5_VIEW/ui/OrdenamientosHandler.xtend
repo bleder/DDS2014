@@ -9,6 +9,7 @@ class OrdenamientosHandler {
 	
 	@Property Boolean handicap
 	@Property Boolean promedioUltimo
+	@Property Boolean checkUltimosN
 	@Property String ultimosN
 	
 	def Ordenamiento dameCriterio(Partido partido) {
@@ -19,7 +20,7 @@ class OrdenamientosHandler {
 		if (promedioUltimo) {
 			mixOrdenamiento.agregarCriterioPromedioUltimoPartido()
 		}
-		if (ultimosN != null && ultimosN != ""){
+		if ((checkUltimosN) && (ultimosN != null && ultimosN != "")){
 			mixOrdenamiento.agregarCriterioNCalificaciones(Integer.parseInt(ultimosN))
 		}
 		

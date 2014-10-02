@@ -4,7 +4,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<!-- Bootstrap --> 
     	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-    	<link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">  
+    	<link href="css/bootstrap-theme.css" rel="stylesheet" media="screen"> 
+    	<link href="/src/main/wepapp/style.css" rel="stylesheet" media="screen">  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Organizador Futbol 5</title>
 	</head>
@@ -18,18 +19,11 @@
             </tr>
         </table>
         </div>
-        <form wicket:id="generalForm" class="form-horizontal">
-        
-	      <div class="btn-group">
-			<button wicket:id="GenerarEquipos" class="btn-link">Generar Equipo</button>
-			<button wicket:id="BuscarJ" class="btn-link">Buscar Jugadores</button>	      	
-	      </div>
-	  
-	   	 
-
-        </form>
+     		<div class="btn-group">
+		<a href="#" wicket:id="GenerarEquipos">Generar Equipo</a>
+        	<a href="#" wicket:id="BuscarJ">Buscar Jugador</a>	      	
+	    </div>
 		
-	
 		<div id="ft">
 		</div>
 	</body>
