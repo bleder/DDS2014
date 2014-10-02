@@ -1,4 +1,3 @@
-
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.apache.wicket.markup.html.WebPage
@@ -12,15 +11,18 @@ import utn.edu.dds.TP_OPF5_VIEW.ui.GenerarEquiposPage
 class OFHomePage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	new(){
-		agregarAcciones()
+		var Object objeto
+		val Form <Object> generalForm = new Form<Object>("generalForm",new CompoundPropertyModel<Object>(objeto))
+		agregarAcciones(generalForm)
+		this.addChild(generalForm)
 	}
 	
-	def agregarAcciones(){
+	def agregarAcciones(Form <Object> form){
 		
-		this.addChild(new XButton("GenerarEquipos")
+		form.addChild(new XButton("GenerarEquipos")
 			.onClick=[|generarEquipos()]
 		)
-		this.addChild(new XButton("BuscarJ")
+		form.addChild(new XButton("BuscarJ")
 			.onClick=[|buscarJugadores()]
 		)
 		

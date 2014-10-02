@@ -10,6 +10,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/TP-OPF5-VIEW/target/classes"/>
-        <property name="context-root" value="Org.Fut5"/>
+        <property name="context-root" value="org.fut5"/>
     </wb-module>
 </project-modules>
