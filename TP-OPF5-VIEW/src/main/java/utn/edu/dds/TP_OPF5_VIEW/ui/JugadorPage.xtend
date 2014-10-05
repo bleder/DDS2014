@@ -1,4 +1,3 @@
-
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.apache.wicket.markup.html.WebPage
@@ -31,13 +30,14 @@ class JugadorPage extends WebPage  {
 	
 	
 	def agregarCampos(Form<Jugador> parent) {
-		parent.addChild(new Label("nombre"))
-		parent.addChild(new Label("apodo"))
-		parent.addChild(new Label("nivelJuego").add(new AttributeModifier("class", this.colorHandicap(parent.modelObject)))) //Es el Handicap
-		parent.addChild(new Label("promedioUltimoPartido"))
-		parent.addChild(new Label("promedioTodosLosPartidos"))
-		parent.addChild(new Label("fechaNac"))  
-		parent.addChild(new Label("cantidadDePartidos"))
+		val colorAzul = new AttributeModifier("class", colorHandicap(parent.modelObject))
+		parent.addChild(new Label("nombre").add(colorAzul))
+		parent.addChild(new Label("apodo").add(colorAzul))
+		parent.addChild(new Label("nivelJuego").add(colorAzul)) //Es el Handicap
+		parent.addChild(new Label("promedioUltimoPartido").add(colorAzul))
+		parent.addChild(new Label("promedioTodosLosPartidos").add(colorAzul))
+		parent.addChild(new Label("fechaNac").add(colorAzul))  
+		parent.addChild(new Label("cantidadDePartidos").add(colorAzul))
 		
 	}
 	

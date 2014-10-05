@@ -8,6 +8,7 @@ import org.uqbar.wicket.xtend.XButton
 import utn.edu.dds.TP_OPF5_VIEW.ui.GenerarEquiposPage
 import org.uqbar.wicket.xtend.XLink
 
+
 class OFHomePage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	new(){

@@ -1,4 +1,3 @@
-
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
 import org.apache.wicket.markup.html.WebPage
@@ -43,7 +42,8 @@ class GenerarEquiposPage extends WebPage {
 		val listView = new XListView(equipo)
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
-			item.addChild(new Label("nombre"))
+			val colorAzul = new AttributeModifier("class", colorHandicap(item.modelObject))
+			item.addChild(new Label("nombre").add(colorAzul))
 			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 			]
 		form.addChild(listView)
@@ -89,4 +89,7 @@ class GenerarEquiposPage extends WebPage {
 		responsePage = new JugadorPage(jug, this)
 	}
 	
+	def colorHandicap(Jugador jug){
+		if(jug.nivelJuego>8)"azul"else""
+	}
 }
