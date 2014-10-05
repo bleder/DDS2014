@@ -1,8 +1,9 @@
 package partido.core
 
 import org.uqbar.commons.model.Entity
+import java.io.Serializable
 
-class Infraccion extends Entity {
+class Infraccion extends Entity implements Serializable {
 	@Property
 	private String fecha
 	@Property
