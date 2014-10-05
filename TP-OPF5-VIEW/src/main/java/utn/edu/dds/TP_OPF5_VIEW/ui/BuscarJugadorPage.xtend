@@ -35,14 +35,26 @@ class BuscarJugadorPage extends WebPage {
 	}
 
 	def agregarCamposBusqueda(Form<BuscadorJugadores> parent) {
+		val listaDesdeHasta=new ArrayList<String>()
+		listaDesdeHasta.add("desde")
+		listaDesdeHasta.add("hasta")
+		
 		parent.addChild(new TextField<String>("nombre"))
 		parent.addChild(new TextField<String>("apodo"))
+		parent.addChild(new TextField<String>("fechaTope"))
 
-		val lista=new ArrayList<String>()
-		lista.add("desde")
-		lista.add("hasta")
-		parent.addChild(new DropDownChoice("desdeHasta",lista))
+		val listaInfac=new ArrayList<String>()
+		listaInfac.add("Con infracciones")
+		listaInfac.add("Sin infracciones")
+		parent.addChild(new DropDownChoice("conSinInfracciones",listaInfac))
+		
+
+		parent.addChild(new DropDownChoice("desdeHastaHandicap",listaDesdeHasta))
 		parent.addChild(new TextField<String>("valorHandicap"))
+		
+		parent.addChild(new DropDownChoice("desdeHastaPromUltimo",listaDesdeHasta))
+		parent.addChild(new TextField<String>("valorPromUltimo"))
+		
 	}
 	
 

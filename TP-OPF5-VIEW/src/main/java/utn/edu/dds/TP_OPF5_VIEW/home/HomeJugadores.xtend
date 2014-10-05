@@ -6,6 +6,7 @@ import partido.core.Jugador
 import java.util.List
 import java.util.Random
 import partido.core.Infraccion
+import java.util.Date
 
 @Observable
 class HomeJugadores extends CollectionBasedHome<Jugador> {
@@ -58,9 +59,39 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 		allInstances	
 	}
 
-	def search(String nombre, String apodo,String desdeHasta, String valorHandicap) {
-		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre)) && matchDesdeHastaHandicap(valorHandicap, jug.nivelJuego, desdeHasta)].toList
+	def search(String nombre, String apodo,String desdeHastaHandicap, String valorHandicap, String conSinInf, String desdeHastaPromUltimo, String valorPromUltimo, String fechaTope) {
+		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre)) && matchConSinInf(conSinInf, jug.infracciones) && matchDesdeHasta(valorHandicap, jug.nivelJuego, desdeHastaHandicap) && matchDesdeHasta(valorPromUltimo, jug.promedioUltimoPartido, desdeHastaPromUltimo) && matchFecha(fechaTope, jug.fechaNac)].toList
 	}
+	
+	def matchFecha(String date, String string) {
+		true //TODO: hacer!
+	}
+	
+	
+	def matchConSinInf(Object expectedValue, List<Infraccion> infracciones) {
+		if (expectedValue == null) {
+			return true
+		}
+
+		val opcion = expectedValue.toString().toLowerCase()
+		val cantidadInfrac = infracciones.length
+		
+		if(opcion.contains("con infracciones")){
+			if(cantidadInfrac==0){
+				return false
+			}
+			else return true
+		}
+		
+		if(opcion.contains("sin infracciones")){
+			if(cantidadInfrac==0){
+				return true
+			}
+			else return false
+		}
+	
+	}
+
 	
 	//TODO: Hacer refactor de metodos Match cuando se pueda
 	def matchApodo(Object expectedValue, Object realValue) {
@@ -85,7 +116,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 	
 	
-	def matchDesdeHastaHandicap(Object expectedValue, Object realValue, String eleccion) {
+	def matchDesdeHasta(Object expectedValue, Object realValue, String eleccion) {
 		if (expectedValue == null) {
 			return true
 		}

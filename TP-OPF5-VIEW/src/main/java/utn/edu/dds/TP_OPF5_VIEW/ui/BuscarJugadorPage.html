@@ -27,16 +27,29 @@
         	<div class="form-group">
            		<label class="control-label" for="nombre">Nombre (comienza con):</label>
               	<div class="controls">
-            		<input wicket:id="nombre" type="text" placeholder="unaLetra" class="form-control">
+            		<input wicket:id="nombre" type="text" placeholder="A" class="form-control">
    		       	</div>
            		<label class="control-label" for="apodo">Apodo (contiene):</label>
               	<div class="controls">
-            		<input wicket:id="apodo" type="text" placeholder="unApodo" class="form-control">
+            		<input wicket:id="apodo" type="text" placeholder="Agu" class="form-control">
+   		       	</div>
+				<label class="control-label" for="fechaTope">Fecha Nacimiento (anterior a):</label>
+              	<div class="controls">
+            		<input wicket:id="fechaTope" type="text" placeholder="13/01/1994" class="form-control">
    		       	</div>
 				<div class="controls">
+					<p> Infracciones Con/Sin: </p>
+					<select name="conSinInfracciones" wicket:id="conSinInfracciones"></select>
+				</div>
+				<div class="controls">
 					<p> Handicap Desde/hasta: </p>
-					<select name="desdeHasta" wicket:id="desdeHasta"></select>
-					<input wicket:id="valorHandicap" type="text" placeholder="unValorHandicap" class="form-control">
+					<select name="desdeHastaHandicap" wicket:id="desdeHastaHandicap"></select>
+					<input wicket:id="valorHandicap" type="text" placeholder="7" class="form-control">
+				</div>
+				<div class="controls">
+					<p> Promedio Ultimo Partido Desde/hasta: </p>
+					<select name="desdeHastaPromUltimo" wicket:id="desdeHastaPromUltimo"></select>
+					<input wicket:id="valorPromUltimo" type="text" placeholder="4" class="form-control">
 				</div>
         	</div>
 
