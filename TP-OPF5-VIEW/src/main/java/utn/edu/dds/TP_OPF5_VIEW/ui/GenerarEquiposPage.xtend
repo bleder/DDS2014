@@ -1,6 +1,5 @@
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
-import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import partido.core.Partido
 import partido.core.Jugador
@@ -10,13 +9,11 @@ import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.markup.html.form.TextField
 import org.uqbar.wicket.xtend.XButton
-import divisionEquipo.DivParImpar
-import divisionEquipo.DivPosiciones
 import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.AttributeModifier
 
-class GenerarEquiposPage extends WebPage {
+class GenerarEquiposPage extends MenuPrincipal {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	var GenerarEquipos generador

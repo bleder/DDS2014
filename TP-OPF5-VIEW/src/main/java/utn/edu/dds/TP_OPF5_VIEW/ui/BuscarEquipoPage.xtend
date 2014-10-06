@@ -1,6 +1,5 @@
 package utn.edu.dds.TP_OPF5_VIEW.ui
 
-import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.apache.wicket.markup.html.form.Form
 import org.uqbar.wicket.xtend.XListView
@@ -9,7 +8,7 @@ import org.uqbar.wicket.xtend.XButton
 import partido.core.Partido
 import org.apache.wicket.model.CompoundPropertyModel
 
-class BuscarEquipoPage extends WebPage {
+class BuscarEquipoPage extends MenuPrincipal {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	ListaPartidos listaPartidos

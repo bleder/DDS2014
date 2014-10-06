@@ -10,7 +10,7 @@ import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.request.component.IRequestablePage
 import org.apache.wicket.AttributeModifier
 
-class JugadorPage extends WebPage  {
+class JugadorPage extends OFHomePage  {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	private final Jugador jugador
 	private final IRequestablePage mainPage

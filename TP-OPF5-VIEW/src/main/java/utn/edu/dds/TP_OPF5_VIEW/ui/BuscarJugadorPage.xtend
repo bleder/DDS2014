@@ -12,8 +12,9 @@ import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.AttributeModifier
 import org.apache.wicket.markup.html.form.DropDownChoice
 import java.util.ArrayList
+import org.uqbar.wicket.xtend.XLink
 
-class BuscarJugadorPage extends WebPage {
+class BuscarJugadorPage extends MenuPrincipal {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	var BuscadorJugadores buscador
@@ -21,16 +22,22 @@ class BuscarJugadorPage extends WebPage {
 	new() {
 		this.buscador = new BuscadorJugadores()
 		val Form<BuscadorJugadores> buscarForm = new Form<BuscadorJugadores>("buscarJugadoresForm", new CompoundPropertyModel<BuscadorJugadores>(this.buscador))
+		this.agregarMenuPermanente(buscarForm)
 		this.agregarCamposBusqueda(buscarForm)
 		this.agregarAcciones(buscarForm)
 		this.agregarGrillaResultados(buscarForm)
 		this.agregarBotones(buscarForm)
 		this.addChild(buscarForm)
 
-		this.buscarJugadores()
+		this.buscaJugadores()
+	}
+	
+	def agregarMenuPermanente(Form<BuscadorJugadores> form) {
+			
+
 	}
 
-	def buscarJugadores() {
+	def buscaJugadores() {
 		this.buscador.search()
 	}
 

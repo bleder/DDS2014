@@ -9,10 +9,27 @@ import utn.edu.dds.TP_OPF5_VIEW.ui.GenerarEquiposPage
 import org.uqbar.wicket.xtend.XLink
 
 
-class OFHomePage extends MenuPrincipal {
+class MenuPrincipal extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	new(){
-		
+		this.addChild(
+			new XLink<Object>("GenerarEquipos") => [
+				onClick = [|generarEquipos()]
+			])
+		this.addChild(
+			new XLink<Object>("BuscarJ") => [
+				onClick = [|buscarJugadores()]
+			])
 	}
 	
+	def generarEquipos() {
+		responsePage = new BuscarEquipoPage()
+	}
+	
+	
+	def buscarJugadores() {
+		responsePage = new BuscarJugadorPage()
+	}
+	
+
 }
