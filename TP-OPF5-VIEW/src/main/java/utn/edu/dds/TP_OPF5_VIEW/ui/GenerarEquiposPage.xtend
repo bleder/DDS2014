@@ -46,10 +46,6 @@ class GenerarEquiposPage extends MenuPrincipal {
 		form.addChild(listView)
 	}
 	
-	
-	
-	
-	
 	def agregarAcciones(Form<GenerarEquipos> form) {
 		form.addChild(new XButton("Generar")
 			.onClick = [| generador.generarEquipos()]
