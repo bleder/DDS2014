@@ -55,7 +55,7 @@ body { margin-top : 0; padding-top : 0;}
 }
 a, a:visited, a:hover, a:active {
 	color : #000000;
-	border: 2px #0000FF solid; 
+	border: 2px #00FFFF solid; 
 	padding: 5px; 
 }
 h2 {
@@ -89,7 +89,7 @@ h3 {
 	text-indent:0px;
 	border:1px solid #469df5;
 	display:inline-block;
-	color:#ffffff;
+	color:#fffff0;
 	font-family:Comic Sans MS;
 	font-size:13px;
 	font-weight:bold;
