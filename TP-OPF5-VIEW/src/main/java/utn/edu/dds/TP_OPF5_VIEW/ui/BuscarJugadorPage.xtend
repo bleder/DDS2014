@@ -82,10 +82,6 @@ class BuscarJugadorPage extends MenuPrincipal {
 			item.model = item.modelObject.asCompoundModel
 			val colorAzul = new AttributeModifier("class", colorHandicap(item.modelObject))
 			item.addChild(new Label("nombre").add(colorAzul))
-			item.addChild(new Label("apodo").add(colorAzul))
-			item.addChild(new Label("nivelJuego").add(colorAzul))
-			item.addChild(new Label("promedioUltimoPartido").add(colorAzul))
-
 			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
 			
 		]

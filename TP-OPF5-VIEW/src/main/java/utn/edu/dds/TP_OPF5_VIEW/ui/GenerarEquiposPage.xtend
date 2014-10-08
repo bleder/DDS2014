@@ -46,10 +46,6 @@ class GenerarEquiposPage extends MenuPrincipal {
 		form.addChild(listView)
 	}
 	
-	
-	
-	
-	
 	def agregarAcciones(Form<GenerarEquipos> form) {
 		form.addChild(new XButton("Generar")
 			.onClick = [| generador.generarEquipos()]
@@ -71,7 +67,6 @@ class GenerarEquiposPage extends MenuPrincipal {
 		
 		handlerForm.addChild(new CheckBox("handicap"))
 		handlerForm.addChild(new CheckBox("promedioUltimo"))
-		handlerForm.addChild(new CheckBox("checkUltimosN"))
 		handlerForm.addChild(new TextField("ultimosN"))
 		
 		form.addChild(handlerForm)
