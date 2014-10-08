@@ -38,14 +38,7 @@ class GenerarEquiposPage extends MenuPrincipal implements ListaJugadoresPage {
 	}
 	
 	def agregarGrillasEquipo(Form<GenerarEquipos> form, String equipo) {
-		val listView = new XListView(equipo)
-		listView.populateItem = [ item |
-			item.model = item.modelObject.asCompoundModel
-			val colorAzul = new AttributeModifier("class", colorHandicap(item.modelObject))
-			item.addChild(new Label("nombre").add(colorAzul))
-			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
-			]
-		form.addChild(listView)
+		form.addChild(new XListaJugadores(equipo, this))
 	}
 	
 	def agregarAcciones(Form<GenerarEquipos> form) {
