@@ -73,6 +73,10 @@
            		<thead>
 	           		<tr>
 	               		<th id="main">Nombre</th>
+	               		<th id="main">Apodo</th>
+	               		<th id="main">Handicap</th>
+	               		<th id="main">Promedio</th>
+	               		<th id="main">Acciones</th>
 
 	               	</tr>
 	            </thead>
@@ -81,9 +85,19 @@
 	                   	<td>
 	                   	    <span wicket:id="nombre">unNombre</span> 
 	               	    </td> 
+	               	    
+	               	    <td>
+	                   	    <span wicket:id="apodo">unApodo</span> 
+	               	    </td> 
+	           	        <td>
+	       	            	<span wicket:id="nivelJuego">unNivelJuego</span>
+	   	                </td> 
+	   	                <td>
+	       	            	<span wicket:id="promedioUltimoPartido">unPromedio</span> 
+	   	                </td> 
 	   	                
 	           	       <td>
-	           	        	<button wicket:id="verDatos" class="btn-link">VerDatos</button>
+	           	        	<button wicket:id="verDatos" class="btn-link">Ver Datos</button>
 	           	       </td>
 	   	                
 	               	</tr>

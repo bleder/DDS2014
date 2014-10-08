@@ -15,6 +15,9 @@ class XListaJugadores extends XListView<Jugador> {
 			item.model = page.asCompoundModel(item.modelObject)
 			val colorAzul = new AttributeModifier("class", page.colorHandicap(item.modelObject))
 			page.addChild(item, new Label("nombre").add(colorAzul))
+			page.addChild(item, new Label("apodo").add(colorAzul))
+			page.addChild(item, new Label("nivelJuego").add(colorAzul))
+			page.addChild(item, new Label("promedioUltimoPartido").add(colorAzul))
 			page.addChild(item, new XButton("verDatos").onClick = [| page.verJugador(item.modelObject) ])
 		]
 	}

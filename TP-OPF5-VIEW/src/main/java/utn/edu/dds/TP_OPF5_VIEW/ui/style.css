@@ -88,7 +88,6 @@ h3 {
 	border-bottom-left-radius:20px;
 	text-indent:0px;
 	border:1px solid #469df5;
-
 	color:#fffff0;
 	font-family:Comic Sans MS;
 	font-size:13px;
@@ -130,7 +129,6 @@ a:hover {
 	border-bottom-left-radius:20px;
 	text-indent:0px;
 	border:1px solid #469df5;
-	display:inline-block;
 	color:#ffffff;
 	font-family:Comic Sans MS;
 	font-size:10px;
@@ -138,7 +136,7 @@ a:hover {
 	font-style:normal;
 	height:35px;
 	line-height:35px;
-	width:133px;
+	width:100px;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #287ace;
