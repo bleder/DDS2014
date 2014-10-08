@@ -1,4 +1,3 @@
-
 package utn.edu.dds.TP_OPF5_VIEW.runnable
 
 import org.apache.wicket.protocol.http.WebApplication
