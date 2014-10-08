@@ -13,8 +13,10 @@ import org.apache.wicket.AttributeModifier
 import org.apache.wicket.markup.html.form.DropDownChoice
 import java.util.ArrayList
 import org.uqbar.wicket.xtend.XLink
+import org.apache.wicket.markup.html.list.ListItem
+import org.apache.wicket.Component
 
-class BuscarJugadorPage extends MenuPrincipal {
+class BuscarJugadorPage extends MenuPrincipal implements ListaJugadoresPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	var BuscadorJugadores buscador
@@ -25,7 +27,7 @@ class BuscarJugadorPage extends MenuPrincipal {
 		this.agregarMenuPermanente(buscarForm)
 		this.agregarCamposBusqueda(buscarForm)
 		this.agregarAcciones(buscarForm)
-		this.agregarGrillaResultados(buscarForm)
+		this.agregarGrillaResultados(buscarForm, "resultados")
 		this.agregarBotones(buscarForm)
 		this.addChild(buscarForm)
 
@@ -76,16 +78,8 @@ class BuscarJugadorPage extends MenuPrincipal {
 		
 	}
 
-	def agregarGrillaResultados(Form<BuscadorJugadores> parent) {
-		val listView = new XListView("resultados")
-		listView.populateItem = [ item |
-			item.model = item.modelObject.asCompoundModel
-			val colorAzul = new AttributeModifier("class", colorHandicap(item.modelObject))
-			item.addChild(new Label("nombre").add(colorAzul))
-			item.addChild(new XButton("verDatos").onClick = [| verJugador(item.modelObject) ])
-			
-		]
-		parent.addChild(listView)
+	def agregarGrillaResultados(Form<BuscadorJugadores> parent, String id) {
+		parent.addChild(new XListaJugadores(id, this))
 	}
 	
 	def agregarBotones(Form<BuscadorJugadores> parent){
@@ -94,12 +88,21 @@ class BuscarJugadorPage extends MenuPrincipal {
 		)
 	}
 	
-	def verJugador(Jugador jug) {
+	override verJugador(Jugador jug) {
 		responsePage = new JugadorPage(jug, this)
 	}
 	
 
-	def colorHandicap(Jugador jug){
+	override colorHandicap(Jugador jug){
 		if(jug.nivelJuego>8)"azul"else""
 	}
+	
+	override asCompoundModel(Jugador jugador) {
+		 _wicketExtensionFactoryMethods.asCompoundModel(jugador)
+	}
+	
+	override addChild(ListItem<Jugador> item, Component component) {
+		 _wicketExtensionFactoryMethods.addChild(item, component)
+	}
+	
 }

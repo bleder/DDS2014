@@ -12,8 +12,10 @@ import org.uqbar.wicket.xtend.XButton
 import org.uqbar.wicket.xtend.XListView
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.AttributeModifier
+import org.apache.wicket.markup.html.list.ListItem
+import org.apache.wicket.Component
 
-class GenerarEquiposPage extends MenuPrincipal {
+class GenerarEquiposPage extends MenuPrincipal implements ListaJugadoresPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	
 	var GenerarEquipos generador
@@ -77,11 +79,19 @@ class GenerarEquiposPage extends MenuPrincipal {
 		form.addChild(dropDown)
 	}
 	
-	def verJugador(Jugador jug) {
+	override verJugador(Jugador jug) {
 		responsePage = new JugadorPage(jug, this)
 	}
 	
-	def colorHandicap(Jugador jug){
+	override colorHandicap(Jugador jug){
 		if(jug.nivelJuego>8)"azul"else""
+	}
+	
+	override asCompoundModel(Jugador jugador) {
+		 _wicketExtensionFactoryMethods.asCompoundModel(jugador)
+	}
+	
+	override addChild(ListItem<Jugador> item, Component component) {
+		 _wicketExtensionFactoryMethods.addChild(item, component)
 	}
 }
