@@ -1,9 +1,10 @@
 package partido.core;
 
+import java.io.Serializable;
 import org.uqbar.commons.model.Entity;
 
 @SuppressWarnings("all")
-public class Infraccion extends Entity {
+public class Infraccion extends Entity implements Serializable {
   private String _fecha;
   
   public String getFecha() {
