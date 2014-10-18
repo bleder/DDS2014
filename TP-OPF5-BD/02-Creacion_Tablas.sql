@@ -71,7 +71,7 @@ constraint fk_partido FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_part
 create table DDS_F5.infraccion
 (id_infraccion int not null,
 id_jugador int not null,
-fecha date not null,
+fecha date ,
 motivo varchar(255) not null,
 constraint pk_infraccion primary key(id_infraccion),
 constraint fk_jugador_infraccion FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador));
