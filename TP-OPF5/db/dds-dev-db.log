@@ -1,2 +1,53 @@
-/*C2*/SET SCHEMA PUBLIC
-DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+create table Jugadores \u000a(id int,\u000anombre varchar(50),\u000amail varchar(100),\u000anivelDeJuego int,\u000aapodo varchar(50),\u000afechaNacimiento date,\u000aconstraint pk_jugador primary key(id))
+CREATE SCHEMA DDS_F5 AUTHORIZATION SA
+drop table jugadores
+create table DDS_F5.jugador\u000a(id_jugador int not NULL,\u000anombre varchar(50),\u000amail varchar(100),\u000anivelDeJuego int,\u000aapodo varchar(50),\u000afecha_Nacimiento date,\u000aconstraint pk_jugador primary key(id_jugador))
+drop table DDS_F5.jugador
+----Tabla Jugador\u000acreate table DDS_F5.jugador\u000a(id_jugador int  not null,\u000anombre varchar(50) not null,\u000amail varchar(100),\u000anivelDeJuego int,\u000aapodo varchar(50),\u000afecha_Nacimiento date not null,\u000aconstraint pk_jugador primary key(id_jugador))
+---Tabla Administrador\u000acreate table DDS_F5.Administrador\u000a(id_admin int not null, \u000anombre varchar(50) not null,\u000amail varchar(100),\u000aconstraint pk_admin primary key(id_admin))
+---Tabla Equipo\u000acreate table DDS_F5.equipo\u000a(id_equipo int not null,\u000anombre varchar(100),\u000aconstraint pk_equipo primary key(id_equipo))
+---Tabla Tipo inscripcion\u000acreate table DDS_F5.tipo_inscripcion\u000a(id_tipo_ins int not null,\u000adescripcion varchar(100) not null,\u000aconstraint pk_tipo_ins primary key(id_tipo_ins))
+---Tabla Infracciones\u000acreate table DDS_F5.infraccion\u000a(id_infraccion int not null,\u000aid_jugador int not null,\u000afecha date not null,\u000amotivo varchar(255) not null,\u000aconstraint pk_infraccion primary key(id_infraccion),\u000aconstraint fk_jugador_infraccion FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador))
+---Tabla equipo_Jugador\u000acreate table DDS_F5.equipo_jugador\u000a(id_jugador int not null, \u000aid_equipo int not null,\u000aconstraint pk_equipo_jugador primary key(id_jugador,id_equipo),\u000aconstraint fk_jugador_de_equipo FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_equipo FOREIGN KEY (id_equipo) REFERENCES DDS_F5.equipo(id_equipo))
+---Tabla amigos\u000acreate table DDS_F5.amigo\u000a(id_jugador int not null,\u000amail_amigo varchar(100) not null,\u000aconstraint pk_amigo_jugador primary key(id_jugador,mail_amigo))
+DROP TABLE DDS_F5.infraccion
+DROP TABLE DDS_F5.equipo_jugador
+DROP TABLE DDS_F5.amigo
+DROP TABLE DDS_F5.jugador
+DROP TABLE DDS_F5.Administrador
+DROP TABLE DDS_F5.equipo
+DROP TABLE DDS_F5.tipo_inscripcion
+create table DDS_F5.jugador\u000a(id_jugador int  not null,\u000anombre varchar(50) not null,\u000amail varchar(100),\u000anivelDeJuego int,\u000aapodo varchar(50),\u000afecha_Nacimiento date not null,\u000aconstraint pk_jugador primary key(id_jugador))
+---Tabla Administrador\u000acreate table DDS_F5.Administrador\u000a(id_admin int not null, \u000anombre varchar(50) not null,\u000amail varchar(100),\u000aconstraint pk_admin primary key(id_admin))
+---Tabla Equipo\u000acreate table DDS_F5.equipo\u000a(id_equipo int not null,\u000anombre varchar(100),\u000aconstraint pk_equipo primary key(id_equipo))
+create table DDS_F5.Partido\u000a(id_partido int not null,\u000anombre varchar(100),\u000aid_admin int,\u000aconfirmado varchar(1),\u000aid_equipo1 int,\u000aid_equipo2 int,\u000aconstraint pk_partido primary key(id_partido),\u000aconstraint fk_administrador FOREIGN KEY (id_admin) REFERENCES DDS_F5.administrador(id_admin),\u000aconstraint fk_equipo1 FOREIGN KEY (id_equipo1) REFERENCES DDS_F5.equipo(id_equipo),\u000aconstraint fk_equipo2 FOREIGN KEY (id_equipo2) REFERENCES DDS_F5.equipo(id_equipo))
+create table DDS_F5.tipo_inscripcion\u000a(id_tipo_ins int not null,\u000adescripcion varchar(100) not null,\u000aconstraint pk_tipo_ins primary key(id_tipo_ins))
+create table DDS_F5.inscripcion\u000a(id_inscripcion int not null, \u000aid_jugador int not null,\u000aid_partido int not null,\u000aid_tipo_ins int not null,\u000aconfirmada varchar(1) not null,\u000aconstraint pk_inscripcion primary key(id_inscripcion),\u000aconstraint fk_jugador_inscripto FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_partido_inscripto FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido),\u000aconstraint fk_tipo_ins FOREIGN KEY (id_tipo_ins) REFERENCES DDS_F5.tipo_inscripcion(id_tipo_ins))
+create table DDS_F5.calificacion\u000a(id_calificacion int not null,\u000aid_jugador int not null, \u000aid_jugador_calificador int not null,\u000aid_partido int not null,\u000anota int not null,\u000acritica varchar(255),\u000aconstraint pk_calificacion primary key(id_calificacion),\u000aconstraint fk_jugador_calificado FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_jugador_calificador FOREIGN KEY (id_jugador_calificador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_partido FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido))
+create table DDS_F5.infraccion\u000a(id_infraccion int not null,\u000aid_jugador int not null,\u000afecha date not null,\u000amotivo varchar(255) not null,\u000aconstraint pk_infraccion primary key(id_infraccion),\u000aconstraint fk_jugador_infraccion FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador))
+create table DDS_F5.equipo_jugador\u000a(id_jugador int not null, \u000aid_equipo int not null,\u000aconstraint pk_equipo_jugador primary key(id_jugador,id_equipo),\u000aconstraint fk_jugador_de_equipo FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_equipo FOREIGN KEY (id_equipo) REFERENCES DDS_F5.equipo(id_equipo))
+create table DDS_F5.amigo\u000a(id_jugador int not null,\u000amail_amigo varchar(100) not null,\u000aconstraint pk_amigo_jugador primary key(id_jugador,mail_amigo))
+create table DDS_F5.propuesta\u000a(id_propuesta int not null,\u000aid_jugador_amigo int not null,\u000amail_amigo_propuesto varchar(100) not null,\u000anombre_amigo_propuesto varchar(50) not null,\u000aestado varchar(1) not null, --'R'=RECHAZADA/'A'=ACEPTADA/'E'=EN ESPERA\u000aobservacion varchar(255),\u000aconstraint pk_propuesta primary key(id_propuesta),\u000aconstraint fk_jugador_amigo FOREIGN KEY (id_jugador_amigo) REFERENCES DDS_F5.jugador(id_jugador))
+DROP TABLE DDS_F5.propuesta
+DROP TABLE DDS_F5.infraccion
+DROP TABLE DDS_F5.equipo_jugador
+DROP TABLE DDS_F5.amigo
+DROP TABLE DDS_F5.calificacion
+DROP TABLE DDS_F5.inscripcion
+DROP TABLE DDS_F5.Partido
+DROP TABLE DDS_F5.jugador
+DROP TABLE DDS_F5.Administrador
+DROP TABLE DDS_F5.equipo
+DROP TABLE DDS_F5.tipo_inscripcion
+----Tabla Jugador\u000acreate table DDS_F5.jugador\u000a(id_jugador int  not null,\u000anombre varchar(50) not null,\u000amail varchar(100),\u000anivelDeJuego int,\u000aapodo varchar(50),\u000afecha_Nacimiento date not null,\u000aconstraint pk_jugador primary key(id_jugador))
+---Tabla Administrador\u000acreate table DDS_F5.Administrador\u000a(id_admin int not null, \u000anombre varchar(50) not null,\u000amail varchar(100),\u000aconstraint pk_admin primary key(id_admin))
+---Tabla Equipo\u000acreate table DDS_F5.equipo\u000a(id_equipo int not null,\u000anombre varchar(100),\u000aconstraint pk_equipo primary key(id_equipo))
+---Tabla Partido\u000acreate table DDS_F5.Partido\u000a(id_partido int not null,\u000anombre varchar(100),\u000aid_admin int,\u000aconfirmado varchar(1),\u000aid_equipo1 int,\u000aid_equipo2 int,\u000aconstraint pk_partido primary key(id_partido),\u000aconstraint fk_administrador FOREIGN KEY (id_admin) REFERENCES DDS_F5.administrador(id_admin),\u000aconstraint fk_equipo1 FOREIGN KEY (id_equipo1) REFERENCES DDS_F5.equipo(id_equipo),\u000aconstraint fk_equipo2 FOREIGN KEY (id_equipo2) REFERENCES DDS_F5.equipo(id_equipo))
+---Tabla Tipo inscripcion\u000acreate table DDS_F5.tipo_inscripcion\u000a(id_tipo_ins int not null,\u000adescripcion varchar(100) not null,\u000aconstraint pk_tipo_ins primary key(id_tipo_ins))
+---Tabla Incripcion\u000acreate table DDS_F5.inscripcion\u000a(id_inscripcion int not null, \u000aid_jugador int not null,\u000aid_partido int not null,\u000aid_tipo_ins int not null,\u000aconfirmada varchar(1) not null,\u000aconstraint pk_inscripcion primary key(id_inscripcion),\u000aconstraint fk_jugador_inscripto FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_partido_inscripto FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido),\u000aconstraint fk_tipo_ins FOREIGN KEY (id_tipo_ins) REFERENCES DDS_F5.tipo_inscripcion(id_tipo_ins))
+---Tabla Calificaciones\u000acreate table DDS_F5.calificacion\u000a(id_calificacion int not null,\u000aid_jugador int not null, \u000aid_jugador_calificador int not null,\u000aid_partido int not null,\u000anota int not null,\u000acritica varchar(255),\u000aconstraint pk_calificacion primary key(id_calificacion),\u000aconstraint fk_jugador_calificado FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_jugador_calificador FOREIGN KEY (id_jugador_calificador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_partido FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido))
+---Tabla Infracciones\u000acreate table DDS_F5.infraccion\u000a(id_infraccion int not null,\u000aid_jugador int not null,\u000afecha date not null,\u000amotivo varchar(255) not null,\u000aconstraint pk_infraccion primary key(id_infraccion),\u000aconstraint fk_jugador_infraccion FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador))
+---Tabla equipo_Jugador\u000acreate table DDS_F5.equipo_jugador\u000a(id_jugador int not null, \u000aid_equipo int not null,\u000aconstraint pk_equipo_jugador primary key(id_jugador,id_equipo),\u000aconstraint fk_jugador_de_equipo FOREIGN KEY (id_jugador) REFERENCES DDS_F5.jugador(id_jugador),\u000aconstraint fk_equipo FOREIGN KEY (id_equipo) REFERENCES DDS_F5.equipo(id_equipo))
+---Tabla amigos\u000acreate table DDS_F5.amigo\u000a(id_jugador int not null,\u000amail_amigo varchar(100) not null,\u000aconstraint pk_amigo_jugador primary key(id_jugador,mail_amigo))
+---Tabla propuesta\u000acreate table DDS_F5.propuesta\u000a(id_propuesta int not null,\u000aid_jugador_amigo int not null,\u000amail_amigo_propuesto varchar(100) not null,\u000anombre_amigo_propuesto varchar(50) not null,\u000aestado varchar(1) not null, --'R'=RECHAZADA/'A'=ACEPTADA/'E'=EN ESPERA\u000aobservacion varchar(255),\u000aconstraint pk_propuesta primary key(id_propuesta),\u000aconstraint fk_jugador_amigo FOREIGN KEY (id_jugador_amigo) REFERENCES DDS_F5.jugador(id_jugador))
