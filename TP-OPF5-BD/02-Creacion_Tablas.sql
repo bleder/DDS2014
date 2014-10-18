@@ -5,7 +5,7 @@ nombre varchar(50) not null,
 mail varchar(100),
 nivelDeJuego int,
 apodo varchar(50),
-fecha_Nacimiento date not null,
+fecha_Nacimiento date,
 constraint pk_jugador primary key(id_jugador));
 
 ---Tabla Administrador
