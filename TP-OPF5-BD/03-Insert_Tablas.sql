@@ -1,3 +1,4 @@
+
 ---INSERTS
 
 ----Tabla Jugador
@@ -79,11 +80,8 @@ VALUES
 INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
 VALUES
 (2,2);
+
 ---Tabla amigos
-create table DDS_F5.amigo
-(id_jugador int not null,
-mail_amigo varchar(100) not null,
-constraint pk_amigo_jugador primary key(id_jugador,mail_amigo));
 
 INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
 VALUES
