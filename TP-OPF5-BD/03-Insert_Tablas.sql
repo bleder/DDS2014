@@ -1,4 +1,3 @@
-
 ---INSERTS
 
 ----Tabla Jugador
@@ -10,12 +9,27 @@ INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacim
 VALUES
 (2,'Roberto','robert22@gmail.com',9,'Robert',NULL);
 
+INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
+VALUES
+(3,'Coco','coquito@gmail.com',2,'Coc',NULL);
+
+INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
+VALUES
+(4,'Agustin','agus@gotmail.com',8,'Agus',NULL);
 
 ---Tabla Administrador
 
 INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
 VALUES
 (1,'Ramon','ramoncito@hotmail.com');
+
+INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
+VALUES
+(2,'Juan','juancito@hotmail.com');
+
+INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
+VALUES
+(3,'Pedro','pedrito@hotmail.com');
 
 
 ---Tabla Equipo
@@ -28,6 +42,13 @@ INSERT INTO DDS_F5.equipo(id_equipo,nombre )
 VALUES
 (2,'RIVER');
 
+INSERT INTO DDS_F5.equipo(id_equipo,nombre )
+VALUES
+(3,'SAN LORENZO');
+
+INSERT INTO DDS_F5.equipo(id_equipo,nombre )
+VALUES
+(4,'ESTUDIANTES');
 
 
 ---Tabla Partido
@@ -35,6 +56,14 @@ VALUES
 INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
 VALUES
 (1,'DISEÑO DOPARTI',1,'N',1,2);
+
+INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
+VALUES
+(2,'PDP DOPARTI',2,'S',3,4);
+
+INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
+VALUES
+(3,'ADS DOPARTI',3,'N',1,4);
 
 ---Tabla Tipo inscripcion
 
@@ -59,17 +88,49 @@ INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_in
 VALUES
 (1,1,1,1,'N');
 
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(2,2,1,2,'N');
+
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(3,3,2,1,'S');
+
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(4,4,2,3,'S');
+
 ---Tabla Calificaciones
 
 INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
 VALUES
 (1,1,2,1,6,'Jugo bien pero no la paso mucho');
 
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(2,2,1,1,2,'Metio goles en contra');
+
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(3,3,4,2,10,'Muy bueno. Juega como un campeon');
+
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(4,4,3,2,1,'Mal comportamiento. Expulsado por falta grave');
+
 ---Tabla Infracciones
 
 INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
 VALUES
 (1,1,NULL,'Se saco la remera en el partido');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(2,4,NULL,'Le quebro la pierna al delantero');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(3,3,NULL,'Mal vocabulario');
 
 ---Tabla equipo_Jugador
 
@@ -79,7 +140,15 @@ VALUES
 
 INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
 VALUES
-(2,2);
+(2,1);
+
+INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
+VALUES
+(3,2);
+
+INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
+VALUES
+(4,2);
 
 ---Tabla amigos
 
@@ -102,6 +171,14 @@ VALUES
 INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
 VALUES
 (2,'alfano40@gmail.com');
+
+INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
+VALUES
+(3,'RicardoFort@gmail.com');
+
+INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
+VALUES
+(4,'pachupenia@gmail.com');
 
 
 
