@@ -3,19 +3,19 @@
 ----Tabla Jugador
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(1,'Pedro','pepe@gmail.com',4,'Pepe',NULL);
+(1,'Pedro','pepe@gmail.com',4,'Pepe',CAST('1995-01-13' AS date));
 
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(2,'Roberto','robert22@gmail.com',9,'Robert',NULL);
+(2,'Roberto','robert22@gmail.com',9,'Robert',CAST('1960-04-11' AS date));
 
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(3,'Coco','coquito@gmail.com',2,'Coc',NULL);
+(3,'Coco','coquito@gmail.com',2,'Coc',CAST('1970-01-01' AS date));
 
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(4,'Agustin','agus@gotmail.com',8,'Agus',NULL);
+(4,'Agustin','agus@gotmail.com',8,'Agus',CAST('1971-01-13' AS date));
 
 ---Tabla Administrador
 
