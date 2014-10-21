@@ -122,15 +122,32 @@ VALUES
 
 INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
 VALUES
-(1,1,NULL,'Se saco la remera en el partido');
+(1,1,CAST('2014-01-13' AS date),'Se saco la remera en el partido');
 
 INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
 VALUES
-(2,4,NULL,'Le quebro la pierna al delantero');
+(2,4,CAST('2014-03-23' AS date),'Le quebro la pierna al delantero');
 
 INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
 VALUES
-(3,3,NULL,'Mal vocabulario');
+(3,3,CAST('2014-10-10' AS date),'Mal vocabulario');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(4,3,CAST('2014-10-11' AS date),'Muchas Faltas');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(5,3,CAST('2014-10-15' AS date),'Arreglo con el arbitro');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(6,3,CAST('2014-10-18' AS date),'Pelea de manos');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(7,3,CAST('2014-10-20' AS date),'No cumplio las ordenes del arbitro');
+
 
 ---Tabla equipo_Jugador
 
