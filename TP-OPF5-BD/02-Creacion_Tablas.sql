@@ -107,12 +107,11 @@ create table DDS_F5.reemplazo
 (id_reemplazo int  not null,
 id_jugador_viejo int,
 id_jugador_nuevo int,
-id_partido int,
+id_partido_reem int,
 constraint pk_reemplazo primary key(id_reemplazo),
 constraint fk_jugador_viejo FOREIGN KEY (id_jugador_viejo) REFERENCES DDS_F5.jugador(id_jugador),
 constraint fk_jugador_nuevo FOREIGN KEY (id_jugador_nuevo) REFERENCES DDS_F5.jugador(id_jugador),
-constraint fk_partido FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido));
-
+constraint fk_partido_reem FOREIGN KEY (id_partido_reem) REFERENCES DDS_F5.partido(id_partido));
 
 
 
