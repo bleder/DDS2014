@@ -102,6 +102,18 @@ constraint pk_propuesta primary key(id_propuesta),
 constraint fk_jugador_amigo FOREIGN KEY (id_jugador_amigo) REFERENCES DDS_F5.jugador(id_jugador));
 
 
+----Tabla Reemplazo
+create table DDS_F5.reemplazo
+(id_reemplazo int  not null,
+id_jugador_viejo int,
+id_jugador_nuevo int,
+id_partido int,
+constraint pk_reemplazo primary key(id_reemplazo),
+constraint fk_jugador_viejo FOREIGN KEY (id_jugador_viejo) REFERENCES DDS_F5.jugador(id_jugador),
+constraint fk_jugador_nuevo FOREIGN KEY (id_jugador_nuevo) REFERENCES DDS_F5.jugador(id_jugador),
+constraint fk_partido FOREIGN KEY (id_partido) REFERENCES DDS_F5.partido(id_partido));
+
+
 
 
 
