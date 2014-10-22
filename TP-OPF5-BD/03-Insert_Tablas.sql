@@ -3,18 +3,33 @@
 ----Tabla Jugador
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(1,'Pedro','pepe@gmail.com',4,'Pepe',NULL);
+(1,'Pedro','pepe@gmail.com',4,'Pepe',CAST('1995-01-13' AS date));
 
 INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
 VALUES
-(2,'Roberto','robert22@gmail.com',9,'Robert',NULL);
+(2,'Roberto','robert22@gmail.com',9,'Robert',CAST('1960-04-11' AS date));
 
+INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
+VALUES
+(3,'Coco','coquito@gmail.com',2,'Coc',CAST('1970-01-01' AS date));
+
+INSERT INTO DDS_F5.jugador(id_jugador,nombre,mail,nivelDeJuego,apodo,fecha_Nacimiento)
+VALUES
+(4,'Agustin','agus@gotmail.com',8,'Agus',CAST('1971-01-13' AS date));
 
 ---Tabla Administrador
 
 INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
 VALUES
 (1,'Ramon','ramoncito@hotmail.com');
+
+INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
+VALUES
+(2,'Juan','juancito@hotmail.com');
+
+INSERT INTO DDS_F5.Administrador(id_admin, nombre ,mail)
+VALUES
+(3,'Pedro','pedrito@hotmail.com');
 
 
 ---Tabla Equipo
@@ -27,6 +42,13 @@ INSERT INTO DDS_F5.equipo(id_equipo,nombre )
 VALUES
 (2,'RIVER');
 
+INSERT INTO DDS_F5.equipo(id_equipo,nombre )
+VALUES
+(3,'SAN LORENZO');
+
+INSERT INTO DDS_F5.equipo(id_equipo,nombre )
+VALUES
+(4,'ESTUDIANTES');
 
 
 ---Tabla Partido
@@ -34,6 +56,14 @@ VALUES
 INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
 VALUES
 (1,'DISEÑO DOPARTI',1,'N',1,2);
+
+INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
+VALUES
+(2,'PDP DOPARTI',2,'S',3,4);
+
+INSERT INTO DDS_F5.Partido(id_partido,nombre ,id_admin ,confirmado ,id_equipo1 ,id_equipo2)
+VALUES
+(3,'ADS DOPARTI',3,'N',1,4);
 
 ---Tabla Tipo inscripcion
 
@@ -58,17 +88,66 @@ INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_in
 VALUES
 (1,1,1,1,'N');
 
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(2,2,1,2,'N');
+
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(3,3,2,1,'S');
+
+INSERT INTO DDS_F5.inscripcion (id_inscripcion, id_jugador,id_partido,id_tipo_ins,confirmada)
+VALUES
+(4,4,2,3,'S');
+
 ---Tabla Calificaciones
 
 INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
 VALUES
 (1,1,2,1,6,'Jugo bien pero no la paso mucho');
 
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(2,2,1,1,2,'Metio goles en contra');
+
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(3,3,4,2,10,'Muy bueno. Juega como un campeon');
+
+INSERT INTO DDS_F5.calificacion(id_calificacion,id_jugador, id_jugador_calificador ,id_partido,nota ,critica)
+VALUES
+(4,4,3,2,1,'Mal comportamiento. Expulsado por falta grave');
+
 ---Tabla Infracciones
 
 INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
 VALUES
-(1,1,NULL,'Se saco la remera en el partido');
+(1,1,CAST('2014-01-13' AS date),'Se saco la remera en el partido');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(2,4,CAST('2014-03-23' AS date),'Le quebro la pierna al delantero');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(3,3,CAST('2014-10-10' AS date),'Mal vocabulario');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(4,3,CAST('2014-10-11' AS date),'Muchas Faltas');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(5,3,CAST('2014-10-15' AS date),'Arreglo con el arbitro');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(6,3,CAST('2014-10-18' AS date),'Pelea de manos');
+
+INSERT INTO DDS_F5.infraccion (id_infraccion,id_jugador,fecha,motivo )
+VALUES
+(7,3,CAST('2014-10-20' AS date),'No cumplio las ordenes del arbitro');
+
 
 ---Tabla equipo_Jugador
 
@@ -78,12 +157,17 @@ VALUES
 
 INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
 VALUES
-(2,2);
+(2,1);
+
+INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
+VALUES
+(3,2);
+
+INSERT INTO DDS_F5.equipo_jugador (id_jugador, id_equipo )
+VALUES
+(4,2);
+
 ---Tabla amigos
-create table DDS_F5.amigo
-(id_jugador int not null,
-mail_amigo varchar(100) not null,
-constraint pk_amigo_jugador primary key(id_jugador,mail_amigo));
 
 INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
 VALUES
@@ -104,6 +188,14 @@ VALUES
 INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
 VALUES
 (2,'alfano40@gmail.com');
+
+INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
+VALUES
+(3,'RicardoFort@gmail.com');
+
+INSERT INTO DDS_F5.amigo (id_jugador,mail_amigo)
+VALUES
+(4,'pachupenia@gmail.com');
 
 
 
