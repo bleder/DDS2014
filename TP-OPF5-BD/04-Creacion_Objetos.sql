@@ -21,13 +21,13 @@ RETURN ( SELECT COUNT(*) FROM DDS_F5.jugadores_malos WHERE
 CREATE PROCEDURE DDS_F5.baja_de_partido(id_part INT, id_jug_viejo INT, id_jug_nuevo INT)
         MODIFIES SQL DATA
         BEGIN ATOMIC
-                IF (id_jug_nuevo != null) THEN
+                IF (id_jug_nuevo IS NOT null) THEN
                         INSERT INTO DDS_F5.reemplazo VALUES
                                 ((SELECT COUNT(*) FROM DDS_F5.reemplazo) + 1, id_jug_viejo, id_jug_nuevo, id_part);
-                END IF;
+                END IF ;
                 DELETE FROM DDS_F5.inscripcion
                         WHERE (id_jugador = id_jug_viejo AND id_partido = id_part);
-        END
+        END;
                 
 -- e) Cada vez que un jugador se baje de un partido se le debe agregar una infracción si no ofrece reemplazante.
 CREATE TRIGGER DDS_F5.prueba BEFORE UPDATE ON DDS_F5.inscripcion

@@ -1,3 +1,5 @@
+---Creacion de esquema
+CREATE SCHEMA DDS_F5;
 ----Tabla Jugador
 create table DDS_F5.jugador
 (id_jugador int  not null,
