@@ -25,11 +25,12 @@ CREATE PROCEDURE DDS_F5.baja_de_partido(id_part INT, id_jug_viejo INT, id_jug_nu
                 WHERE (id_jugador = id_jug_viejo AND id_partido = id_part);
                 
 -- e) Cada vez que un jugador se baje de un partido se le debe agregar una infracción si no ofrece reemplazante.
-
 CREATE TRIGGER DDS_F5.prueba BEFORE UPDATE ON DDS_F5.inscripcion
-   REFERENCING OLD AS insc_vieja FOR EACH ROW
+   REFERENCING OLD AS insc_vieja FOR EACH ROW 
    BEGIN ATOMIC
      IF NOT EXISTS(SELECT * FROM DDS_F5.reemplazo r WHERE r.id_jugador_viejo=insc_vieja.id_jugador AND r.id_partido_reem=insc_vieja.id_partido) THEN
-        INSERT INTO DDS_F5.infraccion VALUES (99999,insc_vieja.id_jugador,CURRENT_DATE,'No dio reemplazante');
+        INSERT INTO DDS_F5.infraccion VALUES ((SELECT COUNT(*) FROM DDS_F5.reemplazo)+1,insc_vieja.id_jugador,CURRENT_DATE,'No dio reemplazante');
      END IF;
-   END
+END
+       
+
