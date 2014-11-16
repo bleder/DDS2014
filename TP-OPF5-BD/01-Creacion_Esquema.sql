@@ -1,2 +1,2 @@
 ---Creacion de esquema
-CREATE SCHEMA DDS_F5;
+CREATE SCHEMA DDS_F5 ;
