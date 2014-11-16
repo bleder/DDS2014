@@ -16,13 +16,15 @@ import java.util.Date
 import java.security.Timestamp
 
 class Jugador extends Entity{
-	@Property
+	/*@Property*/
+	int id_jugador
+	/*@Property*/
 	String nombre
-	@Property
+	/*@Property*/
 	String apodo
-	@Property
+	/*@Property*/
 	String fechaNac
-	@Property
+	/*@Property*/
 	String mail
 	@Property 
 	List<Infraccion> infracciones
@@ -30,7 +32,7 @@ class Jugador extends Entity{
 	List<String> amigos
 	@Property
 	List<Calificacion> calificaciones  = new ArrayList
-	@Property
+	/*@Property*/
 	int nivelJuego
 	@Property
 	List<Partido> partidosJugados  = new ArrayList
@@ -51,8 +53,45 @@ class Jugador extends Entity{
 		nivelJuego=0
 	}
 	
-
+	def set_id_jugador(int id_jugador){
+		this.id_jugador=id_jugador
+	}
 	
+	def get_id_jugador(){
+		this.id_jugador
+	}
+	
+	def set_nombre(String nombre){
+		this.nombre=nombre
+	}
+	
+	def get_nombre(){
+		this.nombre
+	}
+	
+	def set_apodo(String apodo){
+		this.apodo=apodo
+	}
+
+	def get_apodo(){
+		this.apodo
+	}
+	
+	def set_mail(String mail){
+		this.mail=mail
+	}
+	
+	def get_mail(){
+		this.mail
+	}
+	
+	def set_nivelJuego(int nivelJuego){
+		this.nivelJuego=nivelJuego
+	}
+	
+	def get_nivelJuego(){
+		this.nivelJuego
+	}
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
 	}

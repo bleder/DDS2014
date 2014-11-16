@@ -48,14 +48,14 @@ public class TstConfirmacionEquipo {
   public void sePuedeConfirmarEquipoQueAlcanzaMaximoDeJugadoresYSeRealizoDivisionDeEquipos() {
     this.partidoParaConfirmar();
     this.partido.confirmate();
-    boolean _isConfirmadoAdm = this.partido.isConfirmadoAdm();
-    Assert.assertTrue(_isConfirmadoAdm);
+    boolean __confirmadoAdm = this.partido.get_confirmadoAdm();
+    Assert.assertTrue(__confirmadoAdm);
   }
   
   public boolean partidoParaConfirmar() {
     boolean _xblockexpression = false;
     {
-      this.partido.setMaximoLista(2);
+      this.partido.set_maximoLista(2);
       List<Jugador> _equipo1 = this.partido.getEquipo1();
       _equipo1.add(this.jugador1);
       List<Jugador> _equipo2 = this.partido.getEquipo2();
@@ -64,26 +64,30 @@ public class TstConfirmacionEquipo {
     return _xblockexpression;
   }
   
-  public void partidoYaConfirmadoConDivisionEquipos() {
-    this.partido.setMaximoLista(2);
-    List<Jugador> _equipo1 = this.partido.getEquipo1();
-    _equipo1.add(this.jugador1);
-    List<Jugador> _equipo2 = this.partido.getEquipo2();
-    _equipo2.add(this.jugador2);
-    this.partido.setConfirmadoAdm(true);
+  public boolean partidoYaConfirmadoConDivisionEquipos() {
+    boolean _xblockexpression = false;
+    {
+      this.partido.set_maximoLista(2);
+      List<Jugador> _equipo1 = this.partido.getEquipo1();
+      _equipo1.add(this.jugador1);
+      List<Jugador> _equipo2 = this.partido.getEquipo2();
+      _equipo2.add(this.jugador2);
+      _xblockexpression = this.partido.set_confirmadoAdm(Boolean.valueOf(true));
+    }
+    return _xblockexpression;
   }
   
   @Test
   public void noSePuedeConfirmarEquipoQueNoSeRealizoDivisionDeEquipos() {
-    this.partido.setMaximoLista(2);
+    this.partido.set_maximoLista(2);
     try {
       this.partido.confirmate();
       Assert.fail("No se realizo division de equipos, no se puede confirmar partido");
     } catch (final Throwable _t) {
       if (_t instanceof NoSeRealizoDivisionDeEquipos) {
         final NoSeRealizoDivisionDeEquipos e = (NoSeRealizoDivisionDeEquipos)_t;
-        boolean _isConfirmadoAdm = this.partido.isConfirmadoAdm();
-        Assert.assertFalse(_isConfirmadoAdm);
+        boolean __confirmadoAdm = this.partido.get_confirmadoAdm();
+        Assert.assertFalse(__confirmadoAdm);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -99,8 +103,8 @@ public class TstConfirmacionEquipo {
     } catch (final Throwable _t) {
       if (_t instanceof PartidoYaConfirmado) {
         final PartidoYaConfirmado e = (PartidoYaConfirmado)_t;
-        boolean _isConfirmadoAdm = this.partido.isConfirmadoAdm();
-        Assert.assertTrue(_isConfirmadoAdm);
+        boolean __confirmadoAdm = this.partido.get_confirmadoAdm();
+        Assert.assertTrue(__confirmadoAdm);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }

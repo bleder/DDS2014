@@ -6,6 +6,11 @@ import partido.core.tiposDeInscripcion.TipoInscripcion;
 
 @SuppressWarnings("all")
 public class Inscripcion {
+  /**
+   * @Property
+   */
+  private int id_inscripcion;
+  
   private TipoInscripcion _tipoInscripcion;
   
   public TipoInscripcion getTipoInscripcion() {
@@ -26,20 +31,15 @@ public class Inscripcion {
     this._jugador = jugador;
   }
   
-  private boolean _estaConfirmada;
-  
-  public boolean isEstaConfirmada() {
-    return this._estaConfirmada;
-  }
-  
-  public void setEstaConfirmada(final boolean estaConfirmada) {
-    this._estaConfirmada = estaConfirmada;
-  }
+  /**
+   * @Property
+   */
+  private boolean estaConfirmada;
   
   public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
     this.setJugador(jug);
-    this.setEstaConfirmada(false);
+    this.estaConfirmada = false;
   }
   
   public boolean sosInscripcionDe(final Jugador otroJugador) {
@@ -47,7 +47,23 @@ public class Inscripcion {
     return Objects.equal(otroJugador, _jugador);
   }
   
-  public void confirmar() {
-    this.setEstaConfirmada(true);
+  public boolean confirmar() {
+    return this.estaConfirmada = true;
+  }
+  
+  public int setId_inscripcion(final int id_inscripcion) {
+    return this.id_inscripcion = id_inscripcion;
+  }
+  
+  public int getId_inscripcion() {
+    return this.id_inscripcion;
+  }
+  
+  public boolean setEstaConfirmada(final Boolean estaConfirmada) {
+    return this.estaConfirmada = (estaConfirmada).booleanValue();
+  }
+  
+  public boolean getEstaConfirmada() {
+    return this.estaConfirmada;
   }
 }

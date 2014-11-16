@@ -9,6 +9,11 @@ import partido.core.tiposDeInscripcion.TipoInscripcion;
 
 @SuppressWarnings("all")
 public class Condicional implements TipoInscripcion {
+  /**
+   * @Property
+   */
+  private int id_tipo_incripcion;
+  
   private Function1<Partido,Boolean> _condicion = new Function1<Partido,Boolean>() {
     public Boolean apply(final Partido partido) {
       return Boolean.valueOf(true);
@@ -47,5 +52,13 @@ public class Condicional implements TipoInscripcion {
   
   public boolean dejaAnotar() {
     return true;
+  }
+  
+  public int setId_tipo_inscripcion(final int id_tipo_inscripcion) {
+    return this.id_tipo_incripcion = id_tipo_inscripcion;
+  }
+  
+  public int getId_tipo_inscripcion() {
+    return this.id_tipo_incripcion;
   }
 }

@@ -45,7 +45,7 @@ public class TstDivisionEquipo {
     Administrador _administrador = new Administrador("admin@aol.com");
     Partido _partido = new Partido("Partido_1", _administrador);
     this.partido = _partido;
-    this.partido.setMaximoLista(4);
+    this.partido.set_maximoLista(4);
     Estandar _estandar = new Estandar();
     this.tipoIncEstandar = _estandar;
     this.initJugadores();
@@ -108,7 +108,7 @@ public class TstDivisionEquipo {
   
   @Test
   public void noSePuedeDividirEquipoSiElPartidoNoTieneLaCantidadMaxDeJugadores() {
-    this.partido.setMaximoLista(10);
+    this.partido.set_maximoLista(10);
     this.partido.setDivisorEquipo(this.divPosiciones);
     try {
       this.partido.partidoDividiEquipos();
@@ -130,7 +130,7 @@ public class TstDivisionEquipo {
   
   @Test
   public void noSePuedeDividirEquipoSiElYaEstaConfirmado() {
-    this.partido.setConfirmadoAdm(true);
+    this.partido.set_confirmadoAdm(Boolean.valueOf(true));
     this.partido.setDivisorEquipo(this.divPosiciones);
     try {
       this.partido.partidoDividiEquipos();

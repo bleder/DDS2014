@@ -5,31 +5,50 @@ import org.uqbar.commons.model.Entity;
 
 @SuppressWarnings("all")
 public class Infraccion extends Entity implements Serializable {
-  private String _fecha;
+  /**
+   * @Property
+   */
+  private int id_infraccion;
   
-  public String getFecha() {
-    return this._fecha;
-  }
+  /**
+   * @Property
+   */
+  private String fecha;
   
-  public void setFecha(final String fecha) {
-    this._fecha = fecha;
-  }
-  
-  private String _motivo;
-  
-  public String getMotivo() {
-    return this._motivo;
-  }
-  
-  public void setMotivo(final String motivo) {
-    this._motivo = motivo;
-  }
+  /**
+   * @Property
+   */
+  private String motivo;
   
   public Infraccion(final String motivoInf) {
-    this.setMotivo(motivoInf);
+    this.motivo = motivoInf;
   }
   
   public boolean vencer() {
     return false;
+  }
+  
+  public int setId_infraccion(final int id_infraccion) {
+    return this.id_infraccion = id_infraccion;
+  }
+  
+  public int getId_infraccion() {
+    return this.id_infraccion;
+  }
+  
+  public String setFecha(final String fecha) {
+    return this.fecha = fecha;
+  }
+  
+  public String getFecha() {
+    return this.fecha;
+  }
+  
+  public String setMotivo(final String motivo) {
+    return this.motivo = motivo;
+  }
+  
+  public String getMotivo() {
+    return this.motivo;
   }
 }

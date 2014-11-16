@@ -20,8 +20,8 @@ public class AmigosObserver implements PartidoObserver {
     List<String> _amigos = jugador.getAmigos();
     final Procedure1<String> _function = new Procedure1<String>() {
       public void apply(final String amigo) {
-        String _nombre = jugador.getNombre();
-        String _plus = ("Se inscribio tu amigo " + _nombre);
+        String __nombre = jugador.get_nombre();
+        String _plus = ("Se inscribio tu amigo " + __nombre);
         AmigosObserver.this.sender.notificar(amigo, _plus);
       }
     };

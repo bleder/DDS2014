@@ -54,7 +54,7 @@ class TstInscripcion {
 
 	def crearPartidoCompleto() {
 		val Partido completo = new Partido("Hola", new Administrador("admin@aol.com"))
-		completo.maximoLista = 0
+		completo.set_maximoLista(0)
 		completo
 	}
 	
@@ -114,7 +114,7 @@ class TstInscripcion {
 	@Test
 	def void jugadorEstandarTienePrioridadSobreSolidario() {
 		var partido = new Partido("Cancha 2", new Administrador("admin@aol.com"))
-		partido.maximoLista = 1
+		partido.set_maximoLista(1)
 		(new Jugador("Roberto", "rober@hotmail.com")).inscribite(partido, tipoIncSolidaria)
 		jugador.inscribite(partido, tipoIncEstandar)
 		Assert.assertTrue(partido.estaInscripto(jugador))

@@ -68,10 +68,10 @@ class TstOrdenamiento {
 		jugador4.inscribite(partido, tipoIncEstandar)
 		jugador4.inscribite(partido2, tipoIncEstandar)
 
-		jugador1.nivelJuego = 5
-		jugador2.nivelJuego = 2
-		jugador3.nivelJuego = 8
-		jugador4.nivelJuego = 1
+		jugador1.set_nivelJuego(5)
+		jugador2.set_nivelJuego(2)
+		jugador3.set_nivelJuego(8)
+		jugador4.set_nivelJuego(1)
 	}
 	
 	def initCalificacion(){

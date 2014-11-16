@@ -42,28 +42,28 @@ class TstConfirmacionEquipo {
 	def void sePuedeConfirmarEquipoQueAlcanzaMaximoDeJugadoresYSeRealizoDivisionDeEquipos() {
 		partidoParaConfirmar()
 		partido.confirmate()
-		Assert.assertTrue(partido.confirmadoAdm)
+		Assert.assertTrue(partido.get_confirmadoAdm())
 	}
 		def partidoParaConfirmar() {
-		partido.maximoLista = 2
+		partido.set_maximoLista(2)
 		partido.equipo1.add(jugador1)
 		partido.equipo2.add(jugador2)
 	}
 
 		def partidoYaConfirmadoConDivisionEquipos() {
-		partido.maximoLista = 2
+		partido.set_maximoLista(2)
 		partido.equipo1.add(jugador1)
 		partido.equipo2.add(jugador2)
-		partido.confirmadoAdm = true
+		partido.set_confirmadoAdm(true)
 	}
 	@Test
 	def void noSePuedeConfirmarEquipoQueNoSeRealizoDivisionDeEquipos() {
-		partido.maximoLista = 2
+		partido.set_maximoLista(2)
 		try {
 			partido.confirmate()
 			Assert.fail("No se realizo division de equipos, no se puede confirmar partido")
 		} catch (NoSeRealizoDivisionDeEquipos e) {
-			Assert.assertFalse(partido.confirmadoAdm)
+			Assert.assertFalse(partido.get_confirmadoAdm())
 		}
 	}
 
@@ -74,7 +74,7 @@ class TstConfirmacionEquipo {
 			partido.confirmate()
 			Assert.fail("El partido se encuentra confirmado no se puede realizar division de equipos")
 		} catch (PartidoYaConfirmado e) {
-			Assert.assertTrue(partido.confirmadoAdm)
+			Assert.assertTrue(partido.get_confirmadoAdm())
 		}
 	}
 

@@ -17,8 +17,10 @@ import org.uqbar.commons.model.Entity
 import partido.core.tiposDeInscripcion.Estandar
 
 class Partido extends Entity {
+	/*@Property*/
+	int id_partido
 	var List<Inscripcion> incripcionesOrdenadas = new ArrayList
-	@Property
+	/*@Property*/
 	private String nombrePartido
 	@Property
 	List<Inscripcion> jugadoresInscriptos = new ArrayList
@@ -28,7 +30,7 @@ class Partido extends Entity {
 	List<Jugador> jugadores
 	@Property
 	Administrador administrador
-	@Property
+	/*@Property*/
 	int maximoLista
 	@Property
 	List<Jugador> equipo1 = new ArrayList
@@ -36,7 +38,7 @@ class Partido extends Entity {
 	List<Jugador> equipo2 = new ArrayList
 	@Property
 	Divisor divisorEquipo
-	@Property
+	/*@Property*/
 	boolean confirmadoAdm
 	
 	@Property
@@ -49,6 +51,38 @@ class Partido extends Entity {
 		maximoLista = 10
 		administrador = adminPartido
 		confirmadoAdm = false
+	}
+	
+	def set_id_partido(int id_partido){
+		this.id_partido=id_partido
+	}
+	
+	def get_id_partido(){
+		this.id_partido
+	}
+	
+	def get_nombrePartido(){
+		this.nombrePartido
+	}
+	
+	def set_nombrePartido(String nombrePartido){
+		this.nombrePartido=nombrePartido
+	}
+	
+	def set_maximoLista(int maximoLista){
+		this.maximoLista=maximoLista
+	}
+	
+	def get_maximoLista(){
+		this.maximoLista
+	}
+	
+	def set_confirmadoAdm(Boolean confirmadoAdm){
+		this.confirmadoAdm=confirmadoAdm
+	}
+	
+	def get_confirmadoAdm(){
+		this.confirmadoAdm	
 	}
 
 	def eliminarInscripcion(Jugador jug) {
@@ -128,7 +162,7 @@ class Partido extends Entity {
 	}
 
 	def cantidadConfirmados() {
-		this.jugadoresInscriptos.filter[inscripto|inscripto.estaConfirmada].size()
+		this.jugadoresInscriptos.filter[inscripto|inscripto.getEstaConfirmada()].size()
 	}
 
 	def boolean estasConfirmado() {

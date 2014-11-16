@@ -8,6 +8,9 @@ import exception.PartidoNoCumpleCondicionesExcepcion
 
 class Condicional extends Object implements TipoInscripcion{ 
 	
+	/*@Property */
+	int id_tipo_incripcion
+	
 	@Property
 	Function1<Partido, Boolean> condicion = [partido | true ]
 	
@@ -29,6 +32,14 @@ class Condicional extends Object implements TipoInscripcion{
 	
 	override dejaAnotar() {
 		return true
+	}
+	
+	def setId_tipo_inscripcion(int id_tipo_inscripcion){
+		this.id_tipo_incripcion=id_tipo_inscripcion
+	}
+	
+	def getId_tipo_inscripcion(){
+		this.id_tipo_incripcion
 	}
 
 	

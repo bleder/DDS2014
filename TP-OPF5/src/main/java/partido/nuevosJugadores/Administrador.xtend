@@ -7,7 +7,10 @@ import java.util.ArrayList
 
 class Administrador {
 	
-	@Property
+	/*@Property */
+	int id_administador
+	
+	/*@Property */
 	String mail
 	@Property
 	List<Propuesta> posiblesJugadores
@@ -20,6 +23,21 @@ class Administrador {
 		jugadoresRechazados = new ArrayList
 	}
 	
+	def setId_administrador(int id_administrador){
+		this.id_administador=id_administrador
+	}
+	
+	def getId_administrador(){
+		this.id_administador
+	}
+	
+	def setMail(String mail){
+		this.mail=mail
+	}
+	
+	def getMail(){
+		this.mail
+	}
 	def existePropuesta(Propuesta propuesta) {
 		posiblesJugadores.exists[p | p == propuesta]
 	}

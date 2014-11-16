@@ -25,17 +25,17 @@ import partido.ordenamiento.Ordenamiento;
 
 @SuppressWarnings("all")
 public class Partido extends Entity {
+  /**
+   * @Property
+   */
+  private int id_partido;
+  
   private List<Inscripcion> incripcionesOrdenadas = new ArrayList<Inscripcion>();
   
-  private String _nombrePartido;
-  
-  public String getNombrePartido() {
-    return this._nombrePartido;
-  }
-  
-  public void setNombrePartido(final String nombrePartido) {
-    this._nombrePartido = nombrePartido;
-  }
+  /**
+   * @Property
+   */
+  private String nombrePartido;
   
   private List<Inscripcion> _jugadoresInscriptos = new ArrayList<Inscripcion>();
   
@@ -77,15 +77,10 @@ public class Partido extends Entity {
     this._administrador = administrador;
   }
   
-  private int _maximoLista;
-  
-  public int getMaximoLista() {
-    return this._maximoLista;
-  }
-  
-  public void setMaximoLista(final int maximoLista) {
-    this._maximoLista = maximoLista;
-  }
+  /**
+   * @Property
+   */
+  private int maximoLista;
   
   private List<Jugador> _equipo1 = new ArrayList<Jugador>();
   
@@ -117,15 +112,10 @@ public class Partido extends Entity {
     this._divisorEquipo = divisorEquipo;
   }
   
-  private boolean _confirmadoAdm;
-  
-  public boolean isConfirmadoAdm() {
-    return this._confirmadoAdm;
-  }
-  
-  public void setConfirmadoAdm(final boolean confirmadoAdm) {
-    this._confirmadoAdm = confirmadoAdm;
-  }
+  /**
+   * @Property
+   */
+  private boolean confirmadoAdm;
   
   private List<Jugador> _jugadoresHome;
   
@@ -138,14 +128,46 @@ public class Partido extends Entity {
   }
   
   public Partido(final String nomPartido, final Administrador adminPartido) {
-    this.setNombrePartido(nomPartido);
+    this.nombrePartido = nomPartido;
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();
     this.setJugadoresInscriptos(_arrayList);
     ArrayList<PartidoObserver> _arrayList_1 = new ArrayList<PartidoObserver>();
     this.setObservers(_arrayList_1);
-    this.setMaximoLista(10);
+    this.maximoLista = 10;
     this.setAdministrador(adminPartido);
-    this.setConfirmadoAdm(false);
+    this.confirmadoAdm = false;
+  }
+  
+  public int set_id_partido(final int id_partido) {
+    return this.id_partido = id_partido;
+  }
+  
+  public int get_id_partido() {
+    return this.id_partido;
+  }
+  
+  public String get_nombrePartido() {
+    return this.nombrePartido;
+  }
+  
+  public String set_nombrePartido(final String nombrePartido) {
+    return this.nombrePartido = nombrePartido;
+  }
+  
+  public int set_maximoLista(final int maximoLista) {
+    return this.maximoLista = maximoLista;
+  }
+  
+  public int get_maximoLista() {
+    return this.maximoLista;
+  }
+  
+  public boolean set_confirmadoAdm(final Boolean confirmadoAdm) {
+    return this.confirmadoAdm = (confirmadoAdm).booleanValue();
+  }
+  
+  public boolean get_confirmadoAdm() {
+    return this.confirmadoAdm;
   }
   
   public void eliminarInscripcion(final Jugador jug) {
@@ -176,8 +198,7 @@ public class Partido extends Entity {
     try {
       boolean _xblockexpression = false;
       {
-        boolean _isConfirmadoAdm = this.isConfirmadoAdm();
-        if (_isConfirmadoAdm) {
+        if (this.confirmadoAdm) {
           throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador");
         }
         this.eliminarInscripcion(jug);
@@ -191,8 +212,7 @@ public class Partido extends Entity {
   
   public void darBajaA(final Jugador jugBaja, final Jugador jugReemplazo, final TipoInscripcion inscripcion) {
     try {
-      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
-      if (_isConfirmadoAdm) {
+      if (this.confirmadoAdm) {
         throw new PartidoConfirmadoNoAceptaBaja("El partido esta confirmado no se puede dar de baja el jugador");
       }
       this.eliminarInscripcion(jugBaja);
@@ -258,8 +278,7 @@ public class Partido extends Entity {
   public boolean hayLugar() {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     int _size = _jugadoresInscriptos.size();
-    int _maximoLista = this.getMaximoLista();
-    return (_size < _maximoLista);
+    return (_size < this.maximoLista);
   }
   
   public boolean hayAlgunoQueDejaAnotar() {
@@ -316,7 +335,7 @@ public class Partido extends Entity {
     List<Inscripcion> _jugadoresInscriptos = this.getJugadoresInscriptos();
     final Function1<Inscripcion,Boolean> _function = new Function1<Inscripcion,Boolean>() {
       public Boolean apply(final Inscripcion inscripto) {
-        return Boolean.valueOf(inscripto.isEstaConfirmada());
+        return Boolean.valueOf(inscripto.getEstaConfirmada());
       }
     };
     Iterable<Inscripcion> _filter = IterableExtensions.<Inscripcion>filter(_jugadoresInscriptos, _function);
@@ -325,8 +344,7 @@ public class Partido extends Entity {
   
   public boolean estasConfirmado() {
     int _cantidadConfirmados = this.cantidadConfirmados();
-    int _maximoLista = this.getMaximoLista();
-    return (_cantidadConfirmados == _maximoLista);
+    return (_cantidadConfirmados == this.maximoLista);
   }
   
   public void partidoOrdenaJugadores(final Ordenamiento criterio) {
@@ -349,8 +367,7 @@ public class Partido extends Entity {
       if (_not) {
         throw new PartidoNoPoseeCantidadMaxima("Partido no alcanza cantidad de jugadores para dividir en 2 partidos");
       }
-      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
-      if (_isConfirmadoAdm) {
+      if (this.confirmadoAdm) {
         throw new PartidoYaConfirmado("El partido ya se encuentra confirmado");
       }
       Divisor _divisorEquipo = this.getDivisorEquipo();
@@ -360,26 +377,29 @@ public class Partido extends Entity {
     }
   }
   
-  public void confirmate() {
+  public boolean confirmate() {
     try {
-      boolean _and = false;
-      List<Jugador> _equipo1 = this.getEquipo1();
-      boolean _isEmpty = _equipo1.isEmpty();
-      if (!_isEmpty) {
-        _and = false;
-      } else {
-        List<Jugador> _equipo2 = this.getEquipo2();
-        boolean _isEmpty_1 = _equipo2.isEmpty();
-        _and = _isEmpty_1;
+      boolean _xblockexpression = false;
+      {
+        boolean _and = false;
+        List<Jugador> _equipo1 = this.getEquipo1();
+        boolean _isEmpty = _equipo1.isEmpty();
+        if (!_isEmpty) {
+          _and = false;
+        } else {
+          List<Jugador> _equipo2 = this.getEquipo2();
+          boolean _isEmpty_1 = _equipo2.isEmpty();
+          _and = _isEmpty_1;
+        }
+        if (_and) {
+          throw new NoSeRealizoDivisionDeEquipos("No se Realizo la division de equipos para poder confirmar el mismo");
+        }
+        if (this.confirmadoAdm) {
+          throw new PartidoYaConfirmado("El partido ya se encuentra confirmado");
+        }
+        _xblockexpression = this.confirmadoAdm = true;
       }
-      if (_and) {
-        throw new NoSeRealizoDivisionDeEquipos("No se Realizo la division de equipos para poder confirmar el mismo");
-      }
-      boolean _isConfirmadoAdm = this.isConfirmadoAdm();
-      if (_isConfirmadoAdm) {
-        throw new PartidoYaConfirmado("El partido ya se encuentra confirmado");
-      }
-      this.setConfirmadoAdm(true);
+      return _xblockexpression;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

@@ -5,15 +5,15 @@ import partido.core.Jugador;
 
 @SuppressWarnings("all")
 public class Propuesta {
-  private String _mail;
+  /**
+   * @Property
+   */
+  private int id_propuesta;
   
-  public String getMail() {
-    return this._mail;
-  }
-  
-  public void setMail(final String mail) {
-    this._mail = mail;
-  }
+  /**
+   * @Property
+   */
+  private String mail;
   
   private Jugador _amigo;
   
@@ -46,9 +46,25 @@ public class Propuesta {
   }
   
   public Propuesta(final String mailDado, final Jugador amigoQueRecomendo, final String nom, final List<String> mails) {
-    this.setMail(mailDado);
+    this.mail = mailDado;
     this.setAmigo(amigoQueRecomendo);
     this.setNombre(nom);
     this.setMailsAmigos(mails);
+  }
+  
+  public int setId_Propuesta(final int id_propuesta) {
+    return this.id_propuesta = id_propuesta;
+  }
+  
+  public int getId_Propuesta() {
+    return this.id_propuesta;
+  }
+  
+  public String setMail(final String mail) {
+    return this.mail = mail;
+  }
+  
+  public String getMail() {
+    return this.mail;
   }
 }

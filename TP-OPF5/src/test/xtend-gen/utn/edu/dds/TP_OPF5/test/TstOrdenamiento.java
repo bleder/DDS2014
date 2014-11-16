@@ -80,27 +80,31 @@ public class TstOrdenamiento {
     return _xblockexpression;
   }
   
-  public void initJugadores() {
-    Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
-    this.jugador1 = _jugador;
-    Jugador _jugador_1 = new Jugador("Pepe", "pepe@gmail.com");
-    this.jugador2 = _jugador_1;
-    Jugador _jugador_2 = new Jugador("Carlos", "carlos@gmail.com");
-    this.jugador3 = _jugador_2;
-    Jugador _jugador_3 = new Jugador("Lucas", "lucas@gmail.com");
-    this.jugador4 = _jugador_3;
-    this.jugador1.inscribite(this.partido, this.tipoIncEstandar);
-    this.jugador1.inscribite(this.partido2, this.tipoIncEstandar);
-    this.jugador2.inscribite(this.partido, this.tipoIncEstandar);
-    this.jugador2.inscribite(this.partido2, this.tipoIncEstandar);
-    this.jugador3.inscribite(this.partido, this.tipoIncEstandar);
-    this.jugador3.inscribite(this.partido2, this.tipoIncEstandar);
-    this.jugador4.inscribite(this.partido, this.tipoIncEstandar);
-    this.jugador4.inscribite(this.partido2, this.tipoIncEstandar);
-    this.jugador1.setNivelJuego(5);
-    this.jugador2.setNivelJuego(2);
-    this.jugador3.setNivelJuego(8);
-    this.jugador4.setNivelJuego(1);
+  public int initJugadores() {
+    int _xblockexpression = (int) 0;
+    {
+      Jugador _jugador = new Jugador("Rodolfo", "rodol@aol.com");
+      this.jugador1 = _jugador;
+      Jugador _jugador_1 = new Jugador("Pepe", "pepe@gmail.com");
+      this.jugador2 = _jugador_1;
+      Jugador _jugador_2 = new Jugador("Carlos", "carlos@gmail.com");
+      this.jugador3 = _jugador_2;
+      Jugador _jugador_3 = new Jugador("Lucas", "lucas@gmail.com");
+      this.jugador4 = _jugador_3;
+      this.jugador1.inscribite(this.partido, this.tipoIncEstandar);
+      this.jugador1.inscribite(this.partido2, this.tipoIncEstandar);
+      this.jugador2.inscribite(this.partido, this.tipoIncEstandar);
+      this.jugador2.inscribite(this.partido2, this.tipoIncEstandar);
+      this.jugador3.inscribite(this.partido, this.tipoIncEstandar);
+      this.jugador3.inscribite(this.partido2, this.tipoIncEstandar);
+      this.jugador4.inscribite(this.partido, this.tipoIncEstandar);
+      this.jugador4.inscribite(this.partido2, this.tipoIncEstandar);
+      this.jugador1.set_nivelJuego(5);
+      this.jugador2.set_nivelJuego(2);
+      this.jugador3.set_nivelJuego(8);
+      _xblockexpression = this.jugador4.set_nivelJuego(1);
+    }
+    return _xblockexpression;
   }
   
   public boolean initCalificacion() {

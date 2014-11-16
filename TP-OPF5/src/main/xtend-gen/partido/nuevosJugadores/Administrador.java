@@ -14,15 +14,15 @@ import partido.nuevosJugadores.jugadorBuilder;
 
 @SuppressWarnings("all")
 public class Administrador {
-  private String _mail;
+  /**
+   * @Property
+   */
+  private int id_administador;
   
-  public String getMail() {
-    return this._mail;
-  }
-  
-  public void setMail(final String mail) {
-    this._mail = mail;
-  }
+  /**
+   * @Property
+   */
+  private String mail;
   
   private List<Propuesta> _posiblesJugadores;
   
@@ -45,11 +45,27 @@ public class Administrador {
   }
   
   public Administrador(final String adminMail) {
-    this.setMail(adminMail);
+    this.mail = adminMail;
     ArrayList<Propuesta> _arrayList = new ArrayList<Propuesta>();
     this.setPosiblesJugadores(_arrayList);
     ArrayList<Rechazo> _arrayList_1 = new ArrayList<Rechazo>();
     this.setJugadoresRechazados(_arrayList_1);
+  }
+  
+  public int setId_administrador(final int id_administrador) {
+    return this.id_administador = id_administrador;
+  }
+  
+  public int getId_administrador() {
+    return this.id_administador;
+  }
+  
+  public String setMail(final String mail) {
+    return this.mail = mail;
+  }
+  
+  public String getMail() {
+    return this.mail;
   }
   
   public boolean existePropuesta(final Propuesta propuesta) {
@@ -130,7 +146,7 @@ public class Administrador {
     }
   }
   
-  public void otogarNivelJuego(final Jugador jugador, final int nivelJuego) {
-    jugador.tuNivelDeJuegoEs(nivelJuego);
+  public int otogarNivelJuego(final Jugador jugador, final int nivelJuego) {
+    return jugador.tuNivelDeJuegoEs(nivelJuego);
   }
 }

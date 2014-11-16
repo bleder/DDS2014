@@ -31,7 +31,7 @@ class TstDivisionEquipo {
 	def void init() {
 
 		partido = new Partido("Partido_1", new Administrador("admin@aol.com"))
-		partido.maximoLista = 4
+		partido.set_maximoLista(4)
 		tipoIncEstandar = new Estandar()
 		initJugadores()
 		initDivision()
@@ -82,7 +82,7 @@ class TstDivisionEquipo {
 	@Test
 	def void noSePuedeDividirEquipoSiElPartidoNoTieneLaCantidadMaxDeJugadores(){
 		
-		partido.maximoLista = 10
+		partido.set_maximoLista(10)
 		partido.divisorEquipo = divPosiciones
 		try {
 			partido.partidoDividiEquipos()
@@ -95,7 +95,7 @@ class TstDivisionEquipo {
 	
 	@Test
 	def void noSePuedeDividirEquipoSiElYaEstaConfirmado(){
-		partido.confirmadoAdm = true
+		partido.set_confirmadoAdm(true)
 		partido.divisorEquipo = divPosiciones
 		try {
 			partido.partidoDividiEquipos()

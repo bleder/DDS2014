@@ -4,12 +4,14 @@ import partido.core.tiposDeInscripcion.TipoInscripcion
 
 class Inscripcion {
 	
+	/* @Property */
+	int id_inscripcion
 	@Property
 	TipoInscripcion tipoInscripcion
 	@Property
 	Jugador jugador
 	
-	@Property
+	/* @Property */
 	boolean estaConfirmada
 	
 	new(Jugador jug, TipoInscripcion tipoIncrip) {
@@ -26,6 +28,21 @@ class Inscripcion {
 		estaConfirmada  = true
 	}
 	
+	def setId_inscripcion(int id_inscripcion){
+		this.id_inscripcion=id_inscripcion
+	}
+	
+	def getId_inscripcion(){
+		this.id_inscripcion
+	}
+	
+	def setEstaConfirmada(Boolean estaConfirmada){
+		this.estaConfirmada=estaConfirmada
+	}
+	
+	def getEstaConfirmada(){
+		this.estaConfirmada
+	}
 
 	
 }

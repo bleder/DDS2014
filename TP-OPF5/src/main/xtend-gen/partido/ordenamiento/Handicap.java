@@ -11,6 +11,6 @@ public class Handicap extends Ordenamiento {
   }
   
   public int ordenar(final Jugador jugador) {
-    return jugador.getNivelJuego();
+    return jugador.get_nivelJuego();
   }
 }

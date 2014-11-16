@@ -84,7 +84,7 @@ public class TstInscripcion {
     {
       Administrador _administrador = new Administrador("admin@aol.com");
       final Partido completo = new Partido("Hola", _administrador);
-      completo.setMaximoLista(0);
+      completo.set_maximoLista(0);
       _xblockexpression = completo;
     }
     return _xblockexpression;
@@ -177,7 +177,7 @@ public class TstInscripcion {
   public void jugadorEstandarTienePrioridadSobreSolidario() {
     Administrador _administrador = new Administrador("admin@aol.com");
     Partido partido = new Partido("Cancha 2", _administrador);
-    partido.setMaximoLista(1);
+    partido.set_maximoLista(1);
     Jugador _jugador = new Jugador("Roberto", "rober@hotmail.com");
     _jugador.inscribite(partido, this.tipoIncSolidaria);
     this.jugador.inscribite(partido, this.tipoIncEstandar);

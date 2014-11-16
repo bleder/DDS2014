@@ -19,45 +19,30 @@ import partido.nuevosJugadores.PropuestaBuilder;
 
 @SuppressWarnings("all")
 public class Jugador extends Entity {
-  private String _nombre;
+  /**
+   * @Property
+   */
+  private int id_jugador;
   
-  public String getNombre() {
-    return this._nombre;
-  }
+  /**
+   * @Property
+   */
+  private String nombre;
   
-  public void setNombre(final String nombre) {
-    this._nombre = nombre;
-  }
+  /**
+   * @Property
+   */
+  private String apodo;
   
-  private String _apodo;
+  /**
+   * @Property
+   */
+  private String fechaNac;
   
-  public String getApodo() {
-    return this._apodo;
-  }
-  
-  public void setApodo(final String apodo) {
-    this._apodo = apodo;
-  }
-  
-  private String _fechaNac;
-  
-  public String getFechaNac() {
-    return this._fechaNac;
-  }
-  
-  public void setFechaNac(final String fechaNac) {
-    this._fechaNac = fechaNac;
-  }
-  
-  private String _mail;
-  
-  public String getMail() {
-    return this._mail;
-  }
-  
-  public void setMail(final String mail) {
-    this._mail = mail;
-  }
+  /**
+   * @Property
+   */
+  private String mail;
   
   private List<Infraccion> _infracciones;
   
@@ -89,15 +74,10 @@ public class Jugador extends Entity {
     this._calificaciones = calificaciones;
   }
   
-  private int _nivelJuego;
-  
-  public int getNivelJuego() {
-    return this._nivelJuego;
-  }
-  
-  public void setNivelJuego(final int nivelJuego) {
-    this._nivelJuego = nivelJuego;
-  }
+  /**
+   * @Property
+   */
+  private int nivelJuego;
   
   private List<Partido> _partidosJugados = new ArrayList<Partido>();
   
@@ -116,20 +96,58 @@ public class Jugador extends Entity {
   private int promedioTodosLosPartidos;
   
   public Jugador(final String nom, final String newMail) {
-    this.setMail(newMail);
-    this.setNombre(nom);
-    String _nombre = this.getNombre();
-    String _nombre_1 = this.getNombre();
-    int _length = _nombre_1.length();
+    this.mail = newMail;
+    this.nombre = nom;
+    int _length = this.nombre.length();
     int _divide = (_length / 2);
-    String _substring = _nombre.substring(0, _divide);
-    this.setApodo(_substring);
-    this.setFechaNac("01/07/2013");
+    String _substring = this.nombre.substring(0, _divide);
+    this.apodo = _substring;
+    this.fechaNac = "01/07/2013";
     ArrayList<Infraccion> _arrayList = new ArrayList<Infraccion>();
     this.setInfracciones(_arrayList);
     ArrayList<String> _arrayList_1 = new ArrayList<String>();
     this.setAmigos(_arrayList_1);
-    this.setNivelJuego(0);
+    this.nivelJuego = 0;
+  }
+  
+  public int set_id_jugador(final int id_jugador) {
+    return this.id_jugador = id_jugador;
+  }
+  
+  public int get_id_jugador() {
+    return this.id_jugador;
+  }
+  
+  public String set_nombre(final String nombre) {
+    return this.nombre = nombre;
+  }
+  
+  public String get_nombre() {
+    return this.nombre;
+  }
+  
+  public String set_apodo(final String apodo) {
+    return this.apodo = apodo;
+  }
+  
+  public String get_apodo() {
+    return this.apodo;
+  }
+  
+  public String set_mail(final String mail) {
+    return this.mail = mail;
+  }
+  
+  public String get_mail() {
+    return this.mail;
+  }
+  
+  public int set_nivelJuego(final int nivelJuego) {
+    return this.nivelJuego = nivelJuego;
+  }
+  
+  public int get_nivelJuego() {
+    return this.nivelJuego;
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
@@ -267,8 +285,8 @@ public class Jugador extends Entity {
     return _xblockexpression;
   }
   
-  public void tuNivelDeJuegoEs(final int nv) {
-    this.setNivelJuego(nv);
+  public int tuNivelDeJuegoEs(final int nv) {
+    return this.nivelJuego = nv;
   }
   
   public int cantidadPartidosJugados() {

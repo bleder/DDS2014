@@ -33,7 +33,7 @@ class TstNotificacion {
 	def void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados(){
 		var partObse = new PartidoConfirmadoObserver(mockMailSender)
 		partido.agregarObserver(partObse)
-		partido.setMaximoLista = 1
+		partido.set_maximoLista(1)
 		partido.agregarJugador(jugador, tipoIncEstandar)
 		partido.confirmarJugador(jugador)
 		verify(mockMailSender,times(1)).notificar(partido.administrador.mail, "Partido completo")
@@ -43,7 +43,7 @@ class TstNotificacion {
 	def void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados(){
 		var partObse = new PartidoConfirmadoObserver(mockMailSender)
 		partido.agregarObserver(partObse)
-		partido.setMaximoLista = 1
+		partido.set_maximoLista(1)
 		partido.agregarJugador(jugador, tipoIncEstandar)
 		partido.confirmarJugador(jugador)
 		partido.darBajaA(jugador)
@@ -68,7 +68,7 @@ class TstNotificacion {
 	@Test
 	def void jugadorSeDaDeBajaPartidoNoCompleto() {
 		var partObse = new PartidoConfirmadoObserver(mockMailSender)
-		partido.setMaximoLista = 2
+		partido.set_maximoLista(2)
 		partido.agregarObserver(partObse)
 		partido.agregarJugador(jugador, tipoIncEstandar)
 		partido.confirmarJugador(jugador)

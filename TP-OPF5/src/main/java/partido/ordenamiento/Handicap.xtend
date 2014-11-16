@@ -13,7 +13,7 @@ class Handicap extends Ordenamiento {
 	
 	override ordenar(Jugador jugador) {
 	
-		jugador.nivelJuego
+		jugador.get_nivelJuego()
 
 	}
 	

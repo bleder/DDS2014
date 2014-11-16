@@ -23,8 +23,8 @@ public class PartidoConfirmadoObserver implements PartidoObserver {
   
   public void jugadorDadoDeBaja(final Jugador jugador, final Partido partido) {
     int _cantidadConfirmados = partido.cantidadConfirmados();
-    int _maximoLista = partido.getMaximoLista();
-    int _minus = (_maximoLista - 1);
+    int __maximoLista = partido.get_maximoLista();
+    int _minus = (__maximoLista - 1);
     boolean _equals = (_cantidadConfirmados == _minus);
     if (_equals) {
       this.notificarAdmin(partido, "Partido ya no completo");

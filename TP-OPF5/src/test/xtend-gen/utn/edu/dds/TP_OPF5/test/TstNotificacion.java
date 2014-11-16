@@ -41,7 +41,7 @@ public class TstNotificacion {
   public void notificaAlAdministradorJugadoresNecesariosParaPartidoConfirmados() {
     PartidoConfirmadoObserver partObse = new PartidoConfirmadoObserver(this.mockMailSender);
     this.partido.agregarObserver(partObse);
-    this.partido.setMaximoLista(1);
+    this.partido.set_maximoLista(1);
     this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
     this.partido.confirmarJugador(this.jugador);
     VerificationMode _times = Mockito.times(1);
@@ -55,7 +55,7 @@ public class TstNotificacion {
   public void notificaAlAdministradorDejaDeTenerJugadoresNecesariosParaPartidoConfirmados() {
     PartidoConfirmadoObserver partObse = new PartidoConfirmadoObserver(this.mockMailSender);
     this.partido.agregarObserver(partObse);
-    this.partido.setMaximoLista(1);
+    this.partido.set_maximoLista(1);
     this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
     this.partido.confirmarJugador(this.jugador);
     this.partido.darBajaA(this.jugador);
@@ -91,7 +91,7 @@ public class TstNotificacion {
   @Test
   public void jugadorSeDaDeBajaPartidoNoCompleto() {
     PartidoConfirmadoObserver partObse = new PartidoConfirmadoObserver(this.mockMailSender);
-    this.partido.setMaximoLista(2);
+    this.partido.set_maximoLista(2);
     this.partido.agregarObserver(partObse);
     this.partido.agregarJugador(this.jugador, this.tipoIncEstandar);
     this.partido.confirmarJugador(this.jugador);

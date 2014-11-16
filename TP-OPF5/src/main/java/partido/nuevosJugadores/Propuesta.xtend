@@ -5,7 +5,9 @@ import java.util.List
 
 class Propuesta {
 	
-	@Property
+	/*@Property*/
+	int id_propuesta
+	/*@Property*/
 	String mail
 	@Property
 	Jugador amigo
@@ -21,5 +23,21 @@ class Propuesta {
 		nombre = nom
 		mailsAmigos = mails
 		
+	}
+	
+	def setId_Propuesta(int id_propuesta){
+		this.id_propuesta=id_propuesta
+	}
+	
+	def getId_Propuesta(){
+		this.id_propuesta
+	}
+	
+	def setMail(String mail){
+		this.mail=mail
+	}
+	
+	def getMail(){
+		this.mail
 	}
 }

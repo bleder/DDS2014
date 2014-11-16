@@ -19,7 +19,7 @@ class PartidoConfirmadoObserver extends Object implements PartidoObserver {
 	}
 
 	override jugadorDadoDeBaja(Jugador jugador, Partido partido){
-		if(partido.cantidadConfirmados() == (partido.maximoLista - 1)){
+		if(partido.cantidadConfirmados() == (partido.get_maximoLista() - 1)){
 			this.notificarAdmin(partido, "Partido ya no completo")
 		}
 	}
