@@ -22,8 +22,8 @@ class GenerarEquipos extends Entity {
 	
 	new (Partido part) {
 		partido = part
-		confirmadoAdm = partido.confirmadoAdm
-		if (partido.confirmadoAdm) {
+		confirmadoAdm = partido.get_confirmadoAdm()
+		if (partido.get_confirmadoAdm()) {
 			equipo1 = partido.equipo1
 			equipo2 = partido.equipo2
 		}

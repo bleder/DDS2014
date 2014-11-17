@@ -92,6 +92,14 @@ class Jugador extends Entity{
 	def get_nivelJuego(){
 		this.nivelJuego
 	}
+	
+	def set_fechaNac(String fecha){
+		this.fechaNac=fecha
+	}
+	
+	def get_fechaNac(){
+		this.fechaNac
+	}
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
 	}

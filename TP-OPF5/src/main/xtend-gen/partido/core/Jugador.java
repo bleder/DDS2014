@@ -150,6 +150,14 @@ public class Jugador extends Entity {
     return this.nivelJuego;
   }
   
+  public String set_fechaNac(final String fecha) {
+    return this.fechaNac = fecha;
+  }
+  
+  public String get_fechaNac() {
+    return this.fechaNac;
+  }
+  
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {
     tipoInscripcion.inscribirA(this, partido);
   }
