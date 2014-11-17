@@ -42,7 +42,7 @@ class Jugador extends Entity{
 	int promedioUltimoPartido
 	int promedioTodosLosPartidos
 	
-
+	new() {}
 	new(String nom, String newMail) {
 		mail = newMail
 		nombre=nom
@@ -89,7 +89,7 @@ class Jugador extends Entity{
 		this.nivelJuego=nivelJuego
 	}
 	
-	def get_nivelJuego(){
+	def getNivelJuego(){
 		this.nivelJuego
 	}
 	

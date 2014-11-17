@@ -14,6 +14,8 @@ class Inscripcion {
 	/* @Property */
 	boolean estaConfirmada
 	
+	new() {}
+	
 	new(Jugador jug, TipoInscripcion tipoIncrip) {
 		tipoInscripcion=tipoIncrip
 		jugador=jug

@@ -60,7 +60,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 
 	def search(String nombre, String apodo,String desdeHastaHandicap, String valorHandicap, String conSinInf, String desdeHastaPromUltimo, String valorPromUltimo, String fechaTope) {
-		allInstances.filter[jug|(this.matchComienza(nombre, jug.get_nombre()))&& (this.matchApodo(apodo, jug.get_nombre())) && matchConSinInf(conSinInf, jug.infracciones) && matchDesdeHasta(valorHandicap, jug.get_nivelJuego(), desdeHastaHandicap) && matchDesdeHasta(valorPromUltimo, jug.promedioUltimoPartido, desdeHastaPromUltimo) && matchFecha(fechaTope, jug.get_fechaNac())].toList
+		allInstances.filter[jug|(this.matchComienza(nombre, jug.get_nombre()))&& (this.matchApodo(apodo, jug.get_nombre())) && matchConSinInf(conSinInf, jug.infracciones) && matchDesdeHasta(valorHandicap, jug.nivelJuego, desdeHastaHandicap) && matchDesdeHasta(valorPromUltimo, jug.promedioUltimoPartido, desdeHastaPromUltimo) && matchFecha(fechaTope, jug.get_fechaNac())].toList
 	}
 	
 	def matchFecha(String date, String string) {

@@ -14,6 +14,8 @@ class Condicional extends Object implements TipoInscripcion{
 	@Property
 	Function1<Partido, Boolean> condicion = [partido | true ]
 	
+	new() {}
+	
 	new(Function1<Partido, Boolean> miCondicion) {
 		condicion = miCondicion
 	}

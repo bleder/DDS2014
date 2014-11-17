@@ -17,6 +17,8 @@ class Administrador {
 	@Property
 	List<Rechazo> jugadoresRechazados
 	
+	new() {}
+	
 	new(String adminMail) {
 		mail = adminMail
 		posiblesJugadores = new ArrayList

@@ -16,6 +16,7 @@ class Calificacion {
 	/* @Property*/
 	int nota
 	
+	new() {}
 	new(String string, Jugador jugador, Partido partidop, int i) {
 		critica=string
 		jugadorQueCalifico=jugador

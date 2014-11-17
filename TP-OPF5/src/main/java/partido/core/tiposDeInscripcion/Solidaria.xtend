@@ -7,6 +7,8 @@ class Solidaria extends Object implements TipoInscripcion {
 	@Property
 	int id_tipo_incripcion
 	
+	new() {}
+	
 	override inscribirA(Jugador jugador, Partido partido){
 		partido.agregarJugador(jugador,this)
 	}

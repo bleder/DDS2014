@@ -11,6 +11,7 @@ class Infraccion extends Entity implements Serializable {
 	/* @Property*/
 	private String motivo
 	
+	new() {}
 	new(String motivoInf) {
 		motivo=motivoInf
 	}

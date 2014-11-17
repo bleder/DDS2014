@@ -44,6 +44,8 @@ class Partido extends Entity {
 	@Property
 	List<Jugador> jugadoresHome
 
+	new() {}
+	
 	new(String nomPartido, Administrador adminPartido) {
 		nombrePartido = nomPartido
 		jugadoresInscriptos = new ArrayList
