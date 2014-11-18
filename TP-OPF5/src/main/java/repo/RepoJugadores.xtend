@@ -61,4 +61,18 @@ class RepoJugadores {
 		}
 	}
 	
+	def eliminarJugador(Jugador jug) {
+		val session = sessionFactory.openSession
+		try {
+			session.beginTransaction
+			session.delete(jug)
+			session.getTransaction.commit
+		} catch (HibernateException e) {
+			session.getTransaction.rollback
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
+	
 	}

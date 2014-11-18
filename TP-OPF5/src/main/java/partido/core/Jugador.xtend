@@ -13,27 +13,36 @@ import java.util.Random
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.security.Timestamp
-import javax.persistence.Column
 
+
+import javax.persistence.CascadeType
+import javax.persistence.Column
+import javax.persistence.DiscriminatorColumn
+import javax.persistence.DiscriminatorType
+import javax.persistence.DiscriminatorValue
+import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.OneToMany
+import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
-import org.hibernate.annotations.Entity
-
 
 @Entity
 @Observable
 class Jugador {
 	/*@Property*/
-	int id_jugador
+	private int id_jugador
 	/*@Property*/
-	String nombre
+	private String nombre
 	/*@Property*/
-	String apodo
+	private String apodo
 	/*@Property*/
-	String fechaNac
+	private String fechaNac
 	/*@Property*/
-	String mail
+	private String mail
 	@Property 
 	List<Infraccion> infracciones
 	@Property 
@@ -41,7 +50,7 @@ class Jugador {
 	@Property
 	List<Calificacion> calificaciones  = new ArrayList
 	/*@Property*/
-	int nivelJuego
+	private int nivelJuego
 	@Property
 	List<Partido> partidosJugados  = new ArrayList
 	
@@ -73,7 +82,7 @@ class Jugador {
 		apodo
 	}
 	
-	@Column def getFechaNac(){
+	def getFechaNac(){
 		fechaNac
 	}
 	
@@ -108,6 +117,7 @@ class Jugador {
 	def setFechaNac(String fecha){
 		this.fechaNac=fecha
 	}
+	
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
