@@ -66,6 +66,20 @@
 
 		
 		<dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>1.5.6</version>
+           <type>jar</type>
+</dependency>
+<dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-simple</artifactId>
+           <version>1.5.6</version>
+</dependency>
+		
+		
+		
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.5.6-Final</version>
@@ -80,7 +94,11 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.3.6.Final</version>
 		</dependency>
-
+<dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-tools</artifactId>
+	<version>4.3.1.CR1</version>
+</dependency>
 
 
 	</dependencies>

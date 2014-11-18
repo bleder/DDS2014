@@ -77,7 +77,7 @@ class GenerarEquiposPage extends MenuPrincipal implements ListaJugadoresPage {
 	}
 	
 	override colorHandicap(Jugador jug){
-		if(jug.get_nivelJuego()>8)"azul"else""
+		if(jug.nivelJuego>8)"azul"else""
 	}
 	
 	override asCompoundModel(Jugador jugador) {

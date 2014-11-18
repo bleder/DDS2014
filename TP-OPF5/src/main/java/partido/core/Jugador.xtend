@@ -8,14 +8,20 @@ import partido.calificaciones.Calificacion
 import partido.nuevosJugadores.Administrador
 import partido.calificaciones.ClasificacionBuilder
 import partido.nuevosJugadores.PropuestaBuilder
-import org.uqbar.commons.model.Entity
 import java.util.Calendar
 import java.util.Random
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.security.Timestamp
+import javax.persistence.Column
 
-class Jugador extends Entity{
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.Entity
+
+@Observable
+class Jugador extends Entity {
 	/*@Property*/
 	int id_jugador
 	/*@Property*/
@@ -53,53 +59,54 @@ class Jugador extends Entity{
 		nivelJuego=0
 	}
 	
-	def set_id_jugador(int id_jugador){
-		this.id_jugador=id_jugador
+	@Id	@GeneratedValue def getId_jugador(){
+		id_jugador
 	}
 	
-	def get_id_jugador(){
-		this.id_jugador
-	}
-	
-	def set_nombre(String nombre){
-		this.nombre=nombre
-	}
-	
-	def get_nombre(){
-		this.nombre
-	}
-	
-	def set_apodo(String apodo){
-		this.apodo=apodo
+	@Column def getNombre(){
+		nombre
 	}
 
-	def get_apodo(){
-		this.apodo
+	@Column def getApodo(){
+		apodo
 	}
 	
-	def set_mail(String mail){
-		this.mail=mail
+	@Column def getFechaNac(){
+		fechaNac
 	}
 	
-	def get_mail(){
+	@Column def getMail(){
 		this.mail
 	}
 	
-	def set_nivelJuego(int nivelJuego){
-		this.nivelJuego=nivelJuego
-	}
-	
-	def getNivelJuego(){
+	@Column def getNivelJuego(){
 		this.nivelJuego
 	}
 	
-	def set_fechaNac(String fecha){
+	def setId_jugador(int id_jugador){
+		this.id_jugador=id_jugador
+	}
+	
+	def setNombre(String nombre){
+		this.nombre=nombre
+	}
+	
+	def setApodo(String apodo){
+		this.apodo=apodo
+	}
+	
+	def setMail(String mail){
+		this.mail=mail
+	}
+	
+	def setNivelJuego(int nivelJuego){
+		this.nivelJuego=nivelJuego
+	}
+	
+	def setFechaNac(String fecha){
 		this.fechaNac=fecha
 	}
 	
-	def get_fechaNac(){
-		this.fechaNac
-	}
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
 		tipoInscripcion.inscribirA(this, partido)
 	}

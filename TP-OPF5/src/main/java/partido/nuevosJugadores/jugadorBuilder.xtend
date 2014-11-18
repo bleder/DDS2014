@@ -22,7 +22,7 @@ class jugadorBuilder {
 			throw new NoExisteTalJugadorException("No existe propuesta para ese jugador")
 		}
 		var jugador =new Jugador(propuesta.nombre, propuesta.mail)
-		jugador.agregarAmigo(propuesta.amigo.get_mail())
+		jugador.agregarAmigo(propuesta.amigo.mail)
 		
 		jugador.amigos=propuesta.mailsAmigos
 		

@@ -31,7 +31,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 
 	def void create(String nom, String mail) {
 		var jugador = new Jugador(nom, mail)
-		jugador.set_nivelJuego( new Random().nextInt(11)) //le doy num aleatorios (0 a 11) para probar el color
+		jugador.setNivelJuego( new Random().nextInt(11)) //le doy num aleatorios (0 a 11) para probar el color
 		agregarAmigos(jugador)
 		agregarInfracciones(jugador)
 		this.create(jugador)
@@ -60,7 +60,7 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 
 	def search(String nombre, String apodo,String desdeHastaHandicap, String valorHandicap, String conSinInf, String desdeHastaPromUltimo, String valorPromUltimo, String fechaTope) {
-		allInstances.filter[jug|(this.matchComienza(nombre, jug.get_nombre()))&& (this.matchApodo(apodo, jug.get_nombre())) && matchConSinInf(conSinInf, jug.infracciones) && matchDesdeHasta(valorHandicap, jug.nivelJuego, desdeHastaHandicap) && matchDesdeHasta(valorPromUltimo, jug.promedioUltimoPartido, desdeHastaPromUltimo) && matchFecha(fechaTope, jug.get_fechaNac())].toList
+		allInstances.filter[jug|(this.matchComienza(nombre, jug.nombre))&& (this.matchApodo(apodo, jug.nombre)) && matchConSinInf(conSinInf, jug.infracciones) && matchDesdeHasta(valorHandicap, jug.nivelJuego, desdeHastaHandicap) && matchDesdeHasta(valorPromUltimo, jug.promedioUltimoPartido, desdeHastaPromUltimo) && matchFecha(fechaTope, jug.fechaNac)].toList
 	}
 	
 	def matchFecha(String date, String string) {
