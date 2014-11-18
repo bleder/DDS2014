@@ -18,10 +18,12 @@ import javax.persistence.Column
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.model.Entity
+import org.hibernate.annotations.Entity
 
+
+@Entity
 @Observable
-class Jugador extends Entity {
+class Jugador {
 	/*@Property*/
 	int id_jugador
 	/*@Property*/

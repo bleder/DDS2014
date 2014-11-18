@@ -24,5 +24,8 @@
     <!-- Echo all executed SQL to stdout -->
     <property name="show_sql">true</property>
 
+
+	<mapping class="partido.core.Jugador"/>
+	
   </session-factory>
 </hibernate-configuration>
