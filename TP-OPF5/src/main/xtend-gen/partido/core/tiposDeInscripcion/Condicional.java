@@ -28,6 +28,9 @@ public class Condicional implements TipoInscripcion {
     this._condicion = condicion;
   }
   
+  public Condicional() {
+  }
+  
   public Condicional(final Function1<Partido,Boolean> miCondicion) {
     this.setCondicion(miCondicion);
   }

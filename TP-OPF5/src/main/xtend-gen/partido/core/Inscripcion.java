@@ -36,6 +36,9 @@ public class Inscripcion {
    */
   private boolean estaConfirmada;
   
+  public Inscripcion() {
+  }
+  
   public Inscripcion(final Jugador jug, final TipoInscripcion tipoIncrip) {
     this.setTipoInscripcion(tipoIncrip);
     this.setJugador(jug);

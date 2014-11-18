@@ -45,6 +45,9 @@ public class Propuesta {
     this._mailsAmigos = mailsAmigos;
   }
   
+  public Propuesta() {
+  }
+  
   public Propuesta(final String mailDado, final Jugador amigoQueRecomendo, final String nom, final List<String> mails) {
     this.mail = mailDado;
     this.setAmigo(amigoQueRecomendo);

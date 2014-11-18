@@ -16,6 +16,9 @@ public class Solidaria implements TipoInscripcion {
     this._id_tipo_incripcion = id_tipo_incripcion;
   }
   
+  public Solidaria() {
+  }
+  
   public void inscribirA(final Jugador jugador, final Partido partido) {
     partido.agregarJugador(jugador, this);
   }

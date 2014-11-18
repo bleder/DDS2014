@@ -44,6 +44,9 @@ public class Administrador {
     this._jugadoresRechazados = jugadoresRechazados;
   }
   
+  public Administrador() {
+  }
+  
   public Administrador(final String adminMail) {
     this.mail = adminMail;
     ArrayList<Propuesta> _arrayList = new ArrayList<Propuesta>();

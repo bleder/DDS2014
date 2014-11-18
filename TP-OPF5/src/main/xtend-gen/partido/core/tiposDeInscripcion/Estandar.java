@@ -16,6 +16,9 @@ public class Estandar implements TipoInscripcion {
     this._id_tipo_incripcion = id_tipo_incripcion;
   }
   
+  public Estandar() {
+  }
+  
   public void inscribirA(final Jugador jugador, final Partido partido) {
     partido.agregarJugador(jugador, this);
   }

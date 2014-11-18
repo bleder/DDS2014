@@ -40,6 +40,9 @@ public class Calificacion {
    */
   private int nota;
   
+  public Calificacion() {
+  }
+  
   public Calificacion(final String string, final Jugador jugador, final Partido partidop, final int i) {
     this.critica = string;
     this.setJugadorQueCalifico(jugador);

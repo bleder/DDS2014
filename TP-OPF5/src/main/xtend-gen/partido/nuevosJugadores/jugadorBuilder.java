@@ -53,8 +53,8 @@ public class jugadorBuilder {
       Jugador jugador = new Jugador(_nombre, _mail);
       Propuesta _propuesta_3 = this.getPropuesta();
       Jugador _amigo = _propuesta_3.getAmigo();
-      String __mail = _amigo.get_mail();
-      jugador.agregarAmigo(__mail);
+      String _mail_1 = _amigo.getMail();
+      jugador.agregarAmigo(_mail_1);
       Propuesta _propuesta_4 = this.getPropuesta();
       List<String> _mailsAmigos = _propuesta_4.getMailsAmigos();
       jugador.setAmigos(_mailsAmigos);

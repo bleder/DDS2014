@@ -99,10 +99,10 @@ public class TstOrdenamiento {
       this.jugador3.inscribite(this.partido2, this.tipoIncEstandar);
       this.jugador4.inscribite(this.partido, this.tipoIncEstandar);
       this.jugador4.inscribite(this.partido2, this.tipoIncEstandar);
-      this.jugador1.set_nivelJuego(5);
-      this.jugador2.set_nivelJuego(2);
-      this.jugador3.set_nivelJuego(8);
-      _xblockexpression = this.jugador4.set_nivelJuego(1);
+      this.jugador1.setNivelJuego(5);
+      this.jugador2.setNivelJuego(2);
+      this.jugador3.setNivelJuego(8);
+      _xblockexpression = this.jugador4.setNivelJuego(1);
     }
     return _xblockexpression;
   }

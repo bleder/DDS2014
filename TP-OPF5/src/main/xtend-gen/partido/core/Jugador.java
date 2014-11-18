@@ -3,11 +3,15 @@ package partido.core;
 import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.uqbar.commons.model.Entity;
+import org.uqbar.commons.utils.Observable;
 import partido.calificaciones.Calificacion;
 import partido.calificaciones.ClasificacionBuilder;
 import partido.core.Infraccion;
@@ -17,8 +21,10 @@ import partido.nuevosJugadores.Administrador;
 import partido.nuevosJugadores.Propuesta;
 import partido.nuevosJugadores.PropuestaBuilder;
 
+@Entity
+@Observable
 @SuppressWarnings("all")
-public class Jugador extends Entity {
+public class Jugador {
   /**
    * @Property
    */
@@ -95,6 +101,9 @@ public class Jugador extends Entity {
   
   private int promedioTodosLosPartidos;
   
+  public Jugador() {
+  }
+  
   public Jugador(final String nom, final String newMail) {
     this.mail = newMail;
     this.nombre = nom;
@@ -110,52 +119,58 @@ public class Jugador extends Entity {
     this.nivelJuego = 0;
   }
   
-  public int set_id_jugador(final int id_jugador) {
-    return this.id_jugador = id_jugador;
-  }
-  
-  public int get_id_jugador() {
+  @Id
+  @GeneratedValue
+  public int getId_jugador() {
     return this.id_jugador;
   }
   
-  public String set_nombre(final String nombre) {
-    return this.nombre = nombre;
-  }
-  
-  public String get_nombre() {
+  @Column
+  public String getNombre() {
     return this.nombre;
   }
   
-  public String set_apodo(final String apodo) {
-    return this.apodo = apodo;
-  }
-  
-  public String get_apodo() {
+  @Column
+  public String getApodo() {
     return this.apodo;
   }
   
-  public String set_mail(final String mail) {
-    return this.mail = mail;
+  public String getFechaNac() {
+    return this.fechaNac;
   }
   
-  public String get_mail() {
+  @Column
+  public String getMail() {
     return this.mail;
   }
   
-  public int set_nivelJuego(final int nivelJuego) {
-    return this.nivelJuego = nivelJuego;
-  }
-  
-  public int get_nivelJuego() {
+  @Column
+  public int getNivelJuego() {
     return this.nivelJuego;
   }
   
-  public String set_fechaNac(final String fecha) {
-    return this.fechaNac = fecha;
+  public int setId_jugador(final int id_jugador) {
+    return this.id_jugador = id_jugador;
   }
   
-  public String get_fechaNac() {
-    return this.fechaNac;
+  public String setNombre(final String nombre) {
+    return this.nombre = nombre;
+  }
+  
+  public String setApodo(final String apodo) {
+    return this.apodo = apodo;
+  }
+  
+  public String setMail(final String mail) {
+    return this.mail = mail;
+  }
+  
+  public int setNivelJuego(final int nivelJuego) {
+    return this.nivelJuego = nivelJuego;
+  }
+  
+  public String setFechaNac(final String fecha) {
+    return this.fechaNac = fecha;
   }
   
   public void inscribite(final Partido partido, final TipoInscripcion tipoInscripcion) {

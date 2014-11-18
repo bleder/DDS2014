@@ -127,6 +127,9 @@ public class Partido extends Entity {
     this._jugadoresHome = jugadoresHome;
   }
   
+  public Partido() {
+  }
+  
   public Partido(final String nomPartido, final Administrador adminPartido) {
     this.nombrePartido = nomPartido;
     ArrayList<Inscripcion> _arrayList = new ArrayList<Inscripcion>();

@@ -20,6 +20,9 @@ public class Infraccion extends Entity implements Serializable {
    */
   private String motivo;
   
+  public Infraccion() {
+  }
+  
   public Infraccion(final String motivoInf) {
     this.motivo = motivoInf;
   }
