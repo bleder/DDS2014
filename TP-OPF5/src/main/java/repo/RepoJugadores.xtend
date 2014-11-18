@@ -27,6 +27,10 @@ class RepoJugadores {
 			.addAnnotatedClass(Jugador)
 			.buildSessionFactory()
 
+	def getSessionFactory() {
+		sessionFactory
+	}
+	
 	def getJugador(Jugador jug) {
 		val session = sessionFactory.openSession
 		try {

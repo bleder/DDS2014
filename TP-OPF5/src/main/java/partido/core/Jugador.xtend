@@ -31,33 +31,22 @@ import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
 
 @Entity
-@Observable
 class Jugador {
-	/*@Property*/
-	private int id_jugador
-	/*@Property*/
-	private String nombre
-	/*@Property*/
-	private String apodo
-	/*@Property*/
-	private String fechaNac
-	/*@Property*/
-	private String mail
-	@Property 
-	List<Infraccion> infracciones
-	@Property 
-	List<String> amigos
-	@Property
-	List<Calificacion> calificaciones  = new ArrayList
-	/*@Property*/
-	private int nivelJuego
-	@Property
-	List<Partido> partidosJugados  = new ArrayList
+	@Id	@GeneratedValue  private int id_jugador
+	@Column private String nombre
+	@Column private String apodo
+	@Column private String fechaNac
+	@Column private String mail
+	@Column private int nivelJuego
+	@Transient List<String> amigos
+	@Transient List<Infraccion> infracciones
+	@Transient List<Calificacion> calificaciones  = new ArrayList
+	@Transient List<Partido> partidosJugados  = new ArrayList
 	
 	//agregado para la vista wicket
-	int cantidadDePartidos
-	int promedioUltimoPartido
-	int promedioTodosLosPartidos
+	@Transient int cantidadDePartidos
+	@Transient int promedioUltimoPartido
+	@Transient int promedioTodosLosPartidos
 	
 	new() {}
 	new(String nom, String newMail) {
@@ -70,53 +59,32 @@ class Jugador {
 		nivelJuego=0
 	}
 	
-	@Id	@GeneratedValue def getId_jugador(){
-		id_jugador
-	}
-	
-	@Column def getNombre(){
-		nombre
-	}
-
-	@Column def getApodo(){
-		apodo
-	}
-	
-	def getFechaNac(){
-		fechaNac
-	}
-	
-	@Column def getMail(){
-		this.mail
-	}
-	
-	@Column def getNivelJuego(){
-		this.nivelJuego
-	}
-	
-	def setId_jugador(int id_jugador){
-		this.id_jugador=id_jugador
-	}
-	
-	def setNombre(String nombre){
-		this.nombre=nombre
-	}
-	
-	def setApodo(String apodo){
-		this.apodo=apodo
-	}
-	
-	def setMail(String mail){
-		this.mail=mail
-	}
-	
-	def setNivelJuego(int nivelJuego){
-		this.nivelJuego=nivelJuego
-	}
-	
-	def setFechaNac(String fecha){
-		this.fechaNac=fecha
-	}
+	def getId_jugador(){id_jugador}
+	def getNombre(){nombre}
+	def getApodo(){apodo}
+	def getFechaNac(){fechaNac}
+	def getMail(){this.mail}
+	def getNivelJuego(){this.nivelJuego}
+	def setId_jugador(int id_jugador){this.id_jugador=id_jugador}
+	def setNombre(String nombre){this.nombre=nombre}
+	def setApodo(String apodo){this.apodo=apodo}
+	def setMail(String mail){this.mail=mail}
+	def setNivelJuego(int nivelJuego){this.nivelJuego=nivelJuego}
+	def setFechaNac(String fecha){this.fechaNac=fecha}
+	def setAmigos(List<String> amigos){this.amigos=amigos}
+	def getAmigos(){this.amigos}
+	def setInfracciones(List<Infraccion> infracciones){this.infracciones=infracciones}
+	def getInfracciones(){this.infracciones}
+	def setCalificaciones(List<Calificacion> calificaciones){this.calificaciones=calificaciones}
+	def getCalificaciones(){this.calificaciones}
+	def setPartidosJugados(List<Partido> partidos){this.partidosJugados=partidos}
+	def getPartidosJugados(){this.partidosJugados}
+	def setCantidadDePartidos(int cantpartidos){this.cantidadDePartidos=cantpartidos}
+	def getCantidadDePartidos(){this.cantidadDePartidos}
+	def setPromedioUltimoPartido(int prom){this.promedioUltimoPartido=prom}
+	def getPromedioUltimoPartido(){this.promedioUltimoPartido}
+	def setPromedioTodosLosPartidos(int prom){this.promedioTodosLosPartidos=prom}
+	def getPromedioTodosLosPartidos(){this.promedioDeCalificaciones(cantidadDePartidos)}
 	
 	
  	def inscribite(Partido partido, TipoInscripcion tipoInscripcion) {
@@ -198,19 +166,5 @@ class Jugador {
 	def cantidadPartidosJugados(){
 		partidosJugados.length
 	}
-	
-
-	def getCantidadDePartidos(){
-		this.cantidadPartidosJugados()
-	}
-	
-	def getPromedioUltimoPartido(){
-		this.promedioDeCalificacionesUltimoPartido()
-	}
-	
-	def getPromedioTodosLosPartidos(){
-		this.promedioDeCalificaciones(cantidadDePartidos)
-	}
-
 	
 }
