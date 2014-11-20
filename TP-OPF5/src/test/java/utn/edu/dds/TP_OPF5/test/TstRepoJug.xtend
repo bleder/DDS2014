@@ -34,7 +34,6 @@ class TstRepoJug {
 			fechaNac = ""
 		]
 		
-		
 		repoJugadores.actualizarJugador(walter)
 		repoJugadores.actualizarJugador(jhon)
 		

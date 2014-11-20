@@ -33,11 +33,16 @@ import org.uqbar.commons.utils.Observable
 @Entity
 class Jugador {
 	@Id	@GeneratedValue @Column(name="id_jugador")  private int id_jugador
-	@Column(name="nombre") private String nombre
-	@Column(name="apodo") private String apodo
+	@Column(name="nombre") 
+	private String nombre
+	
+	@Column(name="apodo") 
+	private String apodo
+	
 	@Column(name="fecha_nacimiento") private String fechaNac
 	@Column(name="mail") private String mail
 	@Column(name="nivelDeJuego") private int nivelJuego
+	
 	@Transient List<String> amigos
 	@Transient List<Infraccion> infracciones
 	@Transient List<Calificacion> calificaciones  = new ArrayList

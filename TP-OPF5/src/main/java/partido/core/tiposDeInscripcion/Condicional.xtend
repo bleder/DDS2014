@@ -6,7 +6,7 @@ import partido.core.Partido
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 import exception.PartidoNoCumpleCondicionesExcepcion
 
-class Condicional extends Object implements TipoInscripcion{ 
+class Condicional implements TipoInscripcion{ 
 	
 	/*@Property */
 	int id_tipo_incripcion

@@ -8,7 +8,7 @@
   <session-factory>
     <!-- Database connection settings -->
     <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-    <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/tpDDS</property>
+    <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/tpDDS</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password"></property>
 
